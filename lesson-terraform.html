@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>01 - Introduction to Terraform — Shaikh Sir</title>
+  <meta name="description"
+    content="Learn Terraform with AWS fundamentals with interactive theory, AI voice narration, and hands-on cloud infrastructure terminal labs.">
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    rel="stylesheet">
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+
+<body class="lesson-page-body">
+
+  <!-- Main 3-Column Interactive Lesson Workspace -->
+  <div class="lesson-workspace-container">
+
+    <!-- =========================================================================
+         1. LEFT SIDEBAR: TRACK RECORD & LESSON TIMELINE
+         ========================================================================= -->
+    <aside class="lesson-sidebar">
+      
+      <!-- Top Topic Breadcrumb Header -->
+      <div class="sidebar-top-header">
+        <a href="skill-terraform.html" class="btn-sidebar-back font-mono" title="Back to Terraform Topics">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <div class="topic-tag-badge font-mono">
+          <span class="esc-tag">esc</span>
+          <span class="bash-tag">tf</span>
+          <span class="topic-header-title">01 - Introduction t...</span>
+        </div>
+      </div>
+
+      <!-- Radial Progress Circle -->
+      <div class="sidebar-progress-section">
+        <div class="progress-radial-wrapper">
+          <svg class="progress-radial-svg" viewBox="0 0 100 100">
+            <circle class="progress-radial-bg" cx="50" cy="50" r="42" />
+            <circle class="progress-radial-bar" id="tf-lesson-progress-arc" cx="50" cy="50" r="42" stroke-dasharray="264" stroke-dashoffset="235" />
+          </svg>
+          <div class="progress-percentage-label font-mono" id="tf-lesson-progress-percent">11%</div>
+        </div>
+
+        <!-- 3 Track Record Stat Counters -->
+        <div class="track-record-grid font-mono">
+          <div class="track-stat-box" id="stat-box-done">
+            <span class="stat-num" id="tf-stat-done-count">1</span>
+            <span class="stat-label">DONE</span>
+          </div>
+          <div class="track-stat-box" id="stat-box-quizzes">
+            <span class="stat-num" id="tf-stat-quizzes-count">0/2</span>
+            <span class="stat-label">QUIZZES</span>
+          </div>
+          <div class="track-stat-box" id="stat-box-tasks">
+            <span class="stat-num" id="tf-stat-tasks-count">0/2</span>
+            <span class="stat-label">TASKS</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vertical Lesson Stepper Navigation -->
+      <div class="sidebar-stepper-list" id="tf-sidebar-stepper-list">
+        
+        <!-- Step 1 (Active) -->
+        <div class="stepper-item active done" data-tf-step="1" data-type="lesson">
+          <div class="stepper-node">
+            <i class="fa-solid fa-check node-icon-check"></i>
+            <span class="node-dot"></span>
+          </div>
+          <div class="stepper-content">
+            <span class="stepper-badge font-mono">LESSON</span>
+            <span class="stepper-title">What is Infrastructure as Code</span>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="stepper-item" data-tf-step="2" data-type="lesson">
+          <div class="stepper-node">
+            <i class="fa-solid fa-check node-icon-check"></i>
+            <span class="node-dot"></span>
+          </div>
+          <div class="stepper-content">
+            <span class="stepper-badge font-mono">LESSON</span>
+            <span class="stepper-title">The Core Terraform Workflow</span>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="stepper-item" data-tf-step="3" data-type="lesson">
+          <div class="stepper-node">
+            <i class="fa-solid fa-check node-icon-check"></i>
+            <span class="node-dot"></span>
+          </div>
+          <div class="stepper-content">
+            <span class="stepper-badge font-mono">LESSON</span>
+            <span class="stepper-title">Configuring AWS Providers</span>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="stepper-item" data-tf-step="4" data-type="lesson">
+          <div class="stepper-node">
+            <i class="fa-solid fa-check node-icon-check"></i>
+            <span class="node-dot"></span>
+          </div>
+          <div class="stepper-content">
+            <span class="stepper-badge font-mono">LESSON</span>
+            <span class="stepper-title">Declaring Your First Resource</span>
+          </div>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="stepper-item" data-tf-step="5" data-type="lesson">
+          <div class="stepper-node">
+            <i class="fa-solid fa-check node-icon-check"></i>
+            <span class="node-dot"></span>
+          </div>
+          <div class="stepper-content">
+            <span class="stepper-badge font-mono">LESSON</span>
+            <span class="stepper-title">Understanding State & Plans</span>
+          </div>
+        </div>
+
+        <!-- Step 6 (Task) -->
+        <div class="stepper-item" data-tf-step="6" data-type="task">
+          <div class="stepper-node">
+            <i class="fa-solid fa-check node-icon-check"></i>
+            <span class="node-dot"></span>
+          </div>
+          <div class="stepper-content">
+            <span class="stepper-badge font-mono task-badge">TASK</span>
+            <span class="stepper-title">Initialize & Plan Infrastructure</span>
+          </div>
+        </div>
+
+        <!-- Step 7 (Quiz) -->
+        <div class="stepper-item" data-tf-step="7" data-type="quiz">
+          <div class="stepper-node">
+            <i class="fa-solid fa-check node-icon-check"></i>
+            <span class="node-dot"></span>
+          </div>
+          <div class="stepper-content">
+            <span class="stepper-badge font-mono quiz-badge">QUIZ</span>
+            <span class="stepper-title">Terraform Workflow Check</span>
+          </div>
+        </div>
+
+        <!-- Step 8 (Task) -->
+        <div class="stepper-item" data-tf-step="8" data-type="task">
+          <div class="stepper-node">
+            <i class="fa-solid fa-check node-icon-check"></i>
+            <span class="node-dot"></span>
+          </div>
+          <div class="stepper-content">
+            <span class="stepper-badge font-mono task-badge">TASK</span>
+            <span class="stepper-title">Provision AWS S3 Storage</span>
+          </div>
+        </div>
+
+        <!-- Step 9 (Quiz) -->
+        <div class="stepper-item" data-tf-step="9" data-type="quiz">
+          <div class="stepper-node">
+            <i class="fa-solid fa-check node-icon-check"></i>
+            <span class="node-dot"></span>
+          </div>
+          <div class="stepper-content">
+            <span class="stepper-badge font-mono quiz-badge">QUIZ</span>
+            <span class="stepper-title">State File Architecture Check</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Status & Control Shortcuts -->
+      <div class="sidebar-bottom-controls font-mono">
+        <button class="btn-util-icon" id="btn-toggle-shortcuts" title="Keyboard Shortcuts (⌘K)">
+          <i class="fa-solid fa-keyboard"></i>
+        </button>
+        <div class="layout-toggle-group">
+          <button class="btn-util-icon active" id="btn-toggle-view-code" title="Split Code / Terminal">
+            <i class="fa-solid fa-table-columns"></i>
+          </button>
+        </div>
+        <button class="btn-util-icon" id="btn-tf-lesson-theme-toggle" title="Toggle Theme">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+      </div>
+
+    </aside>
+
+    <!-- =========================================================================
+         2. CENTER PANEL: LESSON THEORY, AUDIO VOICE PLAY, & PAGINATION
+         ========================================================================= -->
+    <main class="lesson-main-content">
+      
+      <!-- Top Status Header -->
+      <div class="lesson-top-bar font-mono">
+        <div class="lesson-counter" id="tf-lesson-step-counter">LESSON &middot; 1 OF 9</div>
+        
+        <!-- Voice Explainer Button & Animated Soundwaves -->
+        <div class="voice-player-container">
+          <button class="btn-voice-explain" id="tf-btn-voice-play">
+            <i class="fa-solid fa-play voice-play-icon" id="tf-voice-icon"></i>
+            <span id="tf-voice-status-text">Explain this lesson</span>
+            <span class="voice-timer font-mono" id="tf-voice-timer">1:25</span>
+          </button>
+          <div class="voice-soundwaves" id="tf-voice-waves">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scrollable Lesson Body -->
+      <div class="lesson-scrollable-body" id="tf-lesson-theory-container">
+        
+        <h2 class="lesson-primary-heading" id="tf-lesson-heading">What is Infrastructure as Code</h2>
+        <div class="lesson-type-pill font-mono" id="tf-lesson-type-pill">Lesson</div>
+
+        <!-- Dynamic Lesson Text Flow -->
+        <div class="lesson-text-flow" id="tf-lesson-body-content">
+          <p>
+            <strong>Terraform</strong> by HashiCorp is an industry-standard Infrastructure as Code (IaC) tool. It allows cloud engineers to safely and predictably provision, version, and manage infrastructure across public cloud platforms such as AWS, Azure, and Google Cloud using human-readable configuration files.
+          </p>
+
+          <h3 class="lesson-subheading font-mono">Why Infrastructure as Code?</h3>
+          <p>
+            Manually configuring servers, VPCs, and databases through cloud web consoles is slow, error-prone, and cannot be easily reviewed in Git pull requests.
+          </p>
+          <p>
+            With Terraform, your infrastructure is defined as declarative code in <strong>HashiCorp Configuration Language (HCL)</strong>. You can test changes, track history, roll back mistakes, and duplicate entire staging/production environments with a single command.
+          </p>
+
+          <h3 class="lesson-subheading font-mono">Verify Terraform Version</h3>
+          <div class="code-block-wrapper">
+            <div class="code-lang-label font-mono">BASH</div>
+            <pre><code># Test your local Terraform installation
+terraform version
+terraform -help</code></pre>
+          </div>
+        </div>
+
+        <!-- Interactive Quiz Container (Hidden during normal reading) -->
+        <div class="lesson-quiz-container" id="tf-lesson-quiz-container" style="display: none;">
+          <div class="quiz-question-box">
+            <span class="quiz-q-num font-mono text-accent">QUESTION 1 OF 1</span>
+            <h4 class="quiz-q-text" id="tf-quiz-question-text">Which command prepares your working directory by downloading required provider plugins?</h4>
+            <div class="quiz-options-list" id="tf-quiz-options-list">
+              <!-- Populated dynamically by script.js -->
+            </div>
+            <div class="quiz-feedback-box font-mono" id="tf-quiz-feedback-box"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Step Navigation Controls -->
+      <div class="lesson-bottom-nav font-mono">
+        <button class="btn-nav-prev" id="tf-btn-lesson-prev" disabled>
+          <i class="fa-solid fa-arrow-left"></i> Previous
+        </button>
+        <button class="btn-nav-next" id="tf-btn-lesson-next">
+          Next <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
+
+    </main>
+
+    <!-- =========================================================================
+         3. RIGHT PANEL: INTERACTIVE TERMINAL & LIVE HCL MANIFEST EDITOR
+         ========================================================================= -->
+    <aside class="lesson-terminal-workspace">
+      
+      <!-- Top Workspace Tab Bar -->
+      <div class="terminal-workspace-tabs font-mono">
+        <button class="tab-btn active" id="tf-tab-terminal-btn">
+          <i class="fa-solid fa-terminal"></i> terraform
+        </button>
+        <button class="tab-btn" id="tf-tab-editor-btn">
+          <i class="fa-solid fa-file-code"></i> main.tf
+        </button>
+        <div class="tab-spacer"></div>
+        <div class="env-status-badge font-mono">
+          <span class="badge-status-dot"></span>
+          <span>LocalStack AWS active</span>
+        </div>
+      </div>
+
+      <div class="terminal-workspace-body">
+        
+        <!-- STANDBY VIEW: Start Interactive Sandbox Button -->
+        <div class="terminal-standby-view" id="tf-terminal-standby-view">
+          <div class="terminal-standby-content">
+            <div class="standby-icon">
+              <i class="fa-solid fa-cubes"></i>
+            </div>
+            <h4 class="standby-title font-mono">Ready to provision AWS infra</h4>
+            <p class="standby-desc">Start your live Terraform engine connected to LocalStack AWS emulator to execute plan and apply commands.</p>
+            <button class="btn-start-terminal font-mono" id="tf-btn-start-live-lab">
+              <i class="fa-solid fa-play"></i> Start Terraform Engine
+            </button>
+          </div>
+        </div>
+
+        <!-- ACTIVE TERMINAL VIEW (Shell CLI Simulation) -->
+        <div class="terminal-active-view" id="tf-terminal-active-view" style="display: none;" data-started="false">
+          <div class="terminal-output-viewport font-mono" id="tf-terminal-viewport">
+            <div class="term-boot-line text-green">Terraform v1.8.5 (LocalStack endpoint configured)</div>
+            <div class="term-boot-line text-muted">Backend: local / Region: us-east-1</div>
+            <div class="term-boot-line">Ready to execute HCL files in /home/student/infra</div>
+            <div class="term-boot-line text-accent font-bold">student@tf-workspace:~$ <span class="term-cursor">_</span></div>
+          </div>
+          <div class="terminal-input-bar font-mono">
+            <span class="prompt-user text-accent">student@tf:~$</span>
+            <input type="text" class="terminal-cli-input" id="tf-terminal-cli-input" placeholder="Type terraform command (e.g. terraform init, terraform plan, terraform apply)..." autofocus>
+            <button class="btn-cli-submit" id="tf-btn-cli-submit"><i class="fa-solid fa-arrow-turn-down"></i></button>
+          </div>
+        </div>
+
+        <!-- LIVE HCL CODE EDITOR VIEW -->
+        <div class="editor-active-view" id="tf-editor-active-view" style="display: none;">
+          <div class="editor-file-bar font-mono">
+            <span><i class="fa-solid fa-cubes text-accent"></i> main.tf</span>
+            <span class="text-muted">HCL &middot; UTF-8</span>
+          </div>
+          <div class="editor-content-area font-mono">
+            <div class="editor-line-numbers font-mono">
+              1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15
+            </div>
+            <textarea class="editor-textarea font-mono" spellcheck="false" id="tf-editor-textarea">terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+}
+
+provider "aws" {
+  region                      = "us-east-1"
+  skip_credentials_validation = true
+  skip_requesting_account_id  = true
+}
+
+resource "aws_s3_bucket" "app_storage" {
+  bucket = "shaikhsir-production-assets"
+  tags = {
+    Environment = "DevOps-Sandbox"
+  }
+}</textarea>
+          </div>
+        </div>
+
+      </div>
+
+    </aside>
+
+  </div>
+
+  <div id="toast-container" class="toast-container"></div>
+
+</body>
+
+</html>

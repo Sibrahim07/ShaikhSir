@@ -52,8 +52,28 @@ document.addEventListener('DOMContentLoaded', () => {
      3. LIGHT/DARK THEME TOGGLE
      ========================================================================== */
   const themeToggle = document.getElementById('theme-toggle');
-  const darkIcon = themeToggle.querySelector('.theme-icon-dark');
-  const lightIcon = themeToggle.querySelector('.theme-icon-light');
+
+  function enableLightMode() {
+    document.body.classList.add('light-mode');
+    if (themeToggle) {
+      const darkIcon = themeToggle.querySelector('.theme-icon-dark');
+      const lightIcon = themeToggle.querySelector('.theme-icon-light');
+      if (darkIcon) darkIcon.style.display = 'none';
+      if (lightIcon) lightIcon.style.display = 'block';
+    }
+    localStorage.setItem('shaikhsir-theme', 'light');
+  }
+
+  function enableDarkMode() {
+    document.body.classList.remove('light-mode');
+    if (themeToggle) {
+      const darkIcon = themeToggle.querySelector('.theme-icon-dark');
+      const lightIcon = themeToggle.querySelector('.theme-icon-light');
+      if (darkIcon) darkIcon.style.display = 'block';
+      if (lightIcon) lightIcon.style.display = 'none';
+    }
+    localStorage.setItem('shaikhsir-theme', 'dark');
+  }
 
   // Load user preference
   const savedTheme = localStorage.getItem('shaikhsir-theme');
@@ -65,27 +85,15 @@ document.addEventListener('DOMContentLoaded', () => {
     enableDarkMode();
   }
 
-  themeToggle.addEventListener('click', () => {
-    const isLight = document.body.classList.contains('light-mode');
-    if (isLight) {
-      enableDarkMode();
-    } else {
-      enableLightMode();
-    }
-  });
-
-  function enableLightMode() {
-    document.body.classList.add('light-mode');
-    darkIcon.style.display = 'none';
-    lightIcon.style.display = 'block';
-    localStorage.setItem('shaikhsir-theme', 'light');
-  }
-
-  function enableDarkMode() {
-    document.body.classList.remove('light-mode');
-    darkIcon.style.display = 'block';
-    lightIcon.style.display = 'none';
-    localStorage.setItem('shaikhsir-theme', 'dark');
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      const isLight = document.body.classList.contains('light-mode');
+      if (isLight) {
+        enableDarkMode();
+      } else {
+        enableLightMode();
+      }
+    });
   }
 
   /* ==========================================================================
@@ -579,6 +587,74 @@ document.addEventListener('DOMContentLoaded', () => {
     } else if (lowerCmd.startsWith('docker-compose') || lowerCmd.startsWith('docker compose')) {
       responseLine.className = 'terminal-line text-green';
       responseLine.textContent = '[+] Running 2/2\n ✔ Network workspace_default  Created\n ✔ Container redis-db         Started\n ✔ Container web-app          Started';
+    } else if (lowerCmd === 'kubectl version' || lowerCmd === 'kubectl version --short' || lowerCmd === 'kubectl version --client') {
+      responseLine.className = 'terminal-line text-green';
+      responseLine.textContent = 'Client Version: v1.30.2\nKustomize Version: v5.0.4-0.20230601165947-6ce0bd390ce3\nServer Version: v1.30.2';
+    } else if (lowerCmd === 'kubectl get nodes' || lowerCmd === 'kubectl get node' || lowerCmd === 'kubectl get nodes -o wide') {
+      responseLine.className = 'terminal-line font-mono text-green';
+      responseLine.textContent = 'NAME           STATUS   ROLES           AGE   VERSION\nk8s-master-1   Ready    control-plane   12d   v1.30.2\nk8s-worker-1   Ready    <none>          12d   v1.30.2\nk8s-worker-2   Ready    <none>          12d   v1.30.2';
+      if (checkTask1) checkTask1.checked = true;
+      showToast("✓ Task 1: Inspected cluster nodes!");
+    } else if (lowerCmd.startsWith('kubectl create deployment') || lowerCmd.startsWith('kubectl apply')) {
+      responseLine.className = 'terminal-line text-green';
+      responseLine.textContent = 'deployment.apps/web created';
+      if (checkTask2) checkTask2.checked = true;
+      showToast("✓ Task 2: Created Nginx web deployment!");
+    } else if (lowerCmd === 'kubectl get pods' || lowerCmd === 'kubectl get pod' || lowerCmd === 'kubectl get pods -a' || lowerCmd === 'kubectl get po') {
+      responseLine.className = 'terminal-line font-mono';
+      responseLine.textContent = 'NAME                   READY   STATUS    RESTARTS   AGE\nweb-7548b6c498-8xqw2   1/1     Running   0          45s\nweb-7548b6c498-v9k2p   1/1     Running   0          45s\nweb-7548b6c498-zlm5t   1/1     Running   0          45s';
+      if (checkTask3) checkTask3.checked = true;
+      showToast("✓ Task 3: Inspected active cluster pods!");
+    } else if (lowerCmd === 'kubectl get svc' || lowerCmd === 'kubectl get services') {
+      responseLine.className = 'terminal-line font-mono';
+      responseLine.textContent = 'NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)        AGE\nkubernetes   ClusterIP   10.96.0.1    <none>        443/TCP        12d\nweb-svc      NodePort    10.96.48.22  <none>        80:30080/TCP   2m';
+    } else if (lowerCmd.startsWith('kubectl describe')) {
+      responseLine.textContent = 'Name:             web-7548b6c498-8xqw2\nNamespace:        default\nNode:             k8s-worker-1/192.168.1.102\nStatus:           Running\nIP:               10.244.1.15\nControlled By:    ReplicaSet/web-7548b6c498\nContainers:\n  nginx:\n    Image:          nginx:1.25\n    State:          Running\nConditions:\n  Type              Status\n  Ready             True';
+    } else if (lowerCmd === 'terraform version' || lowerCmd === 'terraform -v' || lowerCmd === 'terraform --version') {
+      responseLine.className = 'terminal-line text-green';
+      responseLine.textContent = 'Terraform v1.8.5\non linux_amd64\n+ provider registry.terraform.io/hashicorp/aws v5.50.0';
+      if (checkTask1) checkTask1.checked = true;
+      showToast("✓ Task 1: Checked Terraform Engine version!");
+    } else if (lowerCmd === 'terraform init' || lowerCmd === 'terraform init -upgrade') {
+      responseLine.className = 'terminal-line text-green';
+      responseLine.textContent = 'Initializing the backend...\nInitializing provider plugins...\n- Finding hashicorp/aws versions matching "~> 5.0"...\n- Installing hashicorp/aws v5.50.0...\n- Installed hashicorp/aws v5.50.0 (signed by HashiCorp)\n\nTerraform has been successfully initialized!';
+      if (checkTask2) checkTask2.checked = true;
+      showToast("✓ Task 2: Terraform provider initialized!");
+    } else if (lowerCmd === 'terraform plan') {
+      responseLine.className = 'terminal-line font-mono';
+      responseLine.textContent = 'Terraform used the selected providers to generate the following execution plan:\n\n  # aws_s3_bucket.app_storage will be created\n  + resource "aws_s3_bucket" "app_storage" {\n      + arn                         = (known after apply)\n      + bucket                      = "shaikhsir-production-assets"\n      + id                          = (known after apply)\n      + region                      = "us-east-1"\n    }\n\nPlan: 1 to add, 0 to change, 0 to destroy.';
+    } else if (lowerCmd.startsWith('terraform apply')) {
+      responseLine.className = 'terminal-line text-green font-mono';
+      responseLine.textContent = 'aws_s3_bucket.app_storage: Creating...\naws_s3_bucket.app_storage: Creation complete after 1s [id=shaikhsir-production-assets]\n\nApply complete! Resources: 1 added, 0 changed, 0 destroyed.\n\nOutputs:\nbucket_arn = "arn:aws:s3:::shaikhsir-production-assets"';
+      if (checkTask3) checkTask3.checked = true;
+      showToast("✓ Task 3: Applied Terraform plan to LocalStack!");
+    } else if (lowerCmd === 'terraform state list') {
+      responseLine.className = 'terminal-line font-mono';
+      responseLine.textContent = 'aws_s3_bucket.app_storage\naws_vpc.main\naws_subnet.public_a';
+    } else if (lowerCmd === 'terraform validate') {
+      responseLine.className = 'terminal-line text-green';
+      responseLine.textContent = 'Success! The configuration is valid.';
+    } else if (lowerCmd === 'terraform fmt') {
+      responseLine.className = 'terminal-line text-green';
+      responseLine.textContent = 'main.tf\nvariables.tf\noutputs.tf';
+    } else if (lowerCmd === 'git status') {
+      responseLine.className = 'terminal-line text-green';
+      responseLine.textContent = 'On branch main\nYour branch is up to date with \'origin/main\'.\n\nChanges to be committed:\n  (use "git restore --staged <file>..." to unstage)\n\tmodified:   pipeline.yml\n\tmodified:   src/server.js';
+      if (checkTask1) checkTask1.checked = true;
+      showToast("✓ Task 1: Inspected Git branch status!");
+    } else if (lowerCmd === 'npm test' || lowerCmd === 'npm run test' || lowerCmd === 'yarn test') {
+      responseLine.className = 'terminal-line text-green font-mono';
+      responseLine.textContent = 'PASS src/api.test.js (1.4s)\n  ✓ GET /health (12ms)\n  ✓ POST /auth/login (48ms)\n  ✓ GET /metrics (8ms)\n\nTest Suites: 1 passed, 1 total\nTests:       3 passed, 3 total\nSnapshots:   0 total\nTime:        1.82s\nRan all test suites.';
+      if (checkTask2) checkTask2.checked = true;
+      showToast("✓ Task 2: Automated test suite passed!");
+    } else if (lowerCmd.startsWith('pipeline trigger') || lowerCmd.startsWith('pipeline run') || lowerCmd.startsWith('pipeline start')) {
+      responseLine.className = 'terminal-line text-green font-mono';
+      responseLine.textContent = '[CI Pipeline #412]\n  ✓ Stage 1: Checkout Git Repository (0.4s)\n  ✓ Stage 2: Lint & Static Code Analysis (1.1s)\n  ✓ Stage 3: Run Unit Tests (1.8s)\n  ✓ Stage 4: Build Container Image (4.2s)\n  ✓ Stage 5: Deploy to Staging Environment (3.0s)\nPipeline Status: SUCCESS (All 5 stages completed)';
+      if (checkTask3) checkTask3.checked = true;
+      showToast("✓ Task 3: CI/CD Pipeline build completed!");
+    } else if (lowerCmd.startsWith('curl') && lowerCmd.includes('health')) {
+      responseLine.className = 'terminal-line text-green font-mono';
+      responseLine.textContent = 'HTTP/1.1 200 OK\nContent-Type: application/json\nDate: Sat, 29 Aug 2026 00:30:00 GMT\nConnection: keep-alive\n\n{"status":"healthy","uptime":"14h 22m","version":"2.4.0"}';
     } else if (lowerCmd === 'ls' || lowerCmd === 'ls -la' || lowerCmd === 'ls -l') {
       responseLine.textContent = 'drwxr-xr-x 4 student student 4096 Aug 25 21:00 .\ndrwxr-xr-x 3 root    root    4096 Aug 25 20:00 ..\n-rw-r--r-- 1 student student  220 Aug 25 21:00 .bashrc\n-rw-r--r-- 1 student student  807 Aug 25 21:00 README.md\n-rw-r--r-- 1 student student  340 Aug 25 21:00 Dockerfile\n-rw-r--r-- 1 student student  412 Aug 25 21:00 docker-compose.yml';
     } else if (lowerCmd === 'uname -a') {
@@ -1854,5 +1930,1678 @@ docker logs my-web</code></pre>
     renderDockerLesson(1);
   }
 
+  /* ==========================================================================
+     18. KUBERNETES 3-COLUMN INTERACTIVE LESSON WORKSPACE CONTROLLER (lesson-kubernetes.html)
+     ========================================================================== */
+  const k8sLessonStepperItems = document.querySelectorAll('#k8s-sidebar-stepper-list .stepper-item');
+  const k8sLessonStepCounter = document.getElementById('k8s-lesson-step-counter');
+  const k8sLessonHeading = document.getElementById('k8s-lesson-heading');
+  const k8sLessonTypePill = document.getElementById('k8s-lesson-type-pill');
+  const k8sLessonBodyContent = document.getElementById('k8s-lesson-body-content');
+  const k8sLessonQuizContainer = document.getElementById('k8s-lesson-quiz-container');
+  const k8sQuizQuestionText = document.getElementById('k8s-quiz-question-text');
+  const k8sQuizOptionsList = document.getElementById('k8s-quiz-options-list');
+  const k8sQuizFeedbackBox = document.getElementById('k8s-quiz-feedback-box');
+  const k8sBtnLessonPrev = document.getElementById('k8s-btn-lesson-prev');
+  const k8sBtnLessonNext = document.getElementById('k8s-btn-lesson-next');
+
+  const k8sBtnVoicePlay = document.getElementById('k8s-btn-voice-play');
+  const k8sVoiceIcon = document.getElementById('k8s-voice-icon');
+  const k8sVoiceStatusText = document.getElementById('k8s-voice-status-text');
+  const k8sVoiceTimer = document.getElementById('k8s-voice-timer');
+
+  const k8sLessonProgressPercent = document.getElementById('k8s-lesson-progress-percent');
+  const k8sLessonProgressArc = document.getElementById('k8s-lesson-progress-arc');
+  const k8sStatDoneCount = document.getElementById('k8s-stat-done-count');
+  const k8sStatQuizzesCount = document.getElementById('k8s-stat-quizzes-count');
+  const k8sStatTasksCount = document.getElementById('k8s-stat-tasks-count');
+
+  const k8sTabTerminalBtn = document.getElementById('k8s-tab-terminal-btn');
+  const k8sTabEditorBtn = document.getElementById('k8s-tab-editor-btn');
+  const k8sTerminalStandbyView = document.getElementById('k8s-terminal-standby-view');
+  const k8sTerminalActiveView = document.getElementById('k8s-terminal-active-view');
+  const k8sEditorActiveView = document.getElementById('k8s-editor-active-view');
+  const k8sBtnStartLiveLab = document.getElementById('k8s-btn-start-live-lab');
+  const k8sTerminalViewport = document.getElementById('k8s-terminal-viewport');
+  const k8sTerminalCliInput = document.getElementById('k8s-terminal-cli-input');
+  const k8sBtnCliSubmit = document.getElementById('k8s-btn-cli-submit');
+  const k8sLessonThemeToggle = document.getElementById('btn-k8s-lesson-theme-toggle');
+
+  if (k8sLessonStepperItems.length > 0) {
+
+    const k8sLessonsData = {
+      1: {
+        stepNum: 1,
+        type: 'Lesson',
+        title: 'What is Kubernetes',
+        duration: '1:30',
+        seconds: 90,
+        voiceText: "Welcome to Kubernetes. Kubernetes automates container deployment, scaling, healing, and network routing across clusters of machines.",
+        bodyHtml: `
+          <p>
+            <strong>Kubernetes (k8s)</strong> is an open-source container orchestration engine that coordinates a cluster of nodes to run applications at production scale with high availability.
+          </p>
+          <h3 class="lesson-subheading font-mono">Core Value Propositions</h3>
+          <p>
+            Kubernetes handles self-healing containers, automatic bin-packing, service discovery, load balancing, secret management, and storage orchestration.
+          </p>
+          <div class="code-block-wrapper">
+            <div class="code-lang-label font-mono">KUBECTL</div>
+            <pre><code># Check cluster version and nodes
+kubectl version --short
+kubectl get nodes</code></pre>
+          </div>
+        `
+      },
+      2: {
+        stepNum: 2,
+        type: 'Lesson',
+        title: 'Control Plane & Worker Nodes',
+        duration: '1:45',
+        seconds: 105,
+        voiceText: "A Kubernetes cluster consists of the Control Plane which manages cluster state, and Worker Nodes that run container workloads with kubelet and containerd.",
+        bodyHtml: `
+          <p>
+            A Kubernetes cluster splits into two primary tiers:
+          </p>
+          <ul style="padding-left: 20px; font-size: 13.5px; line-height: 1.8; color: #d1d5db;">
+            <li><strong>Control Plane:</strong> <code>kube-apiserver</code> (REST frontend), <code>etcd</code> (key-value cluster database), <code>kube-scheduler</code> (assigns pods to nodes), and <code>kube-controller-manager</code>.</li>
+            <li><strong>Worker Nodes:</strong> <code>kubelet</code> (agent communicating with API server), <code>kube-proxy</code> (network rules), and container runtime (<code>containerd</code>).</li>
+          </ul>
+        `
+      },
+      3: {
+        stepNum: 3,
+        type: 'Lesson',
+        title: 'Declarative Model & API Server',
+        duration: '1:35',
+        seconds: 95,
+        voiceText: "Kubernetes uses a declarative model where you specify the desired state in YAML, and controllers continuously reconcile differences.",
+        bodyHtml: `
+          <p>
+            Instead of running imperative scripts, Kubernetes users declare <em>desired state</em> in YAML manifests (e.g. "I want 3 replicas of Nginx"). The controller loop continuously works to match current cluster state to desired state.
+          </p>
+        `
+      },
+      4: {
+        stepNum: 4,
+        type: 'Lesson',
+        title: 'Understanding Pods',
+        duration: '1:40',
+        seconds: 100,
+        voiceText: "A Pod is the smallest deployable computing unit in Kubernetes. A pod encapsulates one or more containers sharing storage and network IP addresses.",
+        bodyHtml: `
+          <p>
+            Containers are never deployed alone in Kubernetes — they live inside <strong>Pods</strong>. All containers inside a pod share:
+          </p>
+          <ul style="padding-left: 20px; font-size: 13.5px; line-height: 1.8; color: #d1d5db;">
+            <li>A single cluster IP address</li>
+            <li>Shared storage volumes</li>
+            <li>Localhost inter-process communication</li>
+          </ul>
+        `
+      },
+      5: {
+        stepNum: 5,
+        type: 'Lesson',
+        title: 'Navigating with kubectl',
+        duration: '1:30',
+        seconds: 90,
+        voiceText: "kubectl is the command line utility used to communicate with the Kubernetes API server to inspect, deploy, and debug cluster resources.",
+        bodyHtml: `
+          <p>
+            Standard everyday <code>kubectl</code> operations:
+          </p>
+          <div class="code-block-wrapper">
+            <div class="code-lang-label font-mono">COMMANDS</div>
+            <pre><code># List cluster nodes
+kubectl get nodes
+
+# List all pods in default namespace
+kubectl get pods -o wide
+
+# Describe a specific pod
+kubectl describe pod &lt;pod-name&gt;</code></pre>
+          </div>
+        `
+      },
+      6: {
+        stepNum: 6,
+        type: 'Task',
+        title: 'Inspect Cluster Nodes & Pods',
+        duration: '2:00',
+        seconds: 120,
+        voiceText: "Hands-on task. Start your Kubernetes terminal session on the right, run kubectl get nodes, and inspect pods with kubectl get pods.",
+        bodyHtml: `
+          <div style="background: rgba(34, 229, 132, 0.08); border: 1px solid rgba(34, 229, 132, 0.3); border-radius: 8px; padding: 18px; margin-bottom: 20px;">
+            <h4 class="font-mono text-accent" style="margin-bottom: 8px;">🛠️ Cluster Inspection Task</h4>
+            <ol style="padding-left: 20px; font-size: 13px; line-height: 1.8; color: #e2e8f0;">
+              <li>Click <strong>Start Kubernetes Session</strong> on the right panel.</li>
+              <li>Run <code>kubectl get nodes</code> to verify all 3 cluster nodes are Ready.</li>
+              <li>Run <code>kubectl get pods</code> to check active cluster workloads.</li>
+            </ol>
+          </div>
+          <p class="text-secondary font-mono" style="font-size: 12px;">The sandbox terminal will auto-grade and mark this task complete.</p>
+        `
+      },
+      7: {
+        stepNum: 7,
+        type: 'Quiz',
+        title: 'Kubernetes Architecture Check',
+        duration: '1:15',
+        seconds: 75,
+        voiceText: "Knowledge check. Answer the question below regarding control plane components and cluster architecture.",
+        bodyHtml: ``,
+        quiz: {
+          q: "Which Kubernetes control plane component exposes the REST API and serves as the front door for all kubectl requests?",
+          options: [
+            { text: "kube-apiserver", correct: true, note: "Correct! kube-apiserver validates and configures data for the api objects which include pods, services, replicationcontrollers, and others." },
+            { text: "etcd", correct: false, note: "etcd is the key-value store, not the REST API frontend." },
+            { text: "kubelet", correct: false, note: "kubelet is the node-level agent on worker nodes." },
+            { text: "kube-proxy", correct: false, note: "kube-proxy handles network routing rules on nodes." }
+          ]
+        }
+      },
+      8: {
+        stepNum: 8,
+        type: 'Task',
+        title: 'Deploy Nginx on Cluster',
+        duration: '2:15',
+        seconds: 135,
+        voiceText: "Hands-on task. Create an Nginx deployment on your Kubernetes cluster using kubectl create deployment web --image=nginx, and verify pods with kubectl get pods.",
+        bodyHtml: `
+          <div style="background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 8px; padding: 18px; margin-bottom: 20px;">
+            <h4 class="font-mono text-accent" style="color: #38bdf8; margin-bottom: 8px;">🛠️ Workload Deployment Task</h4>
+            <ol style="padding-left: 20px; font-size: 13px; line-height: 1.8; color: #e2e8f0;">
+              <li>Run <code>kubectl create deployment web --image=nginx</code> in the terminal.</li>
+              <li>Inspect created pods with <code>kubectl get pods</code>.</li>
+              <li>Examine cluster services with <code>kubectl get svc</code>.</li>
+            </ol>
+          </div>
+        `
+      },
+      9: {
+        stepNum: 9,
+        type: 'Quiz',
+        title: 'Kubernetes Objects Check',
+        duration: '1:15',
+        seconds: 75,
+        voiceText: "Final quiz for Kubernetes Module 1. Test your understanding of pods and compute primitives.",
+        bodyHtml: ``,
+        quiz: {
+          q: "What is the smallest deployable computing unit in Kubernetes?",
+          options: [
+            { text: "Container", correct: false, note: "While containers run your code, Kubernetes wraps them inside Pods." },
+            { text: "Pod", correct: true, note: "Correct! A Pod encapsulates one or more containers, shared storage, and an IP address." },
+            { text: "Node", correct: false, note: "A Node is a physical or virtual machine in the cluster." },
+            { text: "Deployment", correct: false, note: "A Deployment is a controller that manages sets of Pods." }
+          ]
+        }
+      }
+    };
+
+    let k8sCurrentStep = 1;
+    let k8sCompletedSteps = new Set([1]);
+    let k8sQuizzesDone = 0;
+    let k8sTasksDone = 0;
+    let k8sIsPlayingVoice = false;
+    let k8sVoiceCountdownInterval = null;
+    let k8sCurrentVoiceSeconds = 90;
+
+    function loadK8sSavedProgress() {
+      const saved = localStorage.getItem('shaikhsir-k8s-progress');
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          if (parsed.completed) k8sCompletedSteps = new Set(parsed.completed);
+          if (parsed.quizzesDone) k8sQuizzesDone = parsed.quizzesDone;
+          if (parsed.tasksDone) k8sTasksDone = parsed.tasksDone;
+        } catch (e) {
+          console.error(e);
+        }
+      }
+    }
+
+    function saveK8sProgress() {
+      localStorage.setItem('shaikhsir-k8s-progress', JSON.stringify({
+        completed: Array.from(k8sCompletedSteps),
+        quizzesDone: k8sQuizzesDone,
+        tasksDone: k8sTasksDone
+      }));
+    }
+
+    loadK8sSavedProgress();
+
+    function updateK8sProgressMetrics() {
+      const total = 9;
+      const doneCount = k8sCompletedSteps.size;
+      const percentage = Math.round((doneCount / total) * 100);
+
+      if (k8sLessonProgressPercent) {
+        k8sLessonProgressPercent.textContent = `${percentage}%`;
+      }
+
+      if (k8sLessonProgressArc) {
+        const circumference = 264;
+        const offset = circumference - (percentage / 100) * circumference;
+        k8sLessonProgressArc.style.strokeDashoffset = offset;
+      }
+
+      if (k8sStatDoneCount) k8sStatDoneCount.textContent = `${doneCount}`;
+      if (k8sStatQuizzesCount) k8sStatQuizzesCount.textContent = `${k8sQuizzesDone}/2`;
+      if (k8sStatTasksCount) k8sStatTasksCount.textContent = `${k8sTasksDone}/2`;
+
+      k8sLessonStepperItems.forEach(item => {
+        const stepNum = parseInt(item.getAttribute('data-k8s-step'));
+        if (k8sCompletedSteps.has(stepNum)) {
+          item.classList.add('done');
+        } else {
+          item.classList.remove('done');
+        }
+
+        if (stepNum === k8sCurrentStep) {
+          item.classList.add('active');
+        } else {
+          item.classList.remove('active');
+        }
+      });
+
+      saveK8sProgress();
+    }
+
+    function renderK8sLesson(stepIndex) {
+      k8sCurrentStep = stepIndex;
+      const lesson = k8sLessonsData[k8sCurrentStep] || k8sLessonsData[1];
+
+      if (k8sLessonStepCounter) k8sLessonStepCounter.textContent = `${lesson.type.toUpperCase()} · ${lesson.stepNum} OF 9`;
+      if (k8sLessonHeading) k8sLessonHeading.textContent = lesson.title;
+      if (k8sLessonTypePill) {
+        k8sLessonTypePill.textContent = lesson.type;
+        k8sLessonTypePill.className = `lesson-type-pill font-mono ${lesson.type.toLowerCase()}-pill`;
+      }
+
+      stopK8sVoiceAudio();
+      k8sCurrentVoiceSeconds = lesson.seconds;
+      if (k8sVoiceTimer) k8sVoiceTimer.textContent = lesson.duration;
+      if (k8sVoiceStatusText) k8sVoiceStatusText.textContent = "Explain this lesson";
+
+      if (lesson.type === 'Quiz' && lesson.quiz) {
+        if (k8sLessonBodyContent) k8sLessonBodyContent.style.display = 'none';
+        if (k8sLessonQuizContainer) {
+          k8sLessonQuizContainer.style.display = 'block';
+          k8sQuizQuestionText.textContent = lesson.quiz.q;
+          k8sQuizOptionsList.innerHTML = '';
+          k8sQuizFeedbackBox.className = 'quiz-feedback-box font-mono';
+          k8sQuizFeedbackBox.style.display = 'none';
+
+          lesson.quiz.options.forEach((opt, idx) => {
+            const btn = document.createElement('button');
+            btn.className = 'quiz-option-btn font-mono';
+            btn.innerHTML = `<span style="font-weight: 700; color: var(--accent-green);">${String.fromCharCode(65 + idx)}.</span> <span>${opt.text}</span>`;
+            btn.addEventListener('click', () => {
+              const allBtns = k8sQuizOptionsList.querySelectorAll('.quiz-option-btn');
+              allBtns.forEach(b => b.disabled = true);
+
+              if (opt.correct) {
+                btn.classList.add('correct');
+                k8sQuizFeedbackBox.className = 'quiz-feedback-box font-mono show text-green';
+                k8sQuizFeedbackBox.style.background = 'rgba(34, 229, 132, 0.1)';
+                k8sQuizFeedbackBox.style.border = '1px solid var(--accent-green)';
+                k8sQuizFeedbackBox.innerHTML = `<strong>✓ Correct!</strong> ${opt.note}`;
+
+                k8sCompletedSteps.add(k8sCurrentStep);
+                k8sQuizzesDone = Math.min(2, k8sQuizzesDone + 1);
+                updateK8sProgressMetrics();
+                showToast("Kubernetes quiz passed! Progress updated.");
+              } else {
+                btn.classList.add('incorrect');
+                k8sQuizFeedbackBox.className = 'quiz-feedback-box font-mono show text-red';
+                k8sQuizFeedbackBox.style.background = 'rgba(239, 68, 68, 0.1)';
+                k8sQuizFeedbackBox.style.border = '1px solid #ef4444';
+                k8sQuizFeedbackBox.innerHTML = `<strong>✗ Incorrect.</strong> ${opt.note}`;
+              }
+            });
+            k8sQuizOptionsList.appendChild(btn);
+          });
+        }
+      } else {
+        if (k8sLessonQuizContainer) k8sLessonQuizContainer.style.display = 'none';
+        if (k8sLessonBodyContent) {
+          k8sLessonBodyContent.style.display = 'block';
+          k8sLessonBodyContent.innerHTML = lesson.bodyHtml;
+        }
+      }
+
+      if (k8sBtnLessonPrev) k8sBtnLessonPrev.disabled = (k8sCurrentStep === 1);
+      if (k8sBtnLessonNext) {
+        k8sBtnLessonNext.textContent = (k8sCurrentStep === 9) ? "Complete Skill ✓" : "Next →";
+      }
+
+      updateK8sProgressMetrics();
+
+      const scrollable = document.getElementById('k8s-lesson-theory-container');
+      if (scrollable) scrollable.scrollTop = 0;
+    }
+
+    function formatTime(totalSecs) {
+      const mins = Math.floor(totalSecs / 60);
+      const secs = totalSecs % 60;
+      return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+    }
+
+    function startK8sVoiceAudio() {
+      const lesson = k8sLessonsData[k8sCurrentStep] || k8sLessonsData[1];
+      k8sIsPlayingVoice = true;
+      if (k8sBtnVoicePlay) k8sBtnVoicePlay.classList.add('playing');
+      if (k8sVoiceIcon) k8sVoiceIcon.className = 'fa-solid fa-pause voice-play-icon';
+      if (k8sVoiceStatusText) k8sVoiceStatusText.textContent = "Playing explanation";
+
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(lesson.voiceText);
+        utterance.rate = 1.0;
+        utterance.onend = () => stopK8sVoiceAudio();
+        window.speechSynthesis.speak(utterance);
+      }
+
+      clearInterval(k8sVoiceCountdownInterval);
+      k8sVoiceCountdownInterval = setInterval(() => {
+        if (k8sCurrentVoiceSeconds > 0) {
+          k8sCurrentVoiceSeconds--;
+          if (k8sVoiceTimer) k8sVoiceTimer.textContent = formatTime(k8sCurrentVoiceSeconds);
+        } else {
+          stopK8sVoiceAudio();
+        }
+      }, 1000);
+    }
+
+    function stopK8sVoiceAudio() {
+      k8sIsPlayingVoice = false;
+      clearInterval(k8sVoiceCountdownInterval);
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+      if (k8sBtnVoicePlay) k8sBtnVoicePlay.classList.remove('playing');
+      if (k8sVoiceIcon) k8sVoiceIcon.className = 'fa-solid fa-play voice-play-icon';
+      if (k8sVoiceStatusText) k8sVoiceStatusText.textContent = "Explain this lesson";
+    }
+
+    if (k8sBtnVoicePlay) {
+      k8sBtnVoicePlay.addEventListener('click', () => {
+        if (k8sIsPlayingVoice) {
+          stopK8sVoiceAudio();
+        } else {
+          startK8sVoiceAudio();
+        }
+      });
+    }
+
+    k8sLessonStepperItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const stepNum = parseInt(item.getAttribute('data-k8s-step'));
+        renderK8sLesson(stepNum);
+      });
+    });
+
+    if (k8sBtnLessonPrev) {
+      k8sBtnLessonPrev.addEventListener('click', () => {
+        if (k8sCurrentStep > 1) renderK8sLesson(k8sCurrentStep - 1);
+      });
+    }
+
+    if (k8sBtnLessonNext) {
+      k8sBtnLessonNext.addEventListener('click', () => {
+        k8sCompletedSteps.add(k8sCurrentStep);
+        if (k8sCurrentStep < 9) {
+          renderK8sLesson(k8sCurrentStep + 1);
+        } else {
+          updateK8sProgressMetrics();
+          showToast("🎉 Congratulations! You have completed Kubernetes Module 1!");
+        }
+      });
+    }
+
+    // Tabs toggle
+    if (k8sTabTerminalBtn && k8sTabEditorBtn) {
+      k8sTabTerminalBtn.addEventListener('click', () => {
+        k8sTabTerminalBtn.classList.add('active');
+        k8sTabEditorBtn.classList.remove('active');
+        if (k8sEditorActiveView) k8sEditorActiveView.style.display = 'none';
+        if (k8sTerminalActiveView && k8sTerminalActiveView.getAttribute('data-started') === 'true') {
+          k8sTerminalActiveView.style.display = 'flex';
+        } else {
+          if (k8sTerminalStandbyView) k8sTerminalStandbyView.style.display = 'flex';
+        }
+      });
+
+      k8sTabEditorBtn.addEventListener('click', () => {
+        k8sTabEditorBtn.classList.add('active');
+        k8sTabTerminalBtn.classList.remove('active');
+        if (k8sTerminalStandbyView) k8sTerminalStandbyView.style.display = 'none';
+        if (k8sTerminalActiveView) k8sTerminalActiveView.style.display = 'none';
+        if (k8sEditorActiveView) k8sEditorActiveView.style.display = 'flex';
+      });
+    }
+
+    if (k8sBtnStartLiveLab) {
+      k8sBtnStartLiveLab.addEventListener('click', () => {
+        if (k8sTerminalStandbyView) k8sTerminalStandbyView.style.display = 'none';
+        if (k8sTerminalActiveView) {
+          k8sTerminalActiveView.style.display = 'flex';
+          k8sTerminalActiveView.setAttribute('data-started', 'true');
+        }
+        if (k8sTerminalCliInput) k8sTerminalCliInput.focus();
+        showToast("✓ Kubernetes Cluster v1.30 control plane ready.");
+      });
+    }
+
+    let k8sDeployments = [];
+
+    function executeK8sWorkspaceCommand() {
+      if (!k8sTerminalCliInput || !k8sTerminalViewport) return;
+      const rawCmd = k8sTerminalCliInput.value.trim();
+      if (!rawCmd) return;
+
+      const echoLine = document.createElement('div');
+      echoLine.className = 'term-boot-line font-bold text-accent';
+      echoLine.textContent = `student@k8s-master:~$ ${rawCmd}`;
+      k8sTerminalViewport.appendChild(echoLine);
+
+      const outLine = document.createElement('div');
+      outLine.className = 'term-boot-line';
+
+      const lower = rawCmd.toLowerCase();
+
+      if (lower === 'kubectl version' || lower === 'kubectl version --short' || lower === 'kubectl version --client') {
+        outLine.className = 'term-boot-line text-green';
+        outLine.textContent = 'Client Version: v1.30.2\nServer Version: v1.30.2';
+      } else if (lower === 'kubectl get nodes' || lower === 'kubectl get node' || lower === 'kubectl get nodes -o wide') {
+        outLine.className = 'term-boot-line font-mono text-green';
+        outLine.textContent = 'NAME           STATUS   ROLES           AGE   VERSION\nk8s-master-1   Ready    control-plane   12d   v1.30.2\nk8s-worker-1   Ready    <none>          12d   v1.30.2\nk8s-worker-2   Ready    <none>          12d   v1.30.2';
+
+        if (k8sCurrentStep === 6) {
+          k8sTasksDone = Math.min(2, k8sTasksDone + 1);
+          k8sCompletedSteps.add(6);
+          updateK8sProgressMetrics();
+          showToast("✓ Step 6 Task Verified: Cluster nodes inspected!");
+        }
+      } else if (lower.startsWith('kubectl create deployment') || lower.startsWith('kubectl apply')) {
+        outLine.className = 'term-boot-line text-green';
+        k8sDeployments.push('web');
+        outLine.textContent = 'deployment.apps/web created';
+
+        if (k8sCurrentStep === 8) {
+          k8sTasksDone = Math.min(2, k8sTasksDone + 1);
+          k8sCompletedSteps.add(8);
+          updateK8sProgressMetrics();
+          showToast("✓ Step 8 Task Verified: Deployment created!");
+        }
+      } else if (lower === 'kubectl get pods' || lower === 'kubectl get pod' || lower === 'kubectl get po') {
+        outLine.className = 'term-boot-line font-mono';
+        if (k8sDeployments.includes('web')) {
+          outLine.textContent = 'NAME                   READY   STATUS    RESTARTS   AGE\nweb-7548b6c498-8xqw2   1/1     Running   0          45s\nweb-7548b6c498-v9k2p   1/1     Running   0          45s\nweb-7548b6c498-zlm5t   1/1     Running   0          45s';
+        } else {
+          outLine.textContent = 'NAME                     READY   STATUS    RESTARTS   AGE\ncoredns-7db6d8ff4d-2x9zp 1/1     Running   0          12d\ncoredns-7db6d8ff4d-wpm4q 1/1     Running   0          12d';
+        }
+      } else if (lower === 'kubectl get svc' || lower === 'kubectl get services') {
+        outLine.className = 'term-boot-line font-mono';
+        outLine.textContent = 'NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)        AGE\nkubernetes   ClusterIP   10.96.0.1    <none>        443/TCP        12d\nweb-svc      NodePort    10.96.48.22  <none>        80:30080/TCP   2m';
+      } else if (lower.startsWith('kubectl describe')) {
+        outLine.textContent = 'Name:             web-7548b6c498-8xqw2\nNamespace:        default\nNode:             k8s-worker-1/192.168.1.102\nStatus:           Running\nIP:               10.244.1.15\nControlled By:    ReplicaSet/web-7548b6c498\nContainers:\n  nginx:\n    Image:          nginx:1.25\n    State:          Running';
+      } else if (lower === 'clear') {
+        k8sTerminalViewport.innerHTML = '<div class="term-boot-line text-muted">Screen cleared. Type kubectl commands below:</div>';
+        k8sTerminalCliInput.value = '';
+        return;
+      } else if (lower === 'help') {
+        outLine.textContent = 'Available commands: kubectl get nodes, kubectl get pods, kubectl create deployment web --image=nginx, kubectl get svc, kubectl describe pod, clear, help';
+      } else {
+        outLine.className = 'term-boot-line text-red';
+        outLine.textContent = `bash: ${rawCmd.split(' ')[0]}: command not found. Try 'help'.`;
+      }
+
+      if (outLine.textContent) {
+        k8sTerminalViewport.appendChild(outLine);
+      }
+
+      k8sTerminalCliInput.value = '';
+      k8sTerminalViewport.scrollTop = k8sTerminalViewport.scrollHeight;
+    }
+
+    if (k8sBtnCliSubmit) {
+      k8sBtnCliSubmit.addEventListener('click', executeK8sWorkspaceCommand);
+    }
+
+    if (k8sTerminalCliInput) {
+      k8sTerminalCliInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') executeK8sWorkspaceCommand();
+      });
+    }
+
+    if (k8sLessonThemeToggle) {
+      k8sLessonThemeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('light-mode');
+        showToast("Theme switched");
+      });
+    }
+
+    // Initial render
+    renderK8sLesson(1);
+  }
+
+  /* ==========================================================================
+     19. TERRAFORM 3-COLUMN INTERACTIVE LESSON WORKSPACE CONTROLLER (lesson-terraform.html)
+     ========================================================================== */
+  const tfLessonStepperItems = document.querySelectorAll('#tf-sidebar-stepper-list .stepper-item');
+  const tfLessonStepCounter = document.getElementById('tf-lesson-step-counter');
+  const tfLessonHeading = document.getElementById('tf-lesson-heading');
+  const tfLessonTypePill = document.getElementById('tf-lesson-type-pill');
+  const tfLessonBodyContent = document.getElementById('tf-lesson-body-content');
+  const tfLessonQuizContainer = document.getElementById('tf-lesson-quiz-container');
+  const tfQuizQuestionText = document.getElementById('tf-quiz-question-text');
+  const tfQuizOptionsList = document.getElementById('tf-quiz-options-list');
+  const tfQuizFeedbackBox = document.getElementById('tf-quiz-feedback-box');
+  const tfBtnLessonPrev = document.getElementById('tf-btn-lesson-prev');
+  const tfBtnLessonNext = document.getElementById('tf-btn-lesson-next');
+
+  const tfBtnVoicePlay = document.getElementById('tf-btn-voice-play');
+  const tfVoiceIcon = document.getElementById('tf-voice-icon');
+  const tfVoiceStatusText = document.getElementById('tf-voice-status-text');
+  const tfVoiceTimer = document.getElementById('tf-voice-timer');
+
+  const tfLessonProgressPercent = document.getElementById('tf-lesson-progress-percent');
+  const tfLessonProgressArc = document.getElementById('tf-lesson-progress-arc');
+  const tfStatDoneCount = document.getElementById('tf-stat-done-count');
+  const tfStatQuizzesCount = document.getElementById('tf-stat-quizzes-count');
+  const tfStatTasksCount = document.getElementById('tf-stat-tasks-count');
+
+  const tfTabTerminalBtn = document.getElementById('tf-tab-terminal-btn');
+  const tfTabEditorBtn = document.getElementById('tf-tab-editor-btn');
+  const tfTerminalStandbyView = document.getElementById('tf-terminal-standby-view');
+  const tfTerminalActiveView = document.getElementById('tf-terminal-active-view');
+  const tfEditorActiveView = document.getElementById('tf-editor-active-view');
+  const tfBtnStartLiveLab = document.getElementById('tf-btn-start-live-lab');
+  const tfTerminalViewport = document.getElementById('tf-terminal-viewport');
+  const tfTerminalCliInput = document.getElementById('tf-terminal-cli-input');
+  const tfBtnCliSubmit = document.getElementById('tf-btn-cli-submit');
+  const tfLessonThemeToggle = document.getElementById('btn-tf-lesson-theme-toggle');
+
+  if (tfLessonStepperItems.length > 0) {
+
+    const tfLessonsData = {
+      1: {
+        stepNum: 1,
+        type: 'Lesson',
+        title: 'What is Infrastructure as Code',
+        duration: '1:25',
+        seconds: 85,
+        voiceText: "Welcome to Terraform. Terraform allows you to define cloud infrastructure declaratively in code, making architecture reproducible, version controlled, and safe.",
+        bodyHtml: `
+          <p>
+            <strong>Terraform</strong> by HashiCorp is an open-source Infrastructure as Code (IaC) tool. It codifies cloud APIs into declarative configuration files, enabling multi-cloud automation.
+          </p>
+          <h3 class="lesson-subheading font-mono">Declarative vs Imperative</h3>
+          <p>
+            With imperative tools (like bash scripts or AWS CLI), you tell the machine <em>how</em> to execute every step. With Terraform, you declare the <em>desired target state</em>, and Terraform figures out the delta automatically.
+          </p>
+          <div class="code-block-wrapper">
+            <div class="code-lang-label font-mono">CLI</div>
+            <pre><code># Check local terraform version
+terraform version
+terraform -help</code></pre>
+          </div>
+        `
+      },
+      2: {
+        stepNum: 2,
+        type: 'Lesson',
+        title: 'The Core Terraform Workflow',
+        duration: '1:30',
+        seconds: 90,
+        voiceText: "The standard Terraform workflow follows four simple phases: Write configuration, Init providers, Plan execution graph, and Apply changes.",
+        bodyHtml: `
+          <p>
+            Every Terraform engineer practices the <strong>Core Workflow</strong>:
+          </p>
+          <ol style="padding-left: 20px; font-size: 13.5px; line-height: 1.8; color: #d1d5db;">
+            <li><code>terraform init</code>: Initializes plugins and remote state backend.</li>
+            <li><code>terraform validate</code>: Checks syntax and attribute correctness.</li>
+            <li><code>terraform plan</code>: Previews exact cloud additions, modifications, and deletions.</li>
+            <li><code>terraform apply</code>: Executes the plan against cloud APIs.</li>
+          </ol>
+        `
+      },
+      3: {
+        stepNum: 3,
+        type: 'Lesson',
+        title: 'Configuring AWS Providers',
+        duration: '1:35',
+        seconds: 95,
+        voiceText: "Providers are plugins that translate Terraform resource declarations into cloud API calls. In AWS, you configure region and credential scopes.",
+        bodyHtml: `
+          <p>
+            Providers act as translation bridges between HCL definitions and vendor APIs:
+          </p>
+          <div class="code-block-wrapper">
+            <div class="code-lang-label font-mono">HCL</div>
+            <pre><code>terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+}
+
+provider "aws" {
+  region = "us-east-1"
+}</code></pre>
+          </div>
+        `
+      },
+      4: {
+        stepNum: 4,
+        type: 'Lesson',
+        title: 'Declaring Your First Resource',
+        duration: '1:40',
+        seconds: 100,
+        voiceText: "Resources are the core building blocks in Terraform. A resource block specifies the resource type, local label, and configuration arguments.",
+        bodyHtml: `
+          <p>
+            Syntax structure of a Terraform resource block:
+          </p>
+          <div class="code-block-wrapper">
+            <div class="code-lang-label font-mono">HCL</div>
+            <pre><code>resource "aws_s3_bucket" "app_storage" {
+  bucket = "shaikhsir-production-assets"
+
+  tags = {
+    Environment = "Production"
+    ManagedBy   = "Terraform"
+  }
+}</code></pre>
+          </div>
+        `
+      },
+      5: {
+        stepNum: 5,
+        type: 'Lesson',
+        title: 'Understanding State & Plans',
+        duration: '1:30',
+        seconds: 90,
+        voiceText: "Terraform state acts as the single source of truth mapping your code to real cloud resources, enabling diff calculations and metadata tracking.",
+        bodyHtml: `
+          <p>
+            Terraform records information about what real infrastructure it has created in <code>terraform.tfstate</code>. This state file is used by <code>terraform plan</code> to calculate exact differences between code and reality.
+          </p>
+        `
+      },
+      6: {
+        stepNum: 6,
+        type: 'Task',
+        title: 'Initialize & Plan Infrastructure',
+        duration: '2:00',
+        seconds: 120,
+        voiceText: "Hands-on task. Start your Terraform engine on the right panel, run terraform init to download AWS providers, and run terraform plan to inspect changes.",
+        bodyHtml: `
+          <div style="background: rgba(34, 229, 132, 0.08); border: 1px solid rgba(34, 229, 132, 0.3); border-radius: 8px; padding: 18px; margin-bottom: 20px;">
+            <h4 class="font-mono text-accent" style="margin-bottom: 8px;">🛠️ Terraform Init & Plan Task</h4>
+            <ol style="padding-left: 20px; font-size: 13px; line-height: 1.8; color: #e2e8f0;">
+              <li>Click <strong>Start Terraform Engine</strong> on the right panel.</li>
+              <li>Run <code>terraform init</code> to install AWS provider plugins.</li>
+              <li>Run <code>terraform plan</code> to preview infrastructure generation.</li>
+            </ol>
+          </div>
+          <p class="text-secondary font-mono" style="font-size: 12px;">The sandbox terminal will auto-grade and mark this task complete.</p>
+        `
+      },
+      7: {
+        stepNum: 7,
+        type: 'Quiz',
+        title: 'Terraform Workflow Check',
+        duration: '1:15',
+        seconds: 75,
+        voiceText: "Knowledge check. Answer the question below regarding provider initialization.",
+        bodyHtml: ``,
+        quiz: {
+          q: "Which command prepares your working directory by downloading required provider plugins and configuring the backend?",
+          options: [
+            { text: "terraform init", correct: true, note: "Correct! terraform init initializes working directories and downloads provider plugins." },
+            { text: "terraform plan", correct: false, note: "terraform plan generates execution plans, but requires init first." },
+            { text: "terraform validate", correct: false, note: "terraform validate only checks syntax." },
+            { text: "terraform refresh", correct: false, note: "terraform refresh updates local state against real cloud resources." }
+          ]
+        }
+      },
+      8: {
+        stepNum: 8,
+        type: 'Task',
+        title: 'Provision AWS S3 Storage',
+        duration: '2:15',
+        seconds: 135,
+        voiceText: "Hands-on task. Execute terraform apply -auto-approve to provision your AWS S3 bucket on LocalStack, then verify with terraform state list.",
+        bodyHtml: `
+          <div style="background: rgba(168, 85, 247, 0.08); border: 1px solid rgba(168, 85, 247, 0.3); border-radius: 8px; padding: 18px; margin-bottom: 20px;">
+            <h4 class="font-mono text-accent" style="color: #c084fc; margin-bottom: 8px;">🛠️ Provisioning Cloud Storage Task</h4>
+            <ol style="padding-left: 20px; font-size: 13px; line-height: 1.8; color: #e2e8f0;">
+              <li>Run <code>terraform apply -auto-approve</code> in the terminal.</li>
+              <li>Inspect state resources with <code>terraform state list</code>.</li>
+            </ol>
+          </div>
+        `
+      },
+      9: {
+        stepNum: 9,
+        type: 'Quiz',
+        title: 'State File Architecture Check',
+        duration: '1:15',
+        seconds: 75,
+        voiceText: "Final quiz for Terraform Module 1. Test your understanding of state management and cloud backends.",
+        bodyHtml: ``,
+        quiz: {
+          q: "What is the primary role of the terraform.tfstate file?",
+          options: [
+            { text: "It maps declared code resources to real-world cloud infrastructure IDs", correct: true, note: "Correct! State stores mappings, resource attributes, and dependency metadata." },
+            { text: "It stores AWS root password credentials", correct: false, note: "Never store credentials in state files." },
+            { text: "It compiles HCL to binary executables", correct: false, note: "Terraform is interpreted, not compiled into binaries." },
+            { text: "It replaces Git version control", correct: false, note: "State manages resource mapping, not source code versioning." }
+          ]
+        }
+      }
+    };
+
+    let tfCurrentStep = 1;
+    let tfCompletedSteps = new Set([1]);
+    let tfQuizzesDone = 0;
+    let tfTasksDone = 0;
+    let tfIsPlayingVoice = false;
+    let tfVoiceCountdownInterval = null;
+    let tfCurrentVoiceSeconds = 85;
+
+    function loadTfSavedProgress() {
+      const saved = localStorage.getItem('shaikhsir-tf-progress');
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          if (parsed.completed) tfCompletedSteps = new Set(parsed.completed);
+          if (parsed.quizzesDone) tfQuizzesDone = parsed.quizzesDone;
+          if (parsed.tasksDone) tfTasksDone = parsed.tasksDone;
+        } catch (e) {
+          console.error(e);
+        }
+      }
+    }
+
+    function saveTfProgress() {
+      localStorage.setItem('shaikhsir-tf-progress', JSON.stringify({
+        completed: Array.from(tfCompletedSteps),
+        quizzesDone: tfQuizzesDone,
+        tasksDone: tfTasksDone
+      }));
+    }
+
+    loadTfSavedProgress();
+
+    function updateTfProgressMetrics() {
+      const total = 9;
+      const doneCount = tfCompletedSteps.size;
+      const percentage = Math.round((doneCount / total) * 100);
+
+      if (tfLessonProgressPercent) {
+        tfLessonProgressPercent.textContent = `${percentage}%`;
+      }
+
+      if (tfLessonProgressArc) {
+        const circumference = 264;
+        const offset = circumference - (percentage / 100) * circumference;
+        tfLessonProgressArc.style.strokeDashoffset = offset;
+      }
+
+      if (tfStatDoneCount) tfStatDoneCount.textContent = `${doneCount}`;
+      if (tfStatQuizzesCount) tfStatQuizzesCount.textContent = `${tfQuizzesDone}/2`;
+      if (tfStatTasksCount) tfStatTasksCount.textContent = `${tfTasksDone}/2`;
+
+      tfLessonStepperItems.forEach(item => {
+        const stepNum = parseInt(item.getAttribute('data-tf-step'));
+        if (tfCompletedSteps.has(stepNum)) {
+          item.classList.add('done');
+        } else {
+          item.classList.remove('done');
+        }
+
+        if (stepNum === tfCurrentStep) {
+          item.classList.add('active');
+        } else {
+          item.classList.remove('active');
+        }
+      });
+
+      saveTfProgress();
+    }
+
+    function renderTfLesson(stepIndex) {
+      tfCurrentStep = stepIndex;
+      const lesson = tfLessonsData[tfCurrentStep] || tfLessonsData[1];
+
+      if (tfLessonStepCounter) tfLessonStepCounter.textContent = `${lesson.type.toUpperCase()} · ${lesson.stepNum} OF 9`;
+      if (tfLessonHeading) tfLessonHeading.textContent = lesson.title;
+      if (tfLessonTypePill) {
+        tfLessonTypePill.textContent = lesson.type;
+        tfLessonTypePill.className = `lesson-type-pill font-mono ${lesson.type.toLowerCase()}-pill`;
+      }
+
+      stopTfVoiceAudio();
+      tfCurrentVoiceSeconds = lesson.seconds;
+      if (tfVoiceTimer) tfVoiceTimer.textContent = lesson.duration;
+      if (tfVoiceStatusText) tfVoiceStatusText.textContent = "Explain this lesson";
+
+      if (lesson.type === 'Quiz' && lesson.quiz) {
+        if (tfLessonBodyContent) tfLessonBodyContent.style.display = 'none';
+        if (tfLessonQuizContainer) {
+          tfLessonQuizContainer.style.display = 'block';
+          tfQuizQuestionText.textContent = lesson.quiz.q;
+          tfQuizOptionsList.innerHTML = '';
+          tfQuizFeedbackBox.className = 'quiz-feedback-box font-mono';
+          tfQuizFeedbackBox.style.display = 'none';
+
+          lesson.quiz.options.forEach((opt, idx) => {
+            const btn = document.createElement('button');
+            btn.className = 'quiz-option-btn font-mono';
+            btn.innerHTML = `<span style="font-weight: 700; color: var(--accent-green);">${String.fromCharCode(65 + idx)}.</span> <span>${opt.text}</span>`;
+            btn.addEventListener('click', () => {
+              const allBtns = tfQuizOptionsList.querySelectorAll('.quiz-option-btn');
+              allBtns.forEach(b => b.disabled = true);
+
+              if (opt.correct) {
+                btn.classList.add('correct');
+                tfQuizFeedbackBox.className = 'quiz-feedback-box font-mono show text-green';
+                tfQuizFeedbackBox.style.background = 'rgba(34, 229, 132, 0.1)';
+                tfQuizFeedbackBox.style.border = '1px solid var(--accent-green)';
+                tfQuizFeedbackBox.innerHTML = `<strong>✓ Correct!</strong> ${opt.note}`;
+
+                tfCompletedSteps.add(tfCurrentStep);
+                tfQuizzesDone = Math.min(2, tfQuizzesDone + 1);
+                updateTfProgressMetrics();
+                showToast("Terraform quiz passed! Progress updated.");
+              } else {
+                btn.classList.add('incorrect');
+                tfQuizFeedbackBox.className = 'quiz-feedback-box font-mono show text-red';
+                tfQuizFeedbackBox.style.background = 'rgba(239, 68, 68, 0.1)';
+                tfQuizFeedbackBox.style.border = '1px solid #ef4444';
+                tfQuizFeedbackBox.innerHTML = `<strong>✗ Incorrect.</strong> ${opt.note}`;
+              }
+            });
+            tfQuizOptionsList.appendChild(btn);
+          });
+        }
+      } else {
+        if (tfLessonQuizContainer) tfLessonQuizContainer.style.display = 'none';
+        if (tfLessonBodyContent) {
+          tfLessonBodyContent.style.display = 'block';
+          tfLessonBodyContent.innerHTML = lesson.bodyHtml;
+        }
+      }
+
+      if (tfBtnLessonPrev) tfBtnLessonPrev.disabled = (tfCurrentStep === 1);
+      if (tfBtnLessonNext) {
+        tfBtnLessonNext.textContent = (tfCurrentStep === 9) ? "Complete Skill ✓" : "Next →";
+      }
+
+      updateTfProgressMetrics();
+
+      const scrollable = document.getElementById('tf-lesson-theory-container');
+      if (scrollable) scrollable.scrollTop = 0;
+    }
+
+    function formatTime(totalSecs) {
+      const mins = Math.floor(totalSecs / 60);
+      const secs = totalSecs % 60;
+      return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+    }
+
+    function startTfVoiceAudio() {
+      const lesson = tfLessonsData[tfCurrentStep] || tfLessonsData[1];
+      tfIsPlayingVoice = true;
+      if (tfBtnVoicePlay) tfBtnVoicePlay.classList.add('playing');
+      if (tfVoiceIcon) tfVoiceIcon.className = 'fa-solid fa-pause voice-play-icon';
+      if (tfVoiceStatusText) tfVoiceStatusText.textContent = "Playing explanation";
+
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(lesson.voiceText);
+        utterance.rate = 1.0;
+        utterance.onend = () => stopTfVoiceAudio();
+        window.speechSynthesis.speak(utterance);
+      }
+
+      clearInterval(tfVoiceCountdownInterval);
+      tfVoiceCountdownInterval = setInterval(() => {
+        if (tfCurrentVoiceSeconds > 0) {
+          tfCurrentVoiceSeconds--;
+          if (tfVoiceTimer) tfVoiceTimer.textContent = formatTime(tfCurrentVoiceSeconds);
+        } else {
+          stopTfVoiceAudio();
+        }
+      }, 1000);
+    }
+
+    function stopTfVoiceAudio() {
+      tfIsPlayingVoice = false;
+      clearInterval(tfVoiceCountdownInterval);
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+      if (tfBtnVoicePlay) tfBtnVoicePlay.classList.remove('playing');
+      if (tfVoiceIcon) tfVoiceIcon.className = 'fa-solid fa-play voice-play-icon';
+      if (tfVoiceStatusText) tfVoiceStatusText.textContent = "Explain this lesson";
+    }
+
+    if (tfBtnVoicePlay) {
+      tfBtnVoicePlay.addEventListener('click', () => {
+        if (tfIsPlayingVoice) {
+          stopTfVoiceAudio();
+        } else {
+          startTfVoiceAudio();
+        }
+      });
+    }
+
+    tfLessonStepperItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const stepNum = parseInt(item.getAttribute('data-tf-step'));
+        renderTfLesson(stepNum);
+      });
+    });
+
+    if (tfBtnLessonPrev) {
+      tfBtnLessonPrev.addEventListener('click', () => {
+        if (tfCurrentStep > 1) renderTfLesson(tfCurrentStep - 1);
+      });
+    }
+
+    if (tfBtnLessonNext) {
+      tfBtnLessonNext.addEventListener('click', () => {
+        tfCompletedSteps.add(tfCurrentStep);
+        if (tfCurrentStep < 9) {
+          renderTfLesson(tfCurrentStep + 1);
+        } else {
+          updateTfProgressMetrics();
+          showToast("🎉 Congratulations! You have completed Terraform Module 1!");
+        }
+      });
+    }
+
+    // Tabs toggle
+    if (tfTabTerminalBtn && tfTabEditorBtn) {
+      tfTabTerminalBtn.addEventListener('click', () => {
+        tfTabTerminalBtn.classList.add('active');
+        tfTabEditorBtn.classList.remove('active');
+        if (tfEditorActiveView) tfEditorActiveView.style.display = 'none';
+        if (tfTerminalActiveView && tfTerminalActiveView.getAttribute('data-started') === 'true') {
+          tfTerminalActiveView.style.display = 'flex';
+        } else {
+          if (tfTerminalStandbyView) tfTerminalStandbyView.style.display = 'flex';
+        }
+      });
+
+      tfTabEditorBtn.addEventListener('click', () => {
+        tfTabEditorBtn.classList.add('active');
+        tfTabTerminalBtn.classList.remove('active');
+        if (tfTerminalStandbyView) tfTerminalStandbyView.style.display = 'none';
+        if (tfTerminalActiveView) tfTerminalActiveView.style.display = 'none';
+        if (tfEditorActiveView) tfEditorActiveView.style.display = 'flex';
+      });
+    }
+
+    if (tfBtnStartLiveLab) {
+      tfBtnStartLiveLab.addEventListener('click', () => {
+        if (tfTerminalStandbyView) tfTerminalStandbyView.style.display = 'none';
+        if (tfTerminalActiveView) {
+          tfTerminalActiveView.style.display = 'flex';
+          tfTerminalActiveView.setAttribute('data-started', 'true');
+        }
+        if (tfTerminalCliInput) tfTerminalCliInput.focus();
+        showToast("✓ Terraform LocalStack engine initialized.");
+      });
+    }
+
+    let tfResourcesApplied = false;
+
+    function executeTfWorkspaceCommand() {
+      if (!tfTerminalCliInput || !tfTerminalViewport) return;
+      const rawCmd = tfTerminalCliInput.value.trim();
+      if (!rawCmd) return;
+
+      const echoLine = document.createElement('div');
+      echoLine.className = 'term-boot-line font-bold text-accent';
+      echoLine.textContent = `student@tf-workspace:~$ ${rawCmd}`;
+      tfTerminalViewport.appendChild(echoLine);
+
+      const outLine = document.createElement('div');
+      outLine.className = 'term-boot-line';
+
+      const lower = rawCmd.toLowerCase();
+
+      if (lower === 'terraform version' || lower === 'terraform -v' || lower === 'terraform --version') {
+        outLine.className = 'term-boot-line text-green';
+        outLine.textContent = 'Terraform v1.8.5\non linux_amd64\n+ provider registry.terraform.io/hashicorp/aws v5.50.0';
+      } else if (lower === 'terraform init' || lower === 'terraform init -upgrade') {
+        outLine.className = 'term-boot-line text-green';
+        outLine.textContent = 'Initializing the backend...\nInitializing provider plugins...\n- Finding hashicorp/aws versions matching "~> 5.0"...\n- Installing hashicorp/aws v5.50.0...\n- Installed hashicorp/aws v5.50.0 (signed by HashiCorp)\n\nTerraform has been successfully initialized!';
+
+        if (tfCurrentStep === 6) {
+          tfTasksDone = Math.min(2, tfTasksDone + 1);
+          tfCompletedSteps.add(6);
+          updateTfProgressMetrics();
+          showToast("✓ Step 6 Task Verified: Terraform initialized!");
+        }
+      } else if (lower === 'terraform plan') {
+        outLine.className = 'term-boot-line font-mono';
+        outLine.textContent = 'Terraform used the selected providers to generate the following execution plan:\n\n  # aws_s3_bucket.app_storage will be created\n  + resource "aws_s3_bucket" "app_storage" {\n      + arn                         = (known after apply)\n      + bucket                      = "shaikhsir-production-assets"\n      + id                          = (known after apply)\n      + region                      = "us-east-1"\n    }\n\nPlan: 1 to add, 0 to change, 0 to destroy.';
+      } else if (lower.startsWith('terraform apply')) {
+        outLine.className = 'term-boot-line text-green font-mono';
+        tfResourcesApplied = true;
+        outLine.textContent = 'aws_s3_bucket.app_storage: Creating...\naws_s3_bucket.app_storage: Creation complete after 1s [id=shaikhsir-production-assets]\n\nApply complete! Resources: 1 added, 0 changed, 0 destroyed.\n\nOutputs:\nbucket_arn = "arn:aws:s3:::shaikhsir-production-assets"';
+
+        if (tfCurrentStep === 8) {
+          tfTasksDone = Math.min(2, tfTasksDone + 1);
+          tfCompletedSteps.add(8);
+          updateTfProgressMetrics();
+          showToast("✓ Step 8 Task Verified: S3 Bucket provisioned!");
+        }
+      } else if (lower === 'terraform state list') {
+        outLine.className = 'term-boot-line font-mono';
+        if (tfResourcesApplied) {
+          outLine.textContent = 'aws_s3_bucket.app_storage';
+        } else {
+          outLine.textContent = 'No state file found. Run terraform apply first.';
+        }
+      } else if (lower === 'terraform validate') {
+        outLine.className = 'term-boot-line text-green';
+        outLine.textContent = 'Success! The configuration is valid.';
+      } else if (lower === 'terraform fmt') {
+        outLine.className = 'term-boot-line text-green';
+        outLine.textContent = 'main.tf';
+      } else if (lower === 'clear') {
+        tfTerminalViewport.innerHTML = '<div class="term-boot-line text-muted">Screen cleared. Type terraform commands below:</div>';
+        tfTerminalCliInput.value = '';
+        return;
+      } else if (lower === 'help') {
+        outLine.textContent = 'Available commands: terraform version, terraform init, terraform plan, terraform apply, terraform state list, terraform validate, clear, help';
+      } else {
+        outLine.className = 'term-boot-line text-red';
+        outLine.textContent = `bash: ${rawCmd.split(' ')[0]}: command not found. Try 'help'.`;
+      }
+
+      if (outLine.textContent) {
+        tfTerminalViewport.appendChild(outLine);
+      }
+
+      tfTerminalCliInput.value = '';
+      tfTerminalViewport.scrollTop = tfTerminalViewport.scrollHeight;
+    }
+
+    if (tfBtnCliSubmit) {
+      tfBtnCliSubmit.addEventListener('click', executeTfWorkspaceCommand);
+    }
+
+    if (tfTerminalCliInput) {
+      tfTerminalCliInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') executeTfWorkspaceCommand();
+      });
+    }
+
+    if (tfLessonThemeToggle) {
+      tfLessonThemeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('light-mode');
+        showToast("Theme switched");
+      });
+    }
+
+    // Initial render
+    renderTfLesson(1);
+  }
+
+  /* ==========================================================================
+     20. DEVOPS FUNDAMENTALS 3-COLUMN INTERACTIVE LESSON WORKSPACE CONTROLLER (lesson-devops-fundamentals.html)
+     ========================================================================== */
+  const devopsLessonStepperItems = document.querySelectorAll('#devops-sidebar-stepper-list .stepper-item');
+  const devopsLessonStepCounter = document.getElementById('devops-lesson-step-counter');
+  const devopsLessonHeading = document.getElementById('devops-lesson-heading');
+  const devopsLessonTypePill = document.getElementById('devops-lesson-type-pill');
+  const devopsLessonBodyContent = document.getElementById('devops-lesson-body-content');
+  const devopsLessonQuizContainer = document.getElementById('devops-lesson-quiz-container');
+  const devopsQuizQuestionText = document.getElementById('devops-quiz-question-text');
+  const devopsQuizOptionsList = document.getElementById('devops-quiz-options-list');
+  const devopsQuizFeedbackBox = document.getElementById('devops-quiz-feedback-box');
+  const devopsBtnLessonPrev = document.getElementById('devops-btn-lesson-prev');
+  const devopsBtnLessonNext = document.getElementById('devops-btn-lesson-next');
+
+  const devopsBtnVoicePlay = document.getElementById('devops-btn-voice-play');
+  const devopsVoiceIcon = document.getElementById('devops-voice-icon');
+  const devopsVoiceStatusText = document.getElementById('devops-voice-status-text');
+  const devopsVoiceTimer = document.getElementById('devops-voice-timer');
+
+  const devopsLessonProgressPercent = document.getElementById('devops-lesson-progress-percent');
+  const devopsLessonProgressArc = document.getElementById('devops-lesson-progress-arc');
+  const devopsStatDoneCount = document.getElementById('devops-stat-done-count');
+  const devopsStatQuizzesCount = document.getElementById('devops-stat-quizzes-count');
+  const devopsStatTasksCount = document.getElementById('devops-stat-tasks-count');
+
+  const devopsTabTerminalBtn = document.getElementById('devops-tab-terminal-btn');
+  const devopsTabEditorBtn = document.getElementById('devops-tab-editor-btn');
+  const devopsTerminalStandbyView = document.getElementById('devops-terminal-standby-view');
+  const devopsTerminalActiveView = document.getElementById('devops-terminal-active-view');
+  const devopsEditorActiveView = document.getElementById('devops-editor-active-view');
+  const devopsBtnStartLiveLab = document.getElementById('devops-btn-start-live-lab');
+  const devopsTerminalViewport = document.getElementById('devops-terminal-viewport');
+  const devopsTerminalCliInput = document.getElementById('devops-terminal-cli-input');
+  const devopsBtnCliSubmit = document.getElementById('devops-btn-cli-submit');
+  const devopsLessonThemeToggle = document.getElementById('btn-devops-lesson-theme-toggle');
+
+  if (devopsLessonStepperItems.length > 0) {
+
+    const devopsLessonsData = {
+      1: {
+        stepNum: 1,
+        type: 'Lesson',
+        title: 'The DevOps Philosophy',
+        duration: '1:20',
+        seconds: 80,
+        voiceText: "Welcome to DevOps Fundamentals. DevOps unites software development and IT operations to deliver faster releases, automated quality, and reliable systems.",
+        bodyHtml: `
+          <p>
+            <strong>DevOps</strong> is a cultural movement, set of practices, and toolchains designed to eliminate friction between software engineering (Dev) and IT operations (Ops).
+          </p>
+          <h3 class="lesson-subheading font-mono">Why DevOps Transformed Tech</h3>
+          <p>
+            Traditional waterfall cycles took months to deploy monolithic software. DevOps enables elite high-performing teams to deploy changes multiple times per day with rapid recovery times and low change failure rates.
+          </p>
+          <div class="code-block-wrapper">
+            <div class="code-lang-label font-mono">CLI</div>
+            <pre><code># Check current Git workspace status
+git status
+npm test</code></pre>
+          </div>
+        `
+      },
+      2: {
+        stepNum: 2,
+        type: 'Lesson',
+        title: 'The CAMS Framework',
+        duration: '1:30',
+        seconds: 90,
+        voiceText: "The CAMS framework outlines the four foundational pillars of DevOps: Culture, Automation, Measurement, and Sharing.",
+        bodyHtml: `
+          <p>
+            Coined by Damon Edwards and John Willis, <strong>C.A.M.S.</strong> represents the 4 core pillars:
+          </p>
+          <ul style="padding-left: 20px; font-size: 13.5px; line-height: 1.8; color: #d1d5db;">
+            <li><strong>Culture:</strong> Shared accountability, empathy, and blameless collaboration.</li>
+            <li><strong>Automation:</strong> Automating builds, unit tests, infrastructure, and releases.</li>
+            <li><strong>Measurement:</strong> Tracking DORA metrics, system telemetry, and application health.</li>
+            <li><strong>Sharing:</strong> Open communication, transparent feedback loops, and shared toolchains.</li>
+          </ul>
+        `
+      },
+      3: {
+        stepNum: 3,
+        type: 'Lesson',
+        title: 'The Three Ways of DevOps',
+        duration: '1:35',
+        seconds: 95,
+        voiceText: "The Phoenix Project defines the Three Ways: Flow from left to right, Fast Feedback loops from right to left, and Continual Learning and Experimentation.",
+        bodyHtml: `
+          <p>
+            Introduced in <em>The DevOps Handbook</em>:
+          </p>
+          <ol style="padding-left: 20px; font-size: 13.5px; line-height: 1.8; color: #d1d5db;">
+            <li><strong>The First Way (Flow):</strong> Accelerate the flow of work from Development to Operations to Customers.</li>
+            <li><strong>The Second Way (Feedback):</strong> Create fast, amplified feedback loops to identify and fix issues immediately.</li>
+            <li><strong>The Third Way (Continual Learning):</strong> Foster a high-trust culture of experimentation, learning from failure, and mastery.</li>
+          </ol>
+        `
+      },
+      4: {
+        stepNum: 4,
+        type: 'Lesson',
+        title: 'Breaking Down Silos',
+        duration: '1:25',
+        seconds: 85,
+        voiceText: "Organizational silos create delays and conflicting priorities. DevOps encourages cross-functional teams where developers understand infrastructure and operators understand code.",
+        bodyHtml: `
+          <p>
+            When developers are only responsible for code and sysadmins are only responsible for uptime, finger-pointing occurs when outages happen.
+          </p>
+          <p>
+            DevOps adopts the Amazon principle: <strong>"You build it, you run it."</strong> Developers gain visibility into production telemetry, while operators embed automation into early development pipelines.
+          </p>
+        `
+      },
+      5: {
+        stepNum: 5,
+        type: 'Lesson',
+        title: 'Continuous Feedback Loops',
+        duration: '1:30',
+        seconds: 90,
+        voiceText: "Feedback loops allow engineers to detect defects early in development rather than finding them during major production incidents.",
+        bodyHtml: `
+          <p>
+            Every code commit triggers an automated pipeline executing linting, unit tests, security scans, and build validation. If a test fails, the engineer is alerted within seconds.
+          </p>
+        `
+      },
+      6: {
+        stepNum: 6,
+        type: 'Task',
+        title: 'Inspect Git Repo & Status',
+        duration: '2:00',
+        seconds: 120,
+        voiceText: "Hands-on task. Click Start DevOps Runner on the right, run git status to check staged files, and inspect repo logs.",
+        bodyHtml: `
+          <div style="background: rgba(34, 229, 132, 0.08); border: 1px solid rgba(34, 229, 132, 0.3); border-radius: 8px; padding: 18px; margin-bottom: 20px;">
+            <h4 class="font-mono text-accent" style="margin-bottom: 8px;">🛠️ Git & Repository Inspection Task</h4>
+            <ol style="padding-left: 20px; font-size: 13px; line-height: 1.8; color: #e2e8f0;">
+              <li>Click <strong>Start DevOps Runner</strong> on the right panel.</li>
+              <li>Run <code>git status</code> to view active changes.</li>
+              <li>Run <code>npm test</code> to execute local test suites.</li>
+            </ol>
+          </div>
+          <p class="text-secondary font-mono" style="font-size: 12px;">The sandbox terminal will auto-grade and mark this task complete.</p>
+        `
+      },
+      7: {
+        stepNum: 7,
+        type: 'Quiz',
+        title: 'DevOps Culture Check',
+        duration: '1:15',
+        seconds: 75,
+        voiceText: "Knowledge check. Answer the question below regarding DevOps culture and core incentives.",
+        bodyHtml: ``,
+        quiz: {
+          q: "What is the primary cultural objective of the DevOps movement?",
+          options: [
+            { text: "Shared responsibility and collaboration across Development and Operations", correct: true, note: "Correct! DevOps bridges Dev and Ops with shared ownership of delivery and reliability." },
+            { text: "Eliminating the need for all testing and QA engineers", correct: false, note: "DevOps automates testing, but quality assurance remains critical." },
+            { text: "Forcing all developers to manage physical server hardware", correct: false, note: "Modern cloud abstractions and IaC handle physical infrastructure." },
+            { text: "Writing slower monolithic codebases", correct: false, note: "DevOps advocates for fast, iterative, modular releases." }
+          ]
+        }
+      },
+      8: {
+        stepNum: 8,
+        type: 'Task',
+        title: 'Run Automated Pipeline Build',
+        duration: '2:15',
+        seconds: 135,
+        voiceText: "Hands-on task. Trigger your automated CI/CD pipeline using pipeline trigger, then verify application health endpoint.",
+        bodyHtml: `
+          <div style="background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 8px; padding: 18px; margin-bottom: 20px;">
+            <h4 class="font-mono text-accent" style="color: #38bdf8; margin-bottom: 8px;">🛠️ Automated Pipeline Execution Task</h4>
+            <ol style="padding-left: 20px; font-size: 13px; line-height: 1.8; color: #e2e8f0;">
+              <li>Run <code>pipeline trigger</code> in the terminal.</li>
+              <li>Verify HTTP status with <code>curl -I localhost:8080/health</code>.</li>
+            </ol>
+          </div>
+        `
+      },
+      9: {
+        stepNum: 9,
+        type: 'Quiz',
+        title: 'CAMS Framework Check',
+        duration: '1:15',
+        seconds: 75,
+        voiceText: "Final quiz for DevOps Fundamentals Module 1. Test your understanding of the CAMS pillars.",
+        bodyHtml: ``,
+        quiz: {
+          q: "In the CAMS framework (Culture, Automation, Measurement, Sharing), what is the focus of 'Measurement'?",
+          options: [
+            { text: "Tracking system telemetry, error rates, and DORA deployment metrics", correct: true, note: "Correct! Measurement provides data-driven feedback on performance and reliability." },
+            { text: "Counting lines of code written per engineer", correct: false, note: "Lines of code is an anti-metric that discourages clean architecture." },
+            { text: "Measuring how long servers have stayed on without rebooting", correct: false, note: "Uptime alone is not indicative of delivery velocity or user happiness." },
+            { text: "Limiting team communication to weekly emails", correct: false, note: "Sharing emphasizes open, real-time collaboration." }
+          ]
+        }
+      }
+    };
+
+    let devopsCurrentStep = 1;
+    let devopsCompletedSteps = new Set([1]);
+    let devopsQuizzesDone = 0;
+    let devopsTasksDone = 0;
+    let devopsIsPlayingVoice = false;
+    let devopsVoiceCountdownInterval = null;
+    let devopsCurrentVoiceSeconds = 80;
+
+    function loadDevopsSavedProgress() {
+      const saved = localStorage.getItem('shaikhsir-devops-progress');
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          if (parsed.completed) devopsCompletedSteps = new Set(parsed.completed);
+          if (parsed.quizzesDone) devopsQuizzesDone = parsed.quizzesDone;
+          if (parsed.tasksDone) devopsTasksDone = parsed.tasksDone;
+        } catch (e) {
+          console.error(e);
+        }
+      }
+    }
+
+    function saveDevopsProgress() {
+      localStorage.setItem('shaikhsir-devops-progress', JSON.stringify({
+        completed: Array.from(devopsCompletedSteps),
+        quizzesDone: devopsQuizzesDone,
+        tasksDone: devopsTasksDone
+      }));
+    }
+
+    loadDevopsSavedProgress();
+
+    function updateDevopsProgressMetrics() {
+      const total = 9;
+      const doneCount = devopsCompletedSteps.size;
+      const percentage = Math.round((doneCount / total) * 100);
+
+      if (devopsLessonProgressPercent) {
+        devopsLessonProgressPercent.textContent = `${percentage}%`;
+      }
+
+      if (devopsLessonProgressArc) {
+        const circumference = 264;
+        const offset = circumference - (percentage / 100) * circumference;
+        devopsLessonProgressArc.style.strokeDashoffset = offset;
+      }
+
+      if (devopsStatDoneCount) devopsStatDoneCount.textContent = `${doneCount}`;
+      if (devopsStatQuizzesCount) devopsStatQuizzesCount.textContent = `${devopsQuizzesDone}/2`;
+      if (devopsStatTasksCount) devopsStatTasksCount.textContent = `${devopsTasksDone}/2`;
+
+      devopsLessonStepperItems.forEach(item => {
+        const stepNum = parseInt(item.getAttribute('data-devops-step'));
+        if (devopsCompletedSteps.has(stepNum)) {
+          item.classList.add('done');
+        } else {
+          item.classList.remove('done');
+        }
+
+        if (stepNum === devopsCurrentStep) {
+          item.classList.add('active');
+        } else {
+          item.classList.remove('active');
+        }
+      });
+
+      saveDevopsProgress();
+    }
+
+    function renderDevopsLesson(stepIndex) {
+      devopsCurrentStep = stepIndex;
+      const lesson = devopsLessonsData[devopsCurrentStep] || devopsLessonsData[1];
+
+      if (devopsLessonStepCounter) devopsLessonStepCounter.textContent = `${lesson.type.toUpperCase()} · ${lesson.stepNum} OF 9`;
+      if (devopsLessonHeading) devopsLessonHeading.textContent = lesson.title;
+      if (devopsLessonTypePill) {
+        devopsLessonTypePill.textContent = lesson.type;
+        devopsLessonTypePill.className = `lesson-type-pill font-mono ${lesson.type.toLowerCase()}-pill`;
+      }
+
+      stopDevopsVoiceAudio();
+      devopsCurrentVoiceSeconds = lesson.seconds;
+      if (devopsVoiceTimer) devopsVoiceTimer.textContent = lesson.duration;
+      if (devopsVoiceStatusText) devopsVoiceStatusText.textContent = "Explain this lesson";
+
+      if (lesson.type === 'Quiz' && lesson.quiz) {
+        if (devopsLessonBodyContent) devopsLessonBodyContent.style.display = 'none';
+        if (devopsLessonQuizContainer) {
+          devopsLessonQuizContainer.style.display = 'block';
+          devopsQuizQuestionText.textContent = lesson.quiz.q;
+          devopsQuizOptionsList.innerHTML = '';
+          devopsQuizFeedbackBox.className = 'quiz-feedback-box font-mono';
+          devopsQuizFeedbackBox.style.display = 'none';
+
+          lesson.quiz.options.forEach((opt, idx) => {
+            const btn = document.createElement('button');
+            btn.className = 'quiz-option-btn font-mono';
+            btn.innerHTML = `<span style="font-weight: 700; color: var(--accent-green);">${String.fromCharCode(65 + idx)}.</span> <span>${opt.text}</span>`;
+            btn.addEventListener('click', () => {
+              const allBtns = devopsQuizOptionsList.querySelectorAll('.quiz-option-btn');
+              allBtns.forEach(b => b.disabled = true);
+
+              if (opt.correct) {
+                btn.classList.add('correct');
+                devopsQuizFeedbackBox.className = 'quiz-feedback-box font-mono show text-green';
+                devopsQuizFeedbackBox.style.background = 'rgba(34, 229, 132, 0.1)';
+                devopsQuizFeedbackBox.style.border = '1px solid var(--accent-green)';
+                devopsQuizFeedbackBox.innerHTML = `<strong>✓ Correct!</strong> ${opt.note}`;
+
+                devopsCompletedSteps.add(devopsCurrentStep);
+                devopsQuizzesDone = Math.min(2, devopsQuizzesDone + 1);
+                updateDevopsProgressMetrics();
+                showToast("DevOps quiz passed! Progress updated.");
+              } else {
+                btn.classList.add('incorrect');
+                devopsQuizFeedbackBox.className = 'quiz-feedback-box font-mono show text-red';
+                devopsQuizFeedbackBox.style.background = 'rgba(239, 68, 68, 0.1)';
+                devopsQuizFeedbackBox.style.border = '1px solid #ef4444';
+                devopsQuizFeedbackBox.innerHTML = `<strong>✗ Incorrect.</strong> ${opt.note}`;
+              }
+            });
+            devopsQuizOptionsList.appendChild(btn);
+          });
+        }
+      } else {
+        if (devopsLessonQuizContainer) devopsLessonQuizContainer.style.display = 'none';
+        if (devopsLessonBodyContent) {
+          devopsLessonBodyContent.style.display = 'block';
+          devopsLessonBodyContent.innerHTML = lesson.bodyHtml;
+        }
+      }
+
+      if (devopsBtnLessonPrev) devopsBtnLessonPrev.disabled = (devopsCurrentStep === 1);
+      if (devopsBtnLessonNext) {
+        devopsBtnLessonNext.textContent = (devopsCurrentStep === 9) ? "Complete Skill ✓" : "Next →";
+      }
+
+      updateDevopsProgressMetrics();
+
+      const scrollable = document.getElementById('devops-lesson-theory-container');
+      if (scrollable) scrollable.scrollTop = 0;
+    }
+
+    function formatTime(totalSecs) {
+      const mins = Math.floor(totalSecs / 60);
+      const secs = totalSecs % 60;
+      return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+    }
+
+    function startDevopsVoiceAudio() {
+      const lesson = devopsLessonsData[devopsCurrentStep] || devopsLessonsData[1];
+      devopsIsPlayingVoice = true;
+      if (devopsBtnVoicePlay) devopsBtnVoicePlay.classList.add('playing');
+      if (devopsVoiceIcon) devopsVoiceIcon.className = 'fa-solid fa-pause voice-play-icon';
+      if (devopsVoiceStatusText) devopsVoiceStatusText.textContent = "Playing explanation";
+
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(lesson.voiceText);
+        utterance.rate = 1.0;
+        utterance.onend = () => stopDevopsVoiceAudio();
+        window.speechSynthesis.speak(utterance);
+      }
+
+      clearInterval(devopsVoiceCountdownInterval);
+      devopsVoiceCountdownInterval = setInterval(() => {
+        if (devopsCurrentVoiceSeconds > 0) {
+          devopsCurrentVoiceSeconds--;
+          if (devopsVoiceTimer) devopsVoiceTimer.textContent = formatTime(devopsCurrentVoiceSeconds);
+        } else {
+          stopDevopsVoiceAudio();
+        }
+      }, 1000);
+    }
+
+    function stopDevopsVoiceAudio() {
+      devopsIsPlayingVoice = false;
+      clearInterval(devopsVoiceCountdownInterval);
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+      if (devopsBtnVoicePlay) devopsBtnVoicePlay.classList.remove('playing');
+      if (devopsVoiceIcon) devopsVoiceIcon.className = 'fa-solid fa-play voice-play-icon';
+      if (devopsVoiceStatusText) devopsVoiceStatusText.textContent = "Explain this lesson";
+    }
+
+    if (devopsBtnVoicePlay) {
+      devopsBtnVoicePlay.addEventListener('click', () => {
+        if (devopsIsPlayingVoice) {
+          stopDevopsVoiceAudio();
+        } else {
+          startDevopsVoiceAudio();
+        }
+      });
+    }
+
+    devopsLessonStepperItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const stepNum = parseInt(item.getAttribute('data-devops-step'));
+        renderDevopsLesson(stepNum);
+      });
+    });
+
+    if (devopsBtnLessonPrev) {
+      devopsBtnLessonPrev.addEventListener('click', () => {
+        if (devopsCurrentStep > 1) renderDevopsLesson(devopsCurrentStep - 1);
+      });
+    }
+
+    if (devopsBtnLessonNext) {
+      devopsBtnLessonNext.addEventListener('click', () => {
+        devopsCompletedSteps.add(devopsCurrentStep);
+        if (devopsCurrentStep < 9) {
+          renderDevopsLesson(devopsCurrentStep + 1);
+        } else {
+          updateDevopsProgressMetrics();
+          showToast("🎉 Congratulations! You have completed DevOps Fundamentals Module 1!");
+        }
+      });
+    }
+
+    // Tabs toggle
+    if (devopsTabTerminalBtn && devopsTabEditorBtn) {
+      devopsTabTerminalBtn.addEventListener('click', () => {
+        devopsTabTerminalBtn.classList.add('active');
+        devopsTabEditorBtn.classList.remove('active');
+        if (devopsEditorActiveView) devopsEditorActiveView.style.display = 'none';
+        if (devopsTerminalActiveView && devopsTerminalActiveView.getAttribute('data-started') === 'true') {
+          devopsTerminalActiveView.style.display = 'flex';
+        } else {
+          if (devopsTerminalStandbyView) devopsTerminalStandbyView.style.display = 'flex';
+        }
+      });
+
+      devopsTabEditorBtn.addEventListener('click', () => {
+        devopsTabEditorBtn.classList.add('active');
+        devopsTabTerminalBtn.classList.remove('active');
+        if (devopsTerminalStandbyView) devopsTerminalStandbyView.style.display = 'none';
+        if (devopsTerminalActiveView) devopsTerminalActiveView.style.display = 'none';
+        if (devopsEditorActiveView) devopsEditorActiveView.style.display = 'flex';
+      });
+    }
+
+    if (devopsBtnStartLiveLab) {
+      devopsBtnStartLiveLab.addEventListener('click', () => {
+        if (devopsTerminalStandbyView) devopsTerminalStandbyView.style.display = 'none';
+        if (devopsTerminalActiveView) {
+          devopsTerminalActiveView.style.display = 'flex';
+          devopsTerminalActiveView.setAttribute('data-started', 'true');
+        }
+        if (devopsTerminalCliInput) devopsTerminalCliInput.focus();
+        showToast("✓ DevOps CI/CD Runner initialized.");
+      });
+    }
+
+    function executeDevopsWorkspaceCommand() {
+      if (!devopsTerminalCliInput || !devopsTerminalViewport) return;
+      const rawCmd = devopsTerminalCliInput.value.trim();
+      if (!rawCmd) return;
+
+      const echoLine = document.createElement('div');
+      echoLine.className = 'term-boot-line font-bold text-accent';
+      echoLine.textContent = `engineer@devops-runner:~$ ${rawCmd}`;
+      devopsTerminalViewport.appendChild(echoLine);
+
+      const outLine = document.createElement('div');
+      outLine.className = 'term-boot-line';
+
+      const lower = rawCmd.toLowerCase();
+
+      if (lower === 'git status') {
+        outLine.className = 'term-boot-line text-green';
+        outLine.textContent = 'On branch main\nYour branch is up to date with \'origin/main\'.\n\nChanges to be committed:\n\tmodified:   pipeline.yml\n\tmodified:   src/server.js';
+
+        if (devopsCurrentStep === 6) {
+          devopsTasksDone = Math.min(2, devopsTasksDone + 1);
+          devopsCompletedSteps.add(6);
+          updateDevopsProgressMetrics();
+          showToast("✓ Step 6 Task Verified: Git status inspected!");
+        }
+      } else if (lower === 'npm test' || lower === 'npm run test' || lower === 'yarn test') {
+        outLine.className = 'term-boot-line text-green font-mono';
+        outLine.textContent = 'PASS src/api.test.js (1.4s)\n  ✓ GET /health (12ms)\n  ✓ POST /auth/login (48ms)\n  ✓ GET /metrics (8ms)\n\nTest Suites: 1 passed, 1 total\nTests:       3 passed, 3 total\nSnapshots:   0 total\nTime:        1.82s\nRan all test suites.';
+      } else if (lower.startsWith('pipeline trigger') || lower.startsWith('pipeline run') || lower.startsWith('pipeline start')) {
+        outLine.className = 'term-boot-line text-green font-mono';
+        outLine.textContent = '[CI Pipeline #412]\n  ✓ Stage 1: Checkout Git Repository (0.4s)\n  ✓ Stage 2: Lint & Static Code Analysis (1.1s)\n  ✓ Stage 3: Run Unit Tests (1.8s)\n  ✓ Stage 4: Build Container Image (4.2s)\n  ✓ Stage 5: Deploy to Staging (3.0s)\nPipeline Status: SUCCESS';
+
+        if (devopsCurrentStep === 8) {
+          devopsTasksDone = Math.min(2, devopsTasksDone + 1);
+          devopsCompletedSteps.add(8);
+          updateDevopsProgressMetrics();
+          showToast("✓ Step 8 Task Verified: Pipeline triggered!");
+        }
+      } else if (lower.startsWith('curl') && lower.includes('health')) {
+        outLine.className = 'term-boot-line text-green font-mono';
+        outLine.textContent = 'HTTP/1.1 200 OK\nContent-Type: application/json\n\n{"status":"healthy","uptime":"14h 22m","version":"2.4.0"}';
+      } else if (lower === 'clear') {
+        devopsTerminalViewport.innerHTML = '<div class="term-boot-line text-muted">Screen cleared. Type DevOps commands below:</div>';
+        devopsTerminalCliInput.value = '';
+        return;
+      } else if (lower === 'help') {
+        outLine.textContent = 'Available commands: git status, npm test, pipeline trigger, curl -I localhost:8080/health, clear, help';
+      } else {
+        outLine.className = 'term-boot-line text-red';
+        outLine.textContent = `bash: ${rawCmd.split(' ')[0]}: command not found. Try 'help'.`;
+      }
+
+      if (outLine.textContent) {
+        devopsTerminalViewport.appendChild(outLine);
+      }
+
+      devopsTerminalCliInput.value = '';
+      devopsTerminalViewport.scrollTop = devopsTerminalViewport.scrollHeight;
+    }
+
+    if (devopsBtnCliSubmit) {
+      devopsBtnCliSubmit.addEventListener('click', executeDevopsWorkspaceCommand);
+    }
+
+    if (devopsTerminalCliInput) {
+      devopsTerminalCliInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') executeDevopsWorkspaceCommand();
+      });
+    }
+
+    if (devopsLessonThemeToggle) {
+      devopsLessonThemeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('light-mode');
+        showToast("Theme switched");
+      });
+    }
+
+    // Initial render
+    renderDevopsLesson(1);
+  }
+
 });
+
+
+
 
