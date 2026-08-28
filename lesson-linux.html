@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>01 - Introduction to Linux — Shaikh Sir</title>
+  <meta name="description"
+    content="Learn Linux fundamentals with interactive theory, AI voice narration, and hands-on cloud terminal labs.">
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    rel="stylesheet">
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+
+<body class="lesson-page-body">
+
+  <!-- Main 3-Column Interactive Lesson Workspace -->
+  <div class="lesson-workspace-container">
+
+    <!-- =========================================================================
+         1. LEFT SIDEBAR: TRACK RECORD & LESSON TIMELINE
+         ========================================================================= -->
+    <aside class="lesson-sidebar">
+      
+      <!-- Top Topic Breadcrumb Header -->
+      <div class="sidebar-top-header">
+        <a href="skill-linux.html" class="btn-sidebar-back font-mono" title="Back to Linux Topics">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <div class="topic-tag-badge font-mono">
+          <span class="esc-tag">esc</span>
+          <span class="bash-tag">bash</span>
+          <span class="topic-header-title">01 - Introduction t...</span>
+        </div>
+      </div>
+
+      <!-- Radial Progress Circle -->
+      <div class="sidebar-progress-section">
+        <div class="progress-radial-wrapper">
+          <svg class="progress-radial-svg" viewBox="0 0 100 100">
+            <circle class="progress-radial-bg" cx="50" cy="50" r="42" />
+            <circle class="progress-radial-bar" id="lesson-progress-arc" cx="50" cy="50" r="42" stroke-dasharray="264" stroke-dashoffset="235" />
+          </svg>
+          <div class="progress-percentage-label font-mono" id="lesson-progress-percent">11%</div>
+        </div>
+
+        <!-- 3 Track Record Stat Counters -->
+        <div class="track-record-grid font-mono">
+          <div class="track-stat-box" id="stat-box-done">
+            <span class="stat-num" id="stat-done-count">1</span>
+            <span class="stat-label">DONE</span>
+          </div>
+          <div class="track-stat-box" id="stat-box-quizzes">
+            <span class="stat-num" id="stat-quizzes-count">0/2</span>
+            <span class="stat-label">QUIZZES</span>
+          </div>
+          <div class="track-stat-box" id="stat-box-tasks">
+            <span class="stat-num" id="stat-tasks-count">0/2</span>
+            <span class="stat-label">TASKS</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vertical Lesson Stepper Navigation -->
+      <div class="sidebar-stepper-list" id="sidebar-stepper-list">
+        
+        <!-- Step 1 (Active) -->
+        <div class="stepper-item active done" data-step="1" data-type="lesson">
+          <div class="stepper-node">
+            <i class="fa-solid fa-check node-icon-check"></i>
+            <span class="node-dot"></span>
+          </div>
+          <div class="stepper-content">
+            <span class="stepper-badge font-mono">LESSON</span>
+            <span class="stepper-title">What is Linux</span>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="stepper-item" data-step="2" data-type="lesson">
+          <div class="stepper-node">
+            <i class="fa-solid fa-check node-icon-check"></i>
+            <span class="node-dot"></span>
+          </div>
+          <div class="stepper-content">
+            <span class="stepper-badge font-mono">LESSON</span>
+            <span class="stepper-title">Your first commands</span>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="stepper-item" data-step="3" data-type="lesson">
+          <div class="stepper-node">
+            <i class="fa-solid fa-check node-icon-check"></i>
+            <span class="node-dot"></span>
+          </div>
+          <div class="stepper-content">
+            <span class="stepper-badge font-mono">LESSON</span>
+            <span class="stepper-title">pwd, ls, and cat</span>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="stepper-item" data-step="4" data-type="lesson">
+          <div class="stepper-node">
+            <i class="fa-solid fa-check node-icon-check"></i>
+            <span class="node-dot"></span>
+          </div>
+          <div class="stepper-content">
+            <span class="stepper-badge font-mono">LESSON</span>
+            <span class="stepper-title">mkdir and cd</span>
+          </div>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="stepper-item" data-step="5" data-type="lesson">
+          <div class="stepper-node">
+            <i class="fa-solid fa-check node-icon-check"></i>
+            <span class="node-dot"></span>
+          </div>
+          <div class="stepper-content">
+            <span class="stepper-badge font-mono">LESSON</span>
+            <span class="stepper-title">Redirecting output with &gt;</span>
+          </div>
+        </div>
+
+        <!-- Step 6 (Task) -->
+        <div class="stepper-item" data-step="6" data-type="task">
+          <div class="stepper-node">
+            <i class="fa-solid fa-check node-icon-check"></i>
+            <span class="node-dot"></span>
+          </div>
+          <div class="stepper-content">
+            <span class="stepper-badge font-mono task-badge">TASK</span>
+            <span class="stepper-title">Build your first Linux directory</span>
+          </div>
+        </div>
+
+        <!-- Step 7 (Quiz) -->
+        <div class="stepper-item" data-step="7" data-type="quiz">
+          <div class="stepper-node">
+            <i class="fa-solid fa-check node-icon-check"></i>
+            <span class="node-dot"></span>
+          </div>
+          <div class="stepper-content">
+            <span class="stepper-badge font-mono quiz-badge">QUIZ</span>
+            <span class="stepper-title">Linux fundamentals quiz</span>
+          </div>
+        </div>
+
+        <!-- Step 8 (Task) -->
+        <div class="stepper-item" data-step="8" data-type="task">
+          <div class="stepper-node">
+            <i class="fa-solid fa-check node-icon-check"></i>
+            <span class="node-dot"></span>
+          </div>
+          <div class="stepper-content">
+            <span class="stepper-badge font-mono task-badge">TASK</span>
+            <span class="stepper-title">File permissions & inspection</span>
+          </div>
+        </div>
+
+        <!-- Step 9 (Quiz) -->
+        <div class="stepper-item" data-step="9" data-type="quiz">
+          <div class="stepper-node">
+            <i class="fa-solid fa-check node-icon-check"></i>
+            <span class="node-dot"></span>
+          </div>
+          <div class="stepper-content">
+            <span class="stepper-badge font-mono quiz-badge">QUIZ</span>
+            <span class="stepper-title">Module 1 Knowledge Check</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Sidebar Utility Controls -->
+      <div class="sidebar-bottom-controls">
+        <button class="btn-util-icon" id="theme-toggle-workspace" title="Toggle Theme">
+          <i class="fa-regular fa-sun"></i>
+        </button>
+        <div class="layout-toggle-group">
+          <button class="btn-util-icon active" title="3-Panel Layout"><i class="fa-solid fa-table-columns"></i></button>
+          <button class="btn-util-icon" title="Focus Theory"><i class="fa-solid fa-book-open"></i></button>
+          <button class="btn-util-icon" title="Full Terminal"><i class="fa-solid fa-terminal"></i></button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- =========================================================================
+         2. CENTER PANEL: LESSON THEORY, AUDIO VOICE PLAY, & PAGINATION
+         ========================================================================= -->
+    <main class="lesson-main-content">
+      
+      <!-- Top Voice Play & Counter Header -->
+      <div class="lesson-top-bar">
+        <div class="lesson-counter font-mono" id="lesson-step-counter">LESSON &middot; 1 OF 9</div>
+        
+        <!-- Voice Play / Audio Explainer Button -->
+        <div class="voice-player-container">
+          <button class="btn-voice-explain font-mono" id="btn-voice-play" aria-label="Play audio explanation">
+            <i class="fa-solid fa-play voice-play-icon" id="voice-icon"></i>
+            <span class="voice-btn-text" id="voice-status-text">Explain this lesson</span>
+            <span class="voice-timer font-mono" id="voice-timer">1:25</span>
+          </button>
+
+          <!-- Voice visualizer animation bars -->
+          <div class="voice-soundwaves" id="voice-soundwaves">
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scrollable Theory Body Content -->
+      <div class="lesson-scrollable-body" id="lesson-theory-container">
+
+        <!-- Dynamic Lesson Header -->
+        <h1 class="lesson-primary-heading" id="lesson-heading">What is Linux</h1>
+        <div class="lesson-type-pill font-mono" id="lesson-type-pill">Lesson</div>
+
+        <!-- Dynamic Lesson Paragraphs & Content Sections -->
+        <div class="lesson-text-flow" id="lesson-body-content">
+          <p>
+            Linux is an operating system, same category as Windows and macOS but built with a different philosophy.
+            It's free, open source, and designed for servers first. Launch a VM on AWS, Azure, or Google Cloud and
+            Linux is the default. Docker, Kubernetes, most CI runners, most production databases, all Linux.
+          </p>
+
+          <p>
+            That's why every DevOps job description says <strong>"comfortable in Linux."</strong> You don't need to be a kernel
+            developer. You need to sit at a Linux machine, look around, read a config, restart a service, and get out.
+            That's the skill.
+          </p>
+
+          <p>
+            The good news: the commands you'll use day to day number in the dozens, not thousands. You'll meet
+            most of them in this skill, one at a time.
+          </p>
+
+          <h3 class="lesson-subheading text-green">Distributions</h3>
+
+          <p>
+            Linux isn't one thing, it's a family. Ubuntu, Debian, CentOS, Red Hat, Amazon Linux, Alpine, all called
+            <strong>distributions</strong>. They mostly behave the same. This course uses Ubuntu, which is what most cloud VMs
+            default to.
+          </p>
+        </div>
+
+        <!-- Interactive Quiz Container (Displayed for Quiz Steps) -->
+        <div class="lesson-quiz-container" id="lesson-quiz-container" style="display: none;">
+          <div class="quiz-question-box">
+            <span class="quiz-q-num font-mono text-accent">QUESTION 1 OF 2</span>
+            <h3 class="quiz-q-text" id="quiz-question-text">Which command is used to display the current working directory in Linux?</h3>
+            <div class="quiz-options-list" id="quiz-options-list">
+              <!-- Options populated dynamically by JS -->
+            </div>
+            <div class="quiz-feedback-box font-mono" id="quiz-feedback-box"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Navigation Bar -->
+      <footer class="lesson-bottom-nav">
+        <button class="btn-nav-prev font-mono" id="btn-lesson-prev" disabled>
+          &larr; Previous
+        </button>
+        <button class="btn-nav-next font-mono btn-primary" id="btn-lesson-next">
+          Next &rarr;
+        </button>
+      </footer>
+    </main>
+
+    <!-- =========================================================================
+         3. RIGHT PANEL: INTERACTIVE TERMINAL & LIVE EDITOR
+         ========================================================================= -->
+    <section class="lesson-terminal-workspace">
+      
+      <!-- Workspace Tabs Header -->
+      <div class="terminal-workspace-tabs font-mono">
+        <button class="tab-btn active" id="tab-terminal-btn" data-target="terminal">
+          <i class="fa-solid fa-terminal tab-icon"></i> Terminal 1
+        </button>
+        <button class="tab-btn" id="tab-editor-btn" data-target="editor">
+          <i class="fa-solid fa-code tab-icon"></i> Editor
+        </button>
+        <div class="tab-spacer"></div>
+        <span class="env-status-badge font-mono" id="env-status-badge"><span class="badge-status-dot"></span> Ready</span>
+      </div>
+
+      <!-- Workspace Body: Initial Standby vs Active Terminal -->
+      <div class="terminal-workspace-body">
+        
+        <!-- Standby Placeholder (Spin up environment) -->
+        <div class="terminal-standby-view" id="terminal-standby-view">
+          <div class="terminal-standby-content">
+            <div class="standby-icon font-mono">&gt;_</div>
+            <h3 class="standby-title">Spin up a fresh environment and practice live.</h3>
+            <p class="standby-desc font-mono text-secondary">
+              linux-devops-basic &middot; fresh machine &middot; ready in under a minute
+            </p>
+            <button class="btn-start-terminal font-mono" id="btn-start-live-lab">
+              <span class="btn-prompt-char">&gt;_</span> Start Lab
+            </button>
+          </div>
+        </div>
+
+        <!-- Live Running Interactive Terminal Shell -->
+        <div class="terminal-active-view" id="terminal-active-view" style="display: none;">
+          <div class="terminal-output-viewport font-mono" id="terminal-viewport">
+            <div class="term-boot-line text-green">Ubuntu 24.04 LTS (GNU/Linux 6.8.0-generic x86_64)</div>
+            <div class="term-boot-line"> * Documentation:  https://help.ubuntu.com</div>
+            <div class="term-boot-line"> * Management:     https://landscape.canonical.com</div>
+            <div class="term-boot-line text-green-glow">System initialization complete. Cloud sandbox mounted at /home/student</div>
+            <div class="term-boot-line text-muted">Type 'help' to view available practice utilities.</div>
+          </div>
+          
+          <!-- Terminal Command Input Bar -->
+          <div class="terminal-input-bar font-mono">
+            <span class="prompt-user font-bold text-accent">student@shaikhsir:~$</span>
+            <input type="text" class="terminal-cli-input" id="terminal-cli-input" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="type a command (e.g. uname, whoami, ls, pwd)...">
+            <button class="btn-cli-submit" id="btn-cli-submit"><i class="fa-solid fa-arrow-turn-down"></i></button>
+          </div>
+        </div>
+
+        <!-- Live Editor View (Tab 2) -->
+        <div class="editor-active-view" id="editor-active-view" style="display: none;">
+          <div class="editor-file-bar font-mono">
+            <span class="file-name"><i class="fa-regular fa-file-code"></i> setup.sh</span>
+            <span class="file-status">Saved</span>
+          </div>
+          <div class="editor-content-area font-mono">
+            <div class="editor-line-numbers">1<br>2<br>3<br>4<br>5<br>6<br>7</div>
+            <textarea class="editor-textarea font-mono" id="editor-textarea" spellcheck="false">#!/bin/bash
+# Welcome to Shaikh Sir Linux Workspace
+echo "Initializing DevOps student profile..."
+export DEVOPS_ENV="production"
+export APP_PORT=8080
+
+echo "Environment ready for Linux mastery!"</textarea>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+  </div>
+
+  <div id="toast-container" class="toast-container"></div>
+
+</body>
+
+</html>

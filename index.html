@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shaikh Sir — Hands-On Tech Learning Platform</title>
+  <meta name="description"
+    content="Learn by building. Master DevOps, Coding, AI, and Cloud skills in a live, zero-setup browser terminal coding environment.">
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    rel="stylesheet">
+
+  <!-- FontAwesome Icons for modern aesthetic -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+
+  <!-- Sticky Navigation Bar -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#" class="nav-logo">
+        <div class="logo-icon">&gt;_</div>
+        <span class="logo-text">Shaikh Sir</span>
+      </a>
+
+      <!-- Nav links -->
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#skills" class="nav-link">Skills</a></li>
+        <li><a href="#paths" class="nav-link">Roadmaps</a></li>
+        <li><a href="#" class="nav-link">Certifications</a></li>
+        <li>
+          <a href="#" class="nav-link leaderboard-link">
+            Leaderboard <span class="badge-dot"></span>
+          </a>
+        </li>
+        <li><a href="#" class="nav-link">My Sessions</a></li>
+      </ul>
+
+      <!-- Navbar Actions (Search, Theme, CTAs) -->
+      <div class="nav-actions">
+        <div class="search-container">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input type="text" class="search-input" placeholder="Search labs, topics...">
+        </div>
+
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle visual theme">
+          <i class="fa-solid fa-moon theme-icon-dark"></i>
+          <i class="fa-solid fa-sun theme-icon-light" style="display: none;"></i>
+        </button>
+
+        <a href="#" class="btn-signin">Sign in</a>
+
+        <button class="hamburger-menu" id="hamburger-menu" aria-label="Toggle menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Dropdown Menu -->
+  <div class="mobile-menu" id="mobile-menu">
+    <div class="mobile-search">
+      <i class="fa-solid fa-magnifying-glass search-icon"></i>
+      <input type="text" class="search-input" placeholder="Search labs, topics...">
+    </div>
+    <ul class="mobile-links">
+      <li><a href="#skills" class="mobile-link">Skills</a></li>
+      <li><a href="#paths" class="mobile-link">Roadmaps</a></li>
+      <li><a href="#" class="mobile-link">Certifications</a></li>
+      <li><a href="#" class="mobile-link">Leaderboard <span class="badge-dot"></span></a></li>
+      <li><a href="#" class="mobile-link">My Sessions</a></li>
+    </ul>
+    <div class="mobile-actions">
+      <a href="#" class="btn-signin-mobile">Sign in</a>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <header class="hero-section">
+    <div class="starfield" id="starfield"></div>
+    <div class="hero-content container reveal-element">
+      <div class="hero-badge">
+        <div class="badge-icon">&gt;_</div>
+        <span class="badge-text font-mono">HANDS-ON LABS, REAL PROJECTS, REAL RESULTS</span>
+      </div>
+
+      <h1 class="hero-headline">
+        The best platform to learn<br>
+        and master <span class="gradient-text text-typed" id="typed-text">Coding</span><span
+          class="typed-cursor">|</span>
+      </h1>
+
+      <p class="hero-subheading text-secondary">
+        Shaikh Sir gives you a live coding environment in seconds. Learn by building real projects, solving real
+        problems, and getting instant feedback.
+      </p>
+
+      <div class="hero-ctas">
+        <a href="#paths" class="btn btn-primary">Start Learning Free</a>
+        <a href="#zero-setup" class="btn btn-secondary">Watch a Demo</a>
+      </div>
+
+      <div class="action-label font-mono">SEE IT IN ACTION</div>
+
+      <!-- Interactive IDE Mockup -->
+      <div class="ide-mockup-wrapper">
+        <div class="ide-mockup">
+          <div class="ide-header">
+            <div class="window-controls">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+            </div>
+            <div class="ide-title font-mono" id="ide-title-bar">Shaikh Sir — Live Lesson</div>
+            <div class="window-actions">
+              <i class="fa-solid fa-arrows-alt"></i>
+            </div>
+          </div>
+
+          <div class="ide-body">
+            <!-- Left Sidebar -->
+            <div class="ide-sidebar">
+              <div class="progress-box">
+                <div class="progress-ring-wrapper">
+                  <div class="progress-ring-circle" id="progress-circle">
+                    <span class="progress-text font-mono">8%</span>
+                  </div>
+                </div>
+                <div class="progress-info">
+                  <span class="prog-title">Module Progress</span>
+                  <span class="prog-subtitle">Python Basics</span>
+                </div>
+              </div>
+              <ul class="lesson-list" id="lesson-list">
+                <li class="lesson-item active" data-slide="0">
+                  <i class="fa-solid fa-play lesson-icon"></i>
+                  <span>1. Introduction to Variables</span>
+                </li>
+                <li class="lesson-item" data-slide="1">
+                  <i class="fa-solid fa-lock lesson-icon"></i>
+                  <span>2. Dynamic Typing in Python</span>
+                </li>
+                <li class="lesson-item" data-slide="2">
+                  <i class="fa-solid fa-lock lesson-icon"></i>
+                  <span>3. Writing Your First Function</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Middle Code/Instruction Panel -->
+            <div class="ide-content-panel" id="ide-content-panel">
+              <!-- Slide 0 Content (Python Basics) -->
+              <div class="lesson-slide active" id="slide-0">
+                <h3 class="lesson-header-title">1. Introduction to Variables</h3>
+                <p class="lesson-desc">
+                  In Python, variables are created when you assign a value to them. Let's practice creating a string
+                  variable and printing it.
+                </p>
+                <div class="code-block-wrapper">
+                  <div class="code-lang-label font-mono">PYTHON</div>
+                  <button class="btn-copy" aria-label="Copy code block">
+                    <i class="fa-regular fa-copy"></i>
+                  </button>
+                  <pre><code># Create a variable named 'course'
+course = "Shaikh Sir"
+print("Welcome to " + course)</code></pre>
+                </div>
+
+                <div class="code-block-wrapper">
+                  <div class="code-lang-label font-mono font-bold">TASK</div>
+                  <p class="task-desc">
+                    Declare a variable named <code>name</code> and set it to <code>"Learner"</code>, then print it out.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Slide 1 Content (Dynamic Typing) -->
+              <div class="lesson-slide" id="slide-1">
+                <h3 class="lesson-header-title">2. Dynamic Typing in Python</h3>
+                <p class="lesson-desc">
+                  Python is dynamically typed, meaning you don't need to declare a variable's type when you create it.
+                  Types are determined at runtime.
+                </p>
+                <div class="code-block-wrapper">
+                  <div class="code-lang-label font-mono">PYTHON</div>
+                  <button class="btn-copy" aria-label="Copy code block">
+                    <i class="fa-regular fa-copy"></i>
+                  </button>
+                  <pre><code>x = 42      # x is an integer
+x = "DevOps" # x is now a string
+print(x)</code></pre>
+                </div>
+              </div>
+
+              <!-- Slide 2 Content (First Function) -->
+              <div class="lesson-slide" id="slide-2">
+                <h3 class="lesson-header-title">3. Writing Your First Function</h3>
+                <p class="lesson-desc">
+                  Define reusable code block with <code>def</code>. Let's make a greeting utility.
+                </p>
+                <div class="code-block-wrapper">
+                  <div class="code-lang-label font-mono">PYTHON</div>
+                  <button class="btn-copy" aria-label="Copy code block">
+                    <i class="fa-regular fa-copy"></i>
+                  </button>
+                  <pre><code>def greet(name):
+    return f"Hello, {name}! Ready to code?"
+
+print(greet("Developer"))</code></pre>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Terminal Panel -->
+            <div class="ide-terminal-panel">
+              <div class="terminal-tabs">
+                <div class="terminal-tab active"><i class="fa-solid fa-terminal tab-icon"></i> terminal</div>
+                <div class="terminal-tab"><i class="fa-solid fa-code tab-icon"></i> editor.py</div>
+              </div>
+              <div class="terminal-viewport" id="ide-terminal">
+                <div class="terminal-placeholder">
+                  <i class="fa-solid fa-circle-play terminal-start-icon"></i>
+                  <p>Start your interactive sandboxed terminal to begin this lesson.</p>
+                  <button class="btn-start-lab" id="btn-start-ide-lab">
+                    <i class="fa-solid fa-play"></i> Start Lab
+                  </button>
+                </div>
+                <div class="terminal-active-content" id="ide-terminal-output" style="display: none;">
+                  <div class="terminal-line font-mono text-green">System boot sequence: initialized...</div>
+                  <div class="terminal-line font-mono">Loading dynamic sandbox environment... OK</div>
+                  <div class="terminal-line font-mono">Connecting to Python interpreter v3.10.4...</div>
+                  <div class="terminal-line font-mono font-bold text-accent">sandbox@shaikhsir:~$ <span
+                      class="terminal-user-input">python editor.py</span></div>
+                  <div class="terminal-line font-mono text-green-glow">Welcome to Shaikh Sir</div>
+                  <div class="terminal-line font-mono">sandbox@shaikhsir:~$ <span class="ide-cursor">_</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pagination controls -->
+        <div class="mockup-pagination" id="mockup-pagination">
+          <span class="pag-dot active" data-slide="0"></span>
+          <span class="pag-dot" data-slide="1"></span>
+          <span class="pag-dot" data-slide="2"></span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Scrolling Marquee / Ticker Strip -->
+  <div class="marquee-strip">
+    <div class="marquee-container">
+      <div class="marquee-content font-mono">
+        <span class="marquee-item"><span class="ticker-symbol">$</span> introduction to python</span>
+        <span class="marquee-item"><span class="ticker-symbol">$</span> linux administration</span>
+        <span class="marquee-item"><span class="ticker-symbol">$</span> docker containerization</span>
+        <span class="marquee-item"><span class="ticker-symbol">$</span> kubernetes clusters</span>
+        <span class="marquee-item"><span class="ticker-symbol">$</span> aws & azure cloud</span>
+        <span class="marquee-item"><span class="ticker-symbol">$</span> terraform iac</span>
+        <span class="marquee-item"><span class="ticker-symbol">$</span> claude code & llm apis</span>
+        <span class="marquee-item"><span class="ticker-symbol">$</span> rag vector pipelines</span>
+        <span class="marquee-item"><span class="ticker-symbol">$</span> ci/cd with jenkins</span>
+        <span class="marquee-item"><span class="ticker-symbol">$</span> git & github</span>
+      </div>
+      <!-- Duplicate content for seamless infinite scrolling -->
+      <div class="marquee-content font-mono" aria-hidden="true">
+        <span class="marquee-item"><span class="ticker-symbol">$</span> introduction to python</span>
+        <span class="marquee-item"><span class="ticker-symbol">$</span> linux administration</span>
+        <span class="marquee-item"><span class="ticker-symbol">$</span> docker containerization</span>
+        <span class="marquee-item"><span class="ticker-symbol">$</span> kubernetes clusters</span>
+        <span class="marquee-item"><span class="ticker-symbol">$</span> aws & azure cloud</span>
+        <span class="marquee-item"><span class="ticker-symbol">$</span> terraform iac</span>
+        <span class="marquee-item"><span class="ticker-symbol">$</span> claude code & llm apis</span>
+        <span class="marquee-item"><span class="ticker-symbol">$</span> rag vector pipelines</span>
+        <span class="marquee-item"><span class="ticker-symbol">$</span> ci/cd with jenkins</span>
+        <span class="marquee-item"><span class="ticker-symbol">$</span> git & github</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Guided Paths Section -->
+  <section class="paths-section container" id="paths">
+    <div class="section-header reveal-element">
+      <div class="section-title-wrapper">
+        <span class="eyebrow font-mono">GUIDED PATHS</span>
+        <h2 class="section-heading">Pick a path. Every step is hands-on.</h2>
+      </div>
+      <a href="#" class="all-roadmaps-link">all roadmaps <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+
+    <!-- 3 Large Feature Cards -->
+    <div class="paths-grid reveal-element">
+      <!-- DevOps -->
+      <a href="roadmap-devops.html" class="path-card">
+        <div class="card-glow"></div>
+        <div class="card-icon">♾️</div>
+        <h3 class="card-title">DevOps Engineer</h3>
+        <p class="card-desc text-secondary">
+          The fundamentals every DevOps engineer stands on — version control, containers, and scripting — done on real
+          machines, graded when you submit.
+        </p>
+        <div class="card-badges">
+          <span class="badge">Linux</span>
+          <span class="badge">Docker</span>
+          <span class="badge">Kubernetes</span>
+          <span class="badge">+12</span>
+        </div>
+        <div class="card-footer text-secondary font-mono">
+          <span class="text-accent font-bold">15</span> skills &middot; <span class="text-accent font-bold">263</span>
+          topics &middot; &approx;450 hours
+        </div>
+      </a>
+
+      <!-- Cloud & DevOps -->
+      <a href="roadmap-cloud.html" class="path-card">
+        <div class="card-glow"></div>
+        <div class="card-icon">☁️</div>
+        <h3 class="card-title">Cloud & DevOps Engineer</h3>
+        <p class="card-desc text-secondary">
+          Cloud skills practiced against a real, constrained cloud account — launch, inspect, and tear down actual
+          infrastructure, graded when you submit.
+        </p>
+        <div class="card-badges">
+          <span class="badge">AWS</span>
+          <span class="badge">Azure</span>
+          <span class="badge">GCP</span>
+          <span class="badge">+1</span>
+        </div>
+        <div class="card-footer text-secondary font-mono">
+          <span class="text-accent font-bold">4</span> skills &middot; <span class="text-accent font-bold">96</span>
+          topics &middot; &approx;180 hours
+        </div>
+      </a>
+
+      <!-- AI/ML Engineer -->
+      <a href="roadmap-ai.html" class="path-card">
+        <div class="card-glow"></div>
+        <div class="card-icon">🤖</div>
+        <h3 class="card-title">AI/ML Engineer</h3>
+        <p class="card-desc text-secondary">
+          Work with real LLM APIs from a live machine — raw HTTP, official SDKs, model comparison, and key hygiene,
+          graded when you submit.
+        </p>
+        <div class="card-badges">
+          <span class="badge">AI/ML</span>
+          <span class="badge">Claude Code</span>
+          <span class="badge">RAG</span>
+          <span class="badge">+2</span>
+        </div>
+        <div class="card-footer text-secondary font-mono">
+          <span class="text-accent font-bold">4</span> skills &middot; <span class="text-accent font-bold">73</span>
+          topics &middot; &approx;75 hours
+        </div>
+      </a>
+    </div>
+
+    <!-- Skill Grid Header -->
+    <div class="skill-grid-divider reveal-element">
+      <span class="divider-label font-mono">OR TAKE ONE SKILL AT A TIME</span>
+    </div>
+
+    <!-- Skill Category Filter Controls -->
+    <div class="skills-filter-row reveal-element">
+      <button class="skill-filter-btn active" data-filter="all">All Skills <span
+          class="skill-filter-count">29</span></button>
+      <button class="skill-filter-btn" data-filter="devops">DevOps <span class="skill-filter-count">15</span></button>
+      <button class="skill-filter-btn" data-filter="cloud">Cloud & Infra <span
+          class="skill-filter-count">6</span></button>
+      <button class="skill-filter-btn" data-filter="ai">AI / ML <span class="skill-filter-count">5</span></button>
+      <button class="skill-filter-btn" data-filter="core">Software Dev <span
+          class="skill-filter-count">7</span></button>
+    </div>
+
+    <!-- Complete Skills Grid (DevOps, Cloud, AI/ML & Core SWE) -->
+    <div class="skills-grid reveal-element" id="skills">
+      <!-- DevOps Roadmap Skills -->
+      <a href="roadmap-devops.html" class="skill-card" data-category="devops">
+        <span class="skill-name">DevOps Fundamentals</span>
+        <span class="skill-stats font-mono">12 topics &middot; &approx;9h</span>
+      </a>
+
+      <a href="skill-linux.html" class="skill-card" data-category="devops core">
+        <span class="skill-name">Linux</span>
+        <span class="skill-stats font-mono">22 topics &middot; &approx;15h</span>
+      </a>
+
+      <a href="roadmap-devops.html" class="skill-card" data-category="devops cloud">
+        <span class="skill-name">Networking</span>
+        <span class="skill-stats font-mono">15 topics &middot; &approx;10h</span>
+      </a>
+
+      <a href="roadmap-devops.html" class="skill-card" data-category="devops core">
+        <span class="skill-name">Git & GitHub</span>
+        <span class="skill-stats font-mono">18 topics &middot; &approx;10h</span>
+      </a>
+
+      <a href="roadmap-devops.html" class="skill-card" data-category="devops cloud">
+        <span class="skill-name">AWS</span>
+        <span class="skill-stats font-mono">25 topics &middot; &approx;18h</span>
+      </a>
+
+      <a href="roadmap-devops.html" class="skill-card" data-category="devops">
+        <span class="skill-name">Ansible</span>
+        <span class="skill-stats font-mono">20 topics &middot; &approx;14h</span>
+      </a>
+
+      <a href="roadmap-devops.html" class="skill-card" data-category="devops cloud">
+        <span class="skill-name">Terraform</span>
+        <span class="skill-stats font-mono">16 topics &middot; &approx;12h</span>
+      </a>
+
+      <a href="skill-docker.html" class="skill-card" data-category="devops">
+        <span class="skill-name">Docker</span>
+        <span class="skill-stats font-mono">21 topics &middot; &approx;14h</span>
+      </a>
+
+      <a href="roadmap-devops.html" class="skill-card" data-category="devops">
+        <span class="skill-name">Jenkins</span>
+        <span class="skill-stats font-mono">18 topics &middot; &approx;12h</span>
+      </a>
+
+      <a href="roadmap-devops.html" class="skill-card" data-category="devops cloud">
+        <span class="skill-name">Kubernetes</span>
+        <span class="skill-stats font-mono">30 topics &middot; &approx;22h</span>
+      </a>
+
+      <a href="roadmap-devops.html" class="skill-card" data-category="devops">
+        <span class="skill-name">Prometheus</span>
+        <span class="skill-stats font-mono">14 topics &middot; &approx;10h</span>
+      </a>
+
+      <a href="roadmap-devops.html" class="skill-card" data-category="devops">
+        <span class="skill-name">Grafana</span>
+        <span class="skill-stats font-mono">12 topics &middot; &approx;8h</span>
+      </a>
+
+      <a href="roadmap-devops.html" class="skill-card" data-category="devops core">
+        <span class="skill-name">Bash</span>
+        <span class="skill-stats font-mono">16 topics &middot; &approx;10h</span>
+      </a>
+
+      <a href="roadmap-devops.html" class="skill-card" data-category="devops ai core">
+        <span class="skill-name">Python</span>
+        <span class="skill-stats font-mono">24 topics &middot; &approx;16h</span>
+      </a>
+
+      <a href="roadmap-devops.html" class="skill-card" data-category="devops">
+        <span class="skill-name">DevOps Projects</span>
+        <span class="skill-stats font-mono">8 projects &middot; &approx;40h</span>
+      </a>
+
+      <!-- Cloud & DevOps Roadmap Skills -->
+      <a href="roadmap-cloud.html" class="skill-card" data-category="cloud devops">
+        <span class="skill-name">Azure</span>
+        <span class="skill-stats font-mono">20 topics &middot; &approx;14h</span>
+      </a>
+
+      <a href="roadmap-cloud.html" class="skill-card" data-category="cloud devops">
+        <span class="skill-name">GCP</span>
+        <span class="skill-stats font-mono">18 topics &middot; &approx;12h</span>
+      </a>
+
+      <a href="roadmap-cloud.html" class="skill-card" data-category="cloud devops">
+        <span class="skill-name">Terraform — AWS Automation</span>
+        <span class="skill-stats font-mono">33 topics &middot; &approx;25h</span>
+      </a>
+
+      <!-- AI/ML Roadmap Skills -->
+      <a href="roadmap-ai.html" class="skill-card" data-category="ai">
+        <span class="skill-name">AI Fundamentals</span>
+        <span class="skill-stats font-mono">29 topics &middot; &approx;20h</span>
+      </a>
+
+      <a href="roadmap-ai.html" class="skill-card" data-category="ai">
+        <span class="skill-name">Certification Exam Prep</span>
+        <span class="skill-stats font-mono">8 topics &middot; &approx;6h</span>
+      </a>
+
+      <a href="roadmap-ai.html" class="skill-card" data-category="ai">
+        <span class="skill-name">Claude Code Fundamentals</span>
+        <span class="skill-stats font-mono">20 topics &middot; &approx;15h</span>
+      </a>
+
+      <a href="roadmap-ai.html" class="skill-card" data-category="ai">
+        <span class="skill-name">RAG</span>
+        <span class="skill-stats font-mono">16 topics &middot; &approx;12h</span>
+      </a>
+
+      <a href="roadmap-ai.html" class="skill-card" data-category="ai">
+        <span class="skill-name">Machine Learning</span>
+        <span class="skill-stats font-mono">11 topics &middot; &approx;16h</span>
+      </a>
+
+      <!-- Core Software Development Skills -->
+      <a href="#zero-setup" class="skill-card" data-category="core">
+        <span class="skill-name">JavaScript</span>
+        <span class="skill-stats font-mono">12 topics &middot; &approx;15h</span>
+      </a>
+
+      <a href="#zero-setup" class="skill-card" data-category="core">
+        <span class="skill-name">React</span>
+        <span class="skill-stats font-mono">9 topics &middot; &approx;12h</span>
+      </a>
+
+      <a href="#zero-setup" class="skill-card" data-category="core">
+        <span class="skill-name">Node.js</span>
+        <span class="skill-stats font-mono">6 topics &middot; &approx;8h</span>
+      </a>
+
+      <a href="#zero-setup" class="skill-card" data-category="core cloud">
+        <span class="skill-name">SQL & Databases</span>
+        <span class="skill-stats font-mono">7 topics &middot; &approx;9h</span>
+      </a>
+
+      <a href="#zero-setup" class="skill-card" data-category="core">
+        <span class="skill-name">Data Structures</span>
+        <span class="skill-stats font-mono">14 topics &middot; &approx;18h</span>
+      </a>
+
+      <a href="#zero-setup" class="skill-card" data-category="core devops cloud">
+        <span class="skill-name">System Design</span>
+        <span class="skill-stats font-mono">5 topics &middot; &approx;8h</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- "Zero Setup" Feature Section -->
+  <section class="zero-setup-section" id="zero-setup">
+    <div class="container zero-setup-grid">
+      <!-- Left side info -->
+      <div class="zero-setup-info reveal-element">
+        <span class="eyebrow font-mono">ZERO SETUP &middot; RUNS IN YOUR BROWSER</span>
+        <h2 class="section-heading">Learn by doing, right in your browser.</h2>
+        <p class="text-secondary section-desc">
+          One click puts you in a live coding environment with guided, automatically checked tasks. No tedious
+          installations, no package conflicts, and absolutely no setup confusion.
+        </p>
+        <a href="#paths" class="btn btn-primary">Start Learning</a>
+      </div>
+
+      <!-- Right side terminal preview -->
+      <div class="zero-setup-terminal-wrapper reveal-element">
+        <div class="zero-setup-terminal">
+          <div class="terminal-bar">
+            <div class="window-controls">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+            </div>
+            <div class="terminal-title font-mono">sandbox@shaikhsir:~</div>
+          </div>
+          <div class="terminal-body font-mono" id="animated-terminal">
+            <div class="terminal-line anim-line" data-delay="300">$ shaikhsir start python-basics</div>
+            <div class="terminal-line anim-line" data-delay="1000">&rarr; booting environment... ok</div>
+            <div class="terminal-line anim-line" data-delay="1800">&rarr; loading tasks... 9 steps</div>
+            <div class="terminal-line anim-line" data-delay="2500">
+              <span>learner@lab-7x2c:~$ </span><span class="terminal-cursor font-bold">_</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <!-- Info Column -->
+      <div class="footer-info">
+        <a href="#" class="nav-logo footer-logo">
+          <div class="logo-icon">&gt;_</div>
+          <span class="logo-text">Shaikh Sir</span>
+        </a>
+        <p class="footer-tagline text-secondary">
+          Hands-on learning, real results. Code in live environments directly in your browser.
+        </p>
+      </div>
+
+      <!-- Product Links -->
+      <div class="footer-col">
+        <h4 class="footer-title font-mono">PRODUCT</h4>
+        <ul>
+          <li><a href="#skills">Catalog</a></li>
+          <li><a href="#paths">Roadmaps</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#">Docs</a></li>
+          <li><a href="#">Leaderboard</a></li>
+          <li><a href="#">Tutorials</a></li>
+          <li><a href="#">Pricing</a></li>
+        </ul>
+      </div>
+
+      <!-- Company Links -->
+      <div class="footer-col">
+        <h4 class="footer-title font-mono">COMPANY</h4>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Terms</a></li>
+          <li><a href="#">Privacy</a></li>
+        </ul>
+      </div>
+
+      <!-- Social Links -->
+      <div class="footer-col">
+        <h4 class="footer-title font-mono">SOCIAL</h4>
+        <ul>
+          <li><a href="https://github.com" target="_blank" rel="noopener"><i
+                class="fa-brands fa-github social-icon"></i> GitHub</a></li>
+          <li><a href="https://discord.com" target="_blank" rel="noopener"><i
+                class="fa-brands fa-discord social-icon"></i> Discord</a></li>
+          <li><a href="https://youtube.com" target="_blank" rel="noopener"><i
+                class="fa-brands fa-youtube social-icon"></i> YouTube</a></li>
+          <li><a href="https://linkedin.com" target="_blank" rel="noopener"><i
+                class="fa-brands fa-linkedin social-icon"></i> LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="footer-bottom container">
+      <div class="footer-copy font-mono">
+        &copy; 2026 Shaikh Sir
+      </div>
+      <div class="footer-credit font-mono">
+        Built for learners, by learners
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast/Tooltip notification containers -->
+  <div id="toast-container" class="toast-container"></div>
+
+</body>
+
+</html>

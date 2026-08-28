@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Docker Skill — Shaikh Sir</title>
+  <meta name="description"
+    content="Learn Docker from zero. Start by running your first container and build up to writing Dockerfiles, tagging and pushing images, wiring up multi-container apps with Compose, and debugging containers the way a DevOps engineer does every day.">
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    rel="stylesheet">
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+
+  <!-- Sticky Navigation Bar -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <div class="logo-icon">&gt;_</div>
+        <span class="logo-text">Shaikh Sir</span>
+      </a>
+
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html#skills" class="nav-link active">Skills</a></li>
+        <li><a href="index.html#paths" class="nav-link">Roadmaps</a></li>
+        <li><a href="#" class="nav-link">Certifications</a></li>
+        <li>
+          <a href="#" class="nav-link leaderboard-link">
+            Leaderboard <span class="badge-dot"></span>
+          </a>
+        </li>
+        <li><a href="#" class="nav-link">My Sessions</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <div class="search-container">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input type="text" class="search-input" placeholder="Search labs, topics...">
+        </div>
+
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle visual theme">
+          <i class="fa-solid fa-moon theme-icon-dark"></i>
+          <i class="fa-solid fa-sun theme-icon-light" style="display: none;"></i>
+        </button>
+
+        <a href="#" class="btn-signin">Sign in</a>
+
+        <button class="hamburger-menu" id="hamburger-menu" aria-label="Toggle menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Dropdown Menu -->
+  <div class="mobile-menu" id="mobile-menu">
+    <div class="mobile-search">
+      <i class="fa-solid fa-magnifying-glass search-icon"></i>
+      <input type="text" class="search-input" placeholder="Search labs, topics...">
+    </div>
+    <ul class="mobile-links">
+      <li><a href="index.html#skills" class="mobile-link">Skills</a></li>
+      <li><a href="index.html#paths" class="mobile-link">Roadmaps</a></li>
+      <li><a href="#" class="mobile-link">Certifications</a></li>
+      <li><a href="#" class="mobile-link">Leaderboard <span class="badge-dot"></span></a></li>
+      <li><a href="#" class="mobile-link">My Sessions</a></li>
+    </ul>
+    <div class="mobile-actions">
+      <a href="#" class="btn-signin-mobile">Sign in</a>
+    </div>
+  </div>
+
+  <!-- Skill Page Header Section -->
+  <div class="skill-page-header">
+    <div class="starfield" id="starfield"></div>
+    <div class="container relative z-10">
+      <!-- Breadcrumbs -->
+      <nav class="breadcrumb font-mono">
+        <a href="index.html#skills">Skills</a>
+        <i class="fa-solid fa-chevron-right separator"></i>
+        <span class="current">Docker</span>
+      </nav>
+
+      <!-- Skill Title & Description -->
+      <div class="skill-title-block">
+        <h1 class="skill-hero-title">🐳 Docker</h1>
+        <p class="skill-hero-description text-secondary">
+          Learn Docker from zero. Start by running your first container and build up to writing Dockerfiles, tagging and pushing images, wiring up multi-container apps with Compose, and debugging containers the way a DevOps engineer does every day.
+        </p>
+
+        <!-- Stats Pills -->
+        <div class="skill-header-pills font-mono">
+          <span class="skill-stat-pill"><i class="fa-solid fa-layer-group"></i> 21 topics</span>
+          <span class="skill-stat-pill"><i class="fa-solid fa-terminal"></i> 54 hands-on tasks</span>
+          <span class="skill-stat-pill"><i class="fa-solid fa-circle-question"></i> 19 quizzes</span>
+          <span class="skill-stat-pill"><i class="fa-regular fa-clock"></i> &approx;790 min</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Topics Area -->
+  <main class="skill-content-area">
+    <div class="container">
+
+      <!-- Progress & View Switcher Bar -->
+      <div class="topics-control-bar reveal-element">
+        <div class="progress-info font-mono">
+          <div class="mini-progress-ring">
+            <svg class="ring-svg" viewBox="0 0 36 36">
+              <path class="ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+              <path class="ring-stroke" id="docker-progress-ring" stroke-dasharray="4.76, 100"
+                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+            </svg>
+            <span class="ring-inner-dot"></span>
+          </div>
+          <span class="progress-text-label">
+            <strong class="text-accent" id="docker-topics-done-text">0/21</strong> topics done &middot; <span class="text-secondary" id="docker-steps-done-text">1 of 54 steps</span>
+          </span>
+        </div>
+
+        <div class="topic-view-switcher font-mono">
+          <button class="topic-view-btn active" id="view-toggle-list" data-view="list" title="List View"
+            aria-label="List View">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          <button class="topic-view-btn" id="view-toggle-grid" data-view="grid" title="Grid View"
+            aria-label="Grid View">
+            <i class="fa-solid fa-table-cells-large"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Topics Container (Supports List and Grid view toggles) -->
+      <div class="topics-wrapper topics-list-view reveal-element" id="topics-container">
+
+        <!-- STEP 1: Active / Free -->
+        <div class="topic-step-card active-step" data-topic-id="1" data-status="active"
+          onclick="location.href='lesson-docker.html'">
+          <div class="step-indicator-wrapper">
+            <span class="step-active-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 1</span>
+              <span class="badge-free">FREE</span>
+            </div>
+            <h3 class="step-title font-mono">🐳 01 - Introduction to Docker</h3>
+            <div class="step-meta-row font-mono text-secondary">
+              <span class="meta-item"><i class="fa-solid fa-play text-accent"></i> 4 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-folder"></i> 1 task</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 2 quizzes</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 25 min</span>
+            </div>
+          </div>
+          <div class="step-action">
+            <a href="lesson-docker.html" class="btn-step-action btn-continue-lab">Continue Lesson & Lab <i
+                class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <!-- STEP 2: Free -->
+        <div class="topic-step-card free-step" data-topic-id="2" data-status="free"
+          onclick="location.href='lesson-docker.html'">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 2</span>
+              <span class="badge-free">FREE</span>
+            </div>
+            <h3 class="step-title font-mono">🐳 02 - Running containers</h3>
+            <div class="step-meta-row font-mono text-secondary">
+              <span class="meta-item"><i class="fa-solid fa-play text-accent"></i> 4 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-folder"></i> 3 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 30 min</span>
+            </div>
+          </div>
+          <div class="step-action">
+            <a href="lesson-docker.html" class="btn-step-action">Start Lesson</a>
+          </div>
+        </div>
+
+        <!-- STEP 3: Free -->
+        <div class="topic-step-card free-step" data-topic-id="3" data-status="free"
+          onclick="location.href='lesson-docker.html'">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 3</span>
+              <span class="badge-free">FREE</span>
+            </div>
+            <h3 class="step-title font-mono">🐳 03 - Working with images</h3>
+            <div class="step-meta-row font-mono text-secondary">
+              <span class="meta-item"><i class="fa-solid fa-play text-accent"></i> 4 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-folder"></i> 3 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 30 min</span>
+            </div>
+          </div>
+          <div class="step-action">
+            <a href="lesson-docker.html" class="btn-step-action">Start Lesson</a>
+          </div>
+        </div>
+
+        <!-- STEP 4: Locked -->
+        <div class="topic-step-card locked-step" data-topic-id="4" data-status="locked"
+          onclick="openProModal('04 - Interacting with running containers')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 4</span>
+            </div>
+            <h3 class="step-title font-mono">🐳 04 - Interacting with running containers</h3>
+            <div class="step-meta-row font-mono text-secondary">
+              <span class="meta-item"><i class="fa-solid fa-play"></i> 4 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-folder"></i> 3 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 30 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 5: Locked -->
+        <div class="topic-step-card locked-step" data-topic-id="5" data-status="locked"
+          onclick="openProModal('05 - Container lifecycle')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 5</span>
+            </div>
+            <h3 class="step-title font-mono">🐳 05 - Container lifecycle</h3>
+            <div class="step-meta-row font-mono text-secondary">
+              <span class="meta-item"><i class="fa-solid fa-play"></i> 4 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-folder"></i> 4 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 30 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 6: Locked -->
+        <div class="topic-step-card locked-step" data-topic-id="6" data-status="locked"
+          onclick="openProModal('06 - Publishing ports')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 6</span>
+            </div>
+            <h3 class="step-title font-mono">🐳 06 - Publishing ports</h3>
+            <div class="step-meta-row font-mono text-secondary">
+              <span class="meta-item"><i class="fa-solid fa-play"></i> 3 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-folder"></i> 4 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 30 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 7: Locked -->
+        <div class="topic-step-card locked-step" data-topic-id="7" data-status="locked"
+          onclick="openProModal('07 - Configuring with environment variables')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 7</span>
+            </div>
+            <h3 class="step-title font-mono">🐳 07 - Configuring with environment variables</h3>
+            <div class="step-meta-row font-mono text-secondary">
+              <span class="meta-item"><i class="fa-solid fa-play"></i> 3 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-folder"></i> 3 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 30 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 8: Locked -->
+        <div class="topic-step-card locked-step" data-topic-id="8" data-status="locked"
+          onclick="openProModal('08 - Persisting data with volumes')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 8</span>
+            </div>
+            <h3 class="step-title font-mono">🐳 08 - Persisting data with volumes</h3>
+            <div class="step-meta-row font-mono text-secondary">
+              <span class="meta-item"><i class="fa-solid fa-play"></i> 4 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-folder"></i> 4 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 35 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 9: Locked -->
+        <div class="topic-step-card locked-step" data-topic-id="9" data-status="locked"
+          onclick="openProModal('09 - Container networking')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 9</span>
+            </div>
+            <h3 class="step-title font-mono">🐳 09 - Container networking</h3>
+            <div class="step-meta-row font-mono text-secondary">
+              <span class="meta-item"><i class="fa-solid fa-play"></i> 3 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-folder"></i> 3 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 35 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 10: Locked -->
+        <div class="topic-step-card locked-step" data-topic-id="10" data-status="locked"
+          onclick="openProModal('10 - Writing your first Dockerfile')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 10</span>
+            </div>
+            <h3 class="step-title font-mono">🐳 10 - Writing your first Dockerfile</h3>
+            <div class="step-meta-row font-mono text-secondary">
+              <span class="meta-item"><i class="fa-solid fa-play"></i> 5 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-folder"></i> 3 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 40 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 11: Locked -->
+        <div class="topic-step-card locked-step" data-topic-id="11" data-status="locked"
+          onclick="openProModal('11 - More Dockerfile instructions')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 11</span>
+            </div>
+            <h3 class="step-title font-mono">🐳 11 - More Dockerfile instructions</h3>
+            <div class="step-meta-row font-mono text-secondary">
+              <span class="meta-item"><i class="fa-solid fa-play"></i> 4 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-folder"></i> 4 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 40 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 12: Locked -->
+        <div class="topic-step-card locked-step" data-topic-id="12" data-status="locked"
+          onclick="openProModal('12 - Layers, cache, and .dockerignore')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 12</span>
+            </div>
+            <h3 class="step-title font-mono">🐳 12 - Layers, cache, and .dockerignore</h3>
+            <div class="step-meta-row font-mono text-secondary">
+              <span class="meta-item"><i class="fa-solid fa-play"></i> 4 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-folder"></i> 3 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 35 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 13: Locked -->
+        <div class="topic-step-card locked-step" data-topic-id="13" data-status="locked"
+          onclick="openProModal('13 - Multi-stage builds')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 13</span>
+            </div>
+            <h3 class="step-title font-mono">🐳 13 - Multi-stage builds</h3>
+            <div class="step-meta-row font-mono text-secondary">
+              <span class="meta-item"><i class="fa-solid fa-play"></i> 3 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-folder"></i> 3 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 35 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 14: Locked -->
+        <div class="topic-step-card locked-step" data-topic-id="14" data-status="locked"
+          onclick="openProModal('14 - Tagging and sharing images')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 14</span>
+            </div>
+            <h3 class="step-title font-mono">🐳 14 - Tagging and sharing images</h3>
+            <div class="step-meta-row font-mono text-secondary">
+              <span class="meta-item"><i class="fa-solid fa-play"></i> 4 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-folder"></i> 3 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 40 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 15: Locked -->
+        <div class="topic-step-card locked-step" data-topic-id="15" data-status="locked"
+          onclick="openProModal('15 - Docker Compose basics')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 15</span>
+            </div>
+            <h3 class="step-title font-mono">🐳 15 - Docker Compose basics</h3>
+            <div class="step-meta-row font-mono text-secondary">
+              <span class="meta-item"><i class="fa-solid fa-play"></i> 4 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-folder"></i> 3 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 40 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 16: Locked -->
+        <div class="topic-step-card locked-step" data-topic-id="16" data-status="locked"
+          onclick="openProModal('16 - Multi-service apps with Compose')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 16</span>
+            </div>
+            <h3 class="step-title font-mono">🐳 16 - Multi-service apps with Compose</h3>
+            <div class="step-meta-row font-mono text-secondary">
+              <span class="meta-item"><i class="fa-solid fa-play"></i> 3 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-folder"></i> 3 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 45 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 17: Locked -->
+        <div class="topic-step-card locked-step" data-topic-id="17" data-status="locked"
+          onclick="openProModal('17 - Debugging containers')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 17</span>
+            </div>
+            <h3 class="step-title font-mono">🐳 17 - Debugging containers</h3>
+            <div class="step-meta-row font-mono text-secondary">
+              <span class="meta-item"><i class="fa-solid fa-play"></i> 4 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-folder"></i> 3 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 45 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 18: Locked -->
+        <div class="topic-step-card locked-step" data-topic-id="18" data-status="locked"
+          onclick="openProModal('18 - Cleanup and resource limits')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 18</span>
+            </div>
+            <h3 class="step-title font-mono">🐳 18 - Cleanup and resource limits</h3>
+            <div class="step-meta-row font-mono text-secondary">
+              <span class="meta-item"><i class="fa-solid fa-play"></i> 3 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-folder"></i> 3 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 30 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 19: Docker Project #1 -->
+        <div class="topic-step-card locked-step project-step" data-topic-id="19" data-status="locked"
+          onclick="openProModal('Docker Project #1')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 19</span>
+              <span class="badge-project">PROJECT</span>
+            </div>
+            <h3 class="step-title font-mono">🐳 Docker Project #1</h3>
+            <div class="step-meta-row font-mono text-secondary">
+              <span class="meta-item"><i class="fa-solid fa-folder"></i> 1 task</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 45 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 20: Docker Project #2 -->
+        <div class="topic-step-card locked-step project-step" data-topic-id="20" data-status="locked"
+          onclick="openProModal('Docker Project #2')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 20</span>
+              <span class="badge-project">PROJECT</span>
+            </div>
+            <h3 class="step-title font-mono">🐳 Docker Project #2</h3>
+            <div class="step-meta-row font-mono text-secondary">
+              <span class="meta-item"><i class="fa-solid fa-folder"></i> 1 task</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 60 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 21: Docker Project #3 -->
+        <div class="topic-step-card locked-step project-step" data-topic-id="21" data-status="locked"
+          onclick="openProModal('Docker Project #3')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 21</span>
+              <span class="badge-project">PROJECT</span>
+            </div>
+            <h3 class="step-title font-mono">🐳 Docker Project #3</h3>
+            <div class="step-meta-row font-mono text-secondary">
+              <span class="meta-item"><i class="fa-solid fa-folder"></i> 1 task</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 60 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Pro / AI Banner (Matches Reference Image) -->
+      <div class="pro-upgrade-banner reveal-element">
+        <div class="pro-banner-left">
+          <div class="pro-banner-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+          <div class="pro-banner-content">
+            <h3 class="pro-banner-title font-bold">Pro or AI opens all 21 topics</h3>
+            <p class="pro-banner-desc text-secondary">Get unrestricted access to all 54 hands-on sandboxed labs, 19 quizzes, and 3 comprehensive Docker production projects.</p>
+          </div>
+        </div>
+        <div class="pro-banner-right">
+          <a href="javascript:void(0)" onclick="openProModal('Pro Membership')" class="btn btn-primary btn-pro-upgrade">See plans &rarr;</a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Interactive Lab Sandbox Modal (Zero Setup Docker Sandbox Simulation) -->
+  <div class="lab-modal-backdrop" id="lab-modal-backdrop" style="display: none;">
+    <div class="lab-modal-window">
+      <div class="lab-modal-header">
+        <div class="modal-header-left">
+          <div class="window-dot dot-red" id="btn-close-modal"></div>
+          <div class="window-dot dot-yellow"></div>
+          <div class="window-dot dot-green"></div>
+          <span class="modal-title font-mono" id="modal-lab-title">🐳 Docker Engine Sandbox Lab</span>
+        </div>
+        <button class="btn-modal-close" id="btn-modal-close-icon"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="lab-modal-body">
+        <div class="lab-instructions-panel">
+          <h4 class="font-mono text-accent" id="lab-task-title">Lab 01: Introduction to Docker</h4>
+          <p class="text-secondary" id="lab-task-desc">Welcome to your sandboxed Docker daemon environment. Practice executing container commands such as <code>docker run</code>, <code>docker ps</code>, and <code>docker images</code>.</p>
+          <div class="task-checklist font-mono">
+            <label class="check-item"><input type="checkbox" checked disabled> <span>Docker Daemon initialized</span></label>
+            <label class="check-item"><input type="checkbox" id="check-task-1"> <span>Run <code>docker --version</code></span></label>
+            <label class="check-item"><input type="checkbox" id="check-task-2"> <span>Start container with <code>docker run -d -p 80:80 nginx</code></span></label>
+            <label class="check-item"><input type="checkbox" id="check-task-3"> <span>Inspect running containers with <code>docker ps</code></span></label>
+          </div>
+        </div>
+        <div class="lab-terminal-panel">
+          <div class="lab-terminal-screen font-mono" id="lab-terminal-screen">
+            <div class="terminal-line text-green">Docker version 26.1.3, build b72afb3</div>
+            <div class="terminal-line"> * Docker daemon running on containerd runtime.</div>
+            <div class="terminal-line"> * Cloud VM initialized with 4 vCPUs, 8GB RAM, overlay2 storage driver.</div>
+            <div class="terminal-line text-accent font-bold">student@docker-sandbox:~$ <span class="term-cursor">_</span></div>
+          </div>
+          <div class="lab-input-row font-mono">
+            <span class="input-prompt text-accent">student@docker:~$</span>
+            <input type="text" class="lab-command-input" id="lab-command-input"
+              placeholder="Type Docker command (e.g. docker run -d -p 80:80 nginx, docker ps, docker images)...">
+            <button class="btn-run-cmd" id="btn-run-cmd"><i class="fa-solid fa-play"></i> Run</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pro Upgrade Modal -->
+  <div class="pro-modal-backdrop" id="pro-modal-backdrop" style="display: none;">
+    <div class="pro-modal-window">
+      <div class="pro-modal-header">
+        <div class="pro-badge-tag font-mono"><i class="fa-solid fa-crown"></i> PRO & AI TIER</div>
+        <button class="btn-modal-close" id="btn-close-pro-modal"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="pro-modal-body">
+        <h3 class="pro-modal-title" id="pro-modal-item-title">Unlock All 21 Docker Topics</h3>
+        <p class="pro-modal-desc text-secondary">
+          Step into professional cloud & DevOps engineering with unlimited cloud VM sandboxes, graded Dockerfile tasks, and multi-container Docker Compose projects.
+        </p>
+
+        <div class="pro-features-list font-mono">
+          <div class="pro-feature-item">
+            <i class="fa-solid fa-check text-accent"></i>
+            <span>All 21 Docker Curriculum Steps & Lessons</span>
+          </div>
+          <div class="pro-feature-item">
+            <i class="fa-solid fa-check text-accent"></i>
+            <span>54 Hands-On Sandboxed Labs with Real Auto-Grading</span>
+          </div>
+          <div class="pro-feature-item">
+            <i class="fa-solid fa-check text-accent"></i>
+            <span>3 End-to-End Production Multi-Service Projects</span>
+          </div>
+          <div class="pro-feature-item">
+            <i class="fa-solid fa-check text-accent"></i>
+            <span>AI Voice Tutor & Code Explainer Assistance</span>
+          </div>
+          <div class="pro-feature-item">
+            <i class="fa-solid fa-check text-accent"></i>
+            <span>Verified Course Completion Certificate</span>
+          </div>
+        </div>
+
+        <div class="pro-pricing-box">
+          <div class="pro-price font-mono">
+            <span class="currency">$</span><span class="amount">19</span><span class="period">/month</span>
+          </div>
+          <p class="pro-guarantee text-secondary font-mono">Cancel anytime &middot; 7-day money-back guarantee</p>
+        </div>
+
+        <div class="pro-modal-actions">
+          <button class="btn btn-primary btn-unlock-full" id="btn-unlock-pro-confirm">
+            <i class="fa-solid fa-bolt"></i> Upgrade to Pro Now
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Section (Matches Reference Image Branding) -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-info">
+        <a href="index.html" class="nav-logo footer-logo">
+          <div class="logo-icon">&gt;_</div>
+          <span class="logo-text">bash</span>
+        </a>
+        <p class="footer-tagline text-secondary">
+          Hands-on labs on real Linux machines.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-title font-mono">PRODUCT</h4>
+        <ul>
+          <li><a href="index.html#skills">Catalog</a></li>
+          <li><a href="index.html#paths">Roadmaps</a></li>
+          <li><a href="skill-docker.html">Skills</a></li>
+          <li><a href="#">Docs</a></li>
+          <li><a href="#">Leaderboard</a></li>
+          <li><a href="#">Tutorials</a></li>
+          <li><a href="#">Pricing</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-title font-mono">COMPANY</h4>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Terms</a></li>
+          <li><a href="#">Privacy</a></li>
+          <li><a href="#">Cancellation & Refunds</a></li>
+          <li><a href="#">Shipping Policy</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-title font-mono">SOCIAL</h4>
+        <ul>
+          <li><a href="https://github.com" target="_blank" rel="noopener"><i
+                class="fa-brands fa-github social-icon"></i> GitHub</a></li>
+          <li><a href="https://discord.com" target="_blank" rel="noopener"><i
+                class="fa-brands fa-discord social-icon"></i> Discord</a></li>
+          <li><a href="https://youtube.com" target="_blank" rel="noopener"><i
+                class="fa-brands fa-youtube social-icon"></i> YouTube</a></li>
+          <li><a href="https://udemy.com" target="_blank" rel="noopener"><i
+                class="fa-solid fa-graduation-cap social-icon"></i> Udemy</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom container">
+      <div class="footer-copy font-mono">
+        &copy; 2026 eacbash
+      </div>
+      <div class="footer-credit font-mono">
+        runs on real machines
+      </div>
+    </div>
+  </footer>
+
+  <div id="toast-container" class="toast-container"></div>
+
+</body>
+
+</html>

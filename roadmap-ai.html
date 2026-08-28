@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI/ML Roadmap — Shaikh Sir</title>
+  <meta name="description" content="Learn AI & ML hands-on. Follow our step-by-step visual path through AI fundamentals, LLM APIs, Claude Code, and RAG architectures.">
+  
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+
+  <!-- Sticky Navigation Bar -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <div class="logo-icon">&gt;_</div>
+        <span class="logo-text">Shaikh Sir</span>
+      </a>
+      
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html#skills" class="nav-link">Skills</a></li>
+        <li><a href="index.html#paths" class="nav-link">Roadmaps</a></li>
+        <li><a href="#" class="nav-link">Certifications</a></li>
+        <li>
+          <a href="#" class="nav-link leaderboard-link">
+            Leaderboard <span class="badge-dot"></span>
+          </a>
+        </li>
+        <li><a href="#" class="nav-link">My Sessions</a></li>
+      </ul>
+      
+      <div class="nav-actions">
+        <div class="search-container">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input type="text" class="search-input" placeholder="Search labs, topics...">
+        </div>
+        
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle visual theme">
+          <i class="fa-solid fa-moon theme-icon-dark"></i>
+          <i class="fa-solid fa-sun theme-icon-light" style="display: none;"></i>
+        </button>
+        
+        <a href="#" class="btn-signin">Sign in</a>
+        
+        <button class="hamburger-menu" id="hamburger-menu" aria-label="Toggle menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Dropdown Menu -->
+  <div class="mobile-menu" id="mobile-menu">
+    <div class="mobile-search">
+      <i class="fa-solid fa-magnifying-glass search-icon"></i>
+      <input type="text" class="search-input" placeholder="Search labs, topics...">
+    </div>
+    <ul class="mobile-links">
+      <li><a href="index.html#skills" class="mobile-link">Skills</a></li>
+      <li><a href="index.html#paths" class="mobile-link">Roadmaps</a></li>
+      <li><a href="#" class="mobile-link">Certifications</a></li>
+      <li><a href="#" class="mobile-link">Leaderboard <span class="badge-dot"></span></a></li>
+      <li><a href="#" class="mobile-link">My Sessions</a></li>
+    </ul>
+    <div class="mobile-actions">
+      <a href="#" class="btn-signin-mobile">Sign in</a>
+    </div>
+  </div>
+
+  <!-- Breadcrumbs & Header Section -->
+  <div class="roadmap-page-header">
+    <div class="starfield" id="starfield"></div>
+    <div class="container relative z-10">
+      <!-- Breadcrumb -->
+      <nav class="breadcrumb font-mono">
+        <a href="index.html">Roadmaps</a>
+        <i class="fa-solid fa-chevron-right separator"></i>
+        <span class="current">AI/ML Engineer</span>
+      </nav>
+      
+      <!-- Title & Toggle Row -->
+      <div class="roadmap-header-row">
+        <div class="header-left">
+          <h1 class="roadmap-title">🤖 AI/ML Engineer</h1>
+          <p class="roadmap-description text-secondary">
+            Work with real LLM APIs from a live machine — raw HTTP, official SDKs, model comparison, and key hygiene, graded when you submit.
+          </p>
+        </div>
+        <div class="header-right">
+          <div class="view-toggle-container font-mono">
+            <button class="toggle-btn active" id="toggle-track-view" data-view="track">
+              <i class="fa-solid fa-rocket"></i> Track
+            </button>
+            <button class="toggle-btn" id="toggle-steps-view" data-view="steps">
+              <i class="fa-solid fa-list-ol"></i> Steps
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Roadmap Content Area -->
+  <main class="roadmap-content-area">
+    <div class="container">
+      
+      <!-- 1. "TRACK" VIEW: Winding visual timeline -->
+      <div class="roadmap-view-container active" id="track-view-container">
+        <div class="roadmap-track-wrapper" style="height: 1100px;">
+          <!-- SVG Connecting Curve (Desktop Zigzag for 4 checkpoints) -->
+          <svg class="roadmap-svg-path" viewBox="0 0 1000 1100" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+            <path class="path-bg" d="M 500 50 C 500 135, 250 135, 250 220 C 250 330, 750 330, 750 440 C 750 550, 250 550, 250 660 C 250 770, 750 770, 750 880 C 750 950, 500 950, 500 1020" />
+            <path class="path-flow" d="M 500 50 C 500 135, 250 135, 250 220 C 250 330, 750 330, 750 440 C 750 550, 250 550, 250 660 C 250 770, 750 770, 750 880 C 750 950, 500 950, 500 1020" />
+          </svg>
+
+          <!-- START Badge -->
+          <div class="track-badge start-badge font-mono" style="left: 50%; top: 50px;">START</div>
+
+          <!-- Nodes: AI Checkpoints -->
+          <!-- CP 1: AI Fundamentals -->
+          <div class="checkpoint-node reveal-element" style="left: 25%; top: 220px;">
+            <div class="node-icon">🧠</div>
+            <div class="node-details">
+              <span class="node-subtitle font-mono">CHECKPOINT 1</span>
+              <h3 class="node-title">AI Fundamentals</h3>
+              <p class="node-stats font-mono text-secondary">29 topics &middot; Active Lab</p>
+            </div>
+          </div>
+
+          <!-- CP 2: Certification Exam Prep -->
+          <div class="checkpoint-node reveal-element" style="left: 75%; top: 440px;">
+            <div class="node-icon">📜</div>
+            <div class="node-details">
+              <span class="node-subtitle font-mono">CHECKPOINT 2</span>
+              <h3 class="node-title">Certification Exam Prep</h3>
+              <p class="node-stats font-mono text-secondary">8 topics &middot; Locked</p>
+            </div>
+          </div>
+
+          <!-- CP 3: Claude Code Fundamentals -->
+          <div class="checkpoint-node reveal-element" style="left: 25%; top: 660px;">
+            <div class="node-icon">🌐</div>
+            <div class="node-details">
+              <span class="node-subtitle font-mono">CHECKPOINT 3</span>
+              <h3 class="node-title">Claude Code Fundamentals</h3>
+              <p class="node-stats font-mono text-secondary">20 topics &middot; Locked</p>
+            </div>
+          </div>
+
+          <!-- CP 4: RAG -->
+          <div class="checkpoint-node reveal-element" style="left: 75%; top: 880px;">
+            <div class="node-icon">🔍</div>
+            <div class="node-details">
+              <span class="node-subtitle font-mono">CHECKPOINT 4</span>
+              <h3 class="node-title">RAG</h3>
+              <p class="node-stats font-mono text-secondary">16 topics &middot; Locked</p>
+            </div>
+          </div>
+
+          <!-- FINISH Badge -->
+          <div class="track-badge finish-badge font-mono" style="left: 50%; top: 1020px;">🚩 FINISH</div>
+        </div>
+      </div>
+
+      <!-- 2. "STEPS" VIEW: Clean list checklist -->
+      <div class="roadmap-view-container" id="steps-view-container">
+        <div class="steps-list-wrapper">
+          
+          <!-- Item 1 -->
+          <div class="steps-card">
+            <div class="steps-number font-mono">1</div>
+            <div class="steps-icon">🧠</div>
+            <div class="steps-content">
+              <h3 class="steps-title">AI Fundamentals</h3>
+              <p class="steps-desc text-secondary">Understand linear algebra basics, gradient descent routines, neural architectures, tokenizers, and embeddings representation mechanisms.</p>
+            </div>
+            <div class="steps-stats font-mono">29 topics</div>
+          </div>
+          
+          <!-- Item 2 -->
+          <div class="steps-card">
+            <div class="steps-number font-mono">2</div>
+            <div class="steps-icon">📜</div>
+            <div class="steps-content">
+              <h3 class="steps-title">Certification Exam Prep</h3>
+              <p class="steps-desc text-secondary">Practice exam question sets, review cloud-AI platform certifications limits, models cost metrics, and infrastructure constraints.</p>
+            </div>
+            <div class="steps-stats font-mono">8 topics</div>
+          </div>
+
+          <!-- Item 3 -->
+          <div class="steps-card">
+            <div class="steps-number font-mono">3</div>
+            <div class="steps-icon">🌐</div>
+            <div class="steps-content">
+              <h3 class="steps-title">Claude Code Fundamentals</h3>
+              <p class="steps-desc text-secondary">Master Claude Code agent interfaces, prompt contexts formatting rules, system constraints, token efficiency, and terminal integration setups.</p>
+            </div>
+            <div class="steps-stats font-mono">20 topics</div>
+          </div>
+
+          <!-- Item 4 -->
+          <div class="steps-card">
+            <div class="steps-number font-mono">4</div>
+            <div class="steps-icon">🔍</div>
+            <div class="steps-content">
+              <h3 class="steps-title">RAG</h3>
+              <p class="steps-desc text-secondary">Build Retrieval-Augmented Generation workflows. Configure vector index engines, code embeddings queries, metadata filters, and chat context retention pipelines.</p>
+            </div>
+            <div class="steps-stats font-mono">16 topics</div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer Section -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-info">
+        <a href="index.html" class="nav-logo footer-logo">
+          <div class="logo-icon">&gt;_</div>
+          <span class="logo-text">Shaikh Sir</span>
+        </a>
+        <p class="footer-tagline text-secondary">
+          Hands-on learning, real results. Code in live environments directly in your browser.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-title font-mono">PRODUCT</h4>
+        <ul>
+          <li><a href="index.html#skills">Catalog</a></li>
+          <li><a href="index.html#paths">Roadmaps</a></li>
+          <li><a href="index.html#skills">Skills</a></li>
+          <li><a href="#">Docs</a></li>
+          <li><a href="#">Leaderboard</a></li>
+          <li><a href="#">Tutorials</a></li>
+          <li><a href="#">Pricing</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-title font-mono">COMPANY</h4>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Terms</a></li>
+          <li><a href="#">Privacy</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-title font-mono">SOCIAL</h4>
+        <ul>
+          <li><a href="https://github.com" target="_blank" rel="noopener"><i class="fa-brands fa-github social-icon"></i> GitHub</a></li>
+          <li><a href="https://discord.com" target="_blank" rel="noopener"><i class="fa-brands fa-discord social-icon"></i> Discord</a></li>
+          <li><a href="https://youtube.com" target="_blank" rel="noopener"><i class="fa-brands fa-youtube social-icon"></i> YouTube</a></li>
+          <li><a href="https://linkedin.com" target="_blank" rel="noopener"><i class="fa-brands fa-linkedin social-icon"></i> LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom container">
+      <div class="footer-copy font-mono">
+        &copy; 2026 Shaikh Sir
+      </div>
+      <div class="footer-credit font-mono">
+        Built for learners, by learners
+      </div>
+    </div>
+  </footer>
+
+  <div id="toast-container" class="toast-container"></div>
+
+</body>
+</html>

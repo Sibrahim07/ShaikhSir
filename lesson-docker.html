@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>01 - Introduction to Docker — Shaikh Sir</title>
+  <meta name="description"
+    content="Learn Docker fundamentals with interactive theory, AI voice narration, and hands-on container terminal labs.">
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    rel="stylesheet">
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+
+<body class="lesson-page-body">
+
+  <!-- Main 3-Column Interactive Lesson Workspace -->
+  <div class="lesson-workspace-container">
+
+    <!-- =========================================================================
+         1. LEFT SIDEBAR: TRACK RECORD & LESSON TIMELINE
+         ========================================================================= -->
+    <aside class="lesson-sidebar">
+      
+      <!-- Top Topic Breadcrumb Header -->
+      <div class="sidebar-top-header">
+        <a href="skill-docker.html" class="btn-sidebar-back font-mono" title="Back to Docker Topics">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <div class="topic-tag-badge font-mono">
+          <span class="esc-tag">esc</span>
+          <span class="bash-tag">docker</span>
+          <span class="topic-header-title">01 - Introduction t...</span>
+        </div>
+      </div>
+
+      <!-- Radial Progress Circle -->
+      <div class="sidebar-progress-section">
+        <div class="progress-radial-wrapper">
+          <svg class="progress-radial-svg" viewBox="0 0 100 100">
+            <circle class="progress-radial-bg" cx="50" cy="50" r="42" />
+            <circle class="progress-radial-bar" id="docker-lesson-progress-arc" cx="50" cy="50" r="42" stroke-dasharray="264" stroke-dashoffset="235" />
+          </svg>
+          <div class="progress-percentage-label font-mono" id="docker-lesson-progress-percent">11%</div>
+        </div>
+
+        <!-- 3 Track Record Stat Counters -->
+        <div class="track-record-grid font-mono">
+          <div class="track-stat-box" id="stat-box-done">
+            <span class="stat-num" id="docker-stat-done-count">1</span>
+            <span class="stat-label">DONE</span>
+          </div>
+          <div class="track-stat-box" id="stat-box-quizzes">
+            <span class="stat-num" id="docker-stat-quizzes-count">0/2</span>
+            <span class="stat-label">QUIZZES</span>
+          </div>
+          <div class="track-stat-box" id="stat-box-tasks">
+            <span class="stat-num" id="docker-stat-tasks-count">0/2</span>
+            <span class="stat-label">TASKS</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vertical Lesson Stepper Navigation -->
+      <div class="sidebar-stepper-list" id="docker-sidebar-stepper-list">
+        
+        <!-- Step 1 (Active) -->
+        <div class="stepper-item active done" data-docker-step="1" data-type="lesson">
+          <div class="stepper-node">
+            <i class="fa-solid fa-check node-icon-check"></i>
+            <span class="node-dot"></span>
+          </div>
+          <div class="stepper-content">
+            <span class="stepper-badge font-mono">LESSON</span>
+            <span class="stepper-title">What is Docker</span>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="stepper-item" data-docker-step="2" data-type="lesson">
+          <div class="stepper-node">
+            <i class="fa-solid fa-check node-icon-check"></i>
+            <span class="node-dot"></span>
+          </div>
+          <div class="stepper-content">
+            <span class="stepper-badge font-mono">LESSON</span>
+            <span class="stepper-title">Containers vs Virtual Machines</span>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="stepper-item" data-docker-step="3" data-type="lesson">
+          <div class="stepper-node">
+            <i class="fa-solid fa-check node-icon-check"></i>
+            <span class="node-dot"></span>
+          </div>
+          <div class="stepper-content">
+            <span class="stepper-badge font-mono">LESSON</span>
+            <span class="stepper-title">The Docker Engine Architecture</span>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="stepper-item" data-docker-step="4" data-type="lesson">
+          <div class="stepper-node">
+            <i class="fa-solid fa-check node-icon-check"></i>
+            <span class="node-dot"></span>
+          </div>
+          <div class="stepper-content">
+            <span class="stepper-badge font-mono">LESSON</span>
+            <span class="stepper-title">Running hello-world & nginx</span>
+          </div>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="stepper-item" data-docker-step="5" data-type="lesson">
+          <div class="stepper-node">
+            <i class="fa-solid fa-check node-icon-check"></i>
+            <span class="node-dot"></span>
+          </div>
+          <div class="stepper-content">
+            <span class="stepper-badge font-mono">LESSON</span>
+            <span class="stepper-title">Listing & Inspecting Containers</span>
+          </div>
+        </div>
+
+        <!-- Step 6 (Task) -->
+        <div class="stepper-item" data-docker-step="6" data-type="task">
+          <div class="stepper-node">
+            <i class="fa-solid fa-check node-icon-check"></i>
+            <span class="node-dot"></span>
+          </div>
+          <div class="stepper-content">
+            <span class="stepper-badge font-mono task-badge">TASK</span>
+            <span class="stepper-title">Deploy Nginx Web Server</span>
+          </div>
+        </div>
+
+        <!-- Step 7 (Quiz) -->
+        <div class="stepper-item" data-docker-step="7" data-type="quiz">
+          <div class="stepper-node">
+            <i class="fa-solid fa-check node-icon-check"></i>
+            <span class="node-dot"></span>
+          </div>
+          <div class="stepper-content">
+            <span class="stepper-badge font-mono quiz-badge">QUIZ</span>
+            <span class="stepper-title">Docker Concepts Check</span>
+          </div>
+        </div>
+
+        <!-- Step 8 (Task) -->
+        <div class="stepper-item" data-docker-step="8" data-type="task">
+          <div class="stepper-node">
+            <i class="fa-solid fa-check node-icon-check"></i>
+            <span class="node-dot"></span>
+          </div>
+          <div class="stepper-content">
+            <span class="stepper-badge font-mono task-badge">TASK</span>
+            <span class="stepper-title">Inspect & Stop Containers</span>
+          </div>
+        </div>
+
+        <!-- Step 9 (Quiz) -->
+        <div class="stepper-item" data-docker-step="9" data-type="quiz">
+          <div class="stepper-node">
+            <i class="fa-solid fa-check node-icon-check"></i>
+            <span class="node-dot"></span>
+          </div>
+          <div class="stepper-content">
+            <span class="stepper-badge font-mono quiz-badge">QUIZ</span>
+            <span class="stepper-title">Docker Engine Knowledge Check</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Status & Control Shortcuts -->
+      <div class="sidebar-bottom-controls font-mono">
+        <button class="btn-util-icon" id="btn-toggle-shortcuts" title="Keyboard Shortcuts (⌘K)">
+          <i class="fa-solid fa-keyboard"></i>
+        </button>
+        <div class="layout-toggle-group">
+          <button class="btn-util-icon active" id="btn-toggle-view-code" title="Split Code / Terminal">
+            <i class="fa-solid fa-table-columns"></i>
+          </button>
+        </div>
+        <button class="btn-util-icon" id="btn-lesson-theme-toggle" title="Toggle Theme">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+      </div>
+
+    </aside>
+
+    <!-- =========================================================================
+         2. CENTER PANEL: LESSON THEORY, AUDIO VOICE PLAY, & PAGINATION
+         ========================================================================= -->
+    <main class="lesson-main-content">
+      
+      <!-- Top Status Header -->
+      <div class="lesson-top-bar font-mono">
+        <div class="lesson-counter" id="docker-lesson-step-counter">LESSON &middot; 1 OF 9</div>
+        
+        <!-- Voice Explainer Button & Animated Soundwaves -->
+        <div class="voice-player-container">
+          <button class="btn-voice-explain" id="docker-btn-voice-play">
+            <i class="fa-solid fa-play voice-play-icon" id="docker-voice-icon"></i>
+            <span id="docker-voice-status-text">Explain this lesson</span>
+            <span class="voice-timer font-mono" id="docker-voice-timer">1:25</span>
+          </button>
+          <div class="voice-soundwaves" id="docker-voice-waves">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scrollable Lesson Body -->
+      <div class="lesson-scrollable-body" id="docker-lesson-theory-container">
+        
+        <h2 class="lesson-primary-heading" id="docker-lesson-heading">What is Docker</h2>
+        <div class="lesson-type-pill font-mono" id="docker-lesson-type-pill">Lesson</div>
+
+        <!-- Dynamic Lesson Text Flow -->
+        <div class="lesson-text-flow" id="docker-lesson-body-content">
+          <p>
+            <strong>Docker</strong> is an open-source platform that packages applications and all their dependencies into a standardized unit called a <strong>container</strong>. Containers ensure that your code runs consistently across development laptops, test servers, and production clouds.
+          </p>
+
+          <h3 class="lesson-subheading font-mono">The Problem Docker Solves</h3>
+          <p>
+            Traditionally, software development suffers from the classic <em>"it works on my machine"</em> bug. Discrepancies in OS versions, Python/Node runtimes, environment variables, or background daemons cause unexpected crashes when deploying to staging or production.
+          </p>
+          <p>
+            Docker eliminates this by bundling the application runtime, system libraries, configuration files, and binaries together in an isolated layer that executes seamlessly anywhere the Docker Engine runs.
+          </p>
+
+          <h3 class="lesson-subheading font-mono">Core Container Principles</h3>
+          <div class="code-block-wrapper">
+            <div class="code-lang-label font-mono">BASH</div>
+            <pre><code># Test your Docker setup in the terminal on the right
+docker --version
+docker run hello-world</code></pre>
+          </div>
+
+          <p>
+            Unlike traditional virtual machines which emulate full hardware and require guest operating systems, containers share the host OS kernel and isolate processes using Linux kernel <code>namespaces</code> and <code>cgroups</code>.
+          </p>
+        </div>
+
+        <!-- Interactive Quiz Container (Hidden during normal reading) -->
+        <div class="lesson-quiz-container" id="docker-lesson-quiz-container" style="display: none;">
+          <div class="quiz-question-box">
+            <span class="quiz-q-num font-mono text-accent">QUESTION 1 OF 1</span>
+            <h4 class="quiz-q-text" id="docker-quiz-question-text">Which Linux kernel features enable Docker process isolation?</h4>
+            <div class="quiz-options-list" id="docker-quiz-options-list">
+              <!-- Options populated dynamically by script.js -->
+            </div>
+            <div class="quiz-feedback-box font-mono" id="docker-quiz-feedback-box"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Step Navigation Controls -->
+      <div class="lesson-bottom-nav font-mono">
+        <button class="btn-nav-prev" id="docker-btn-lesson-prev" disabled>
+          <i class="fa-solid fa-arrow-left"></i> Previous
+        </button>
+        <button class="btn-nav-next" id="docker-btn-lesson-next">
+          Next <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
+
+    </main>
+
+    <!-- =========================================================================
+         3. RIGHT PANEL: INTERACTIVE TERMINAL & LIVE DOCKER EDITOR
+         ========================================================================= -->
+    <aside class="lesson-terminal-workspace">
+      
+      <!-- Top Workspace Tab Bar -->
+      <div class="terminal-workspace-tabs font-mono">
+        <button class="tab-btn active" id="docker-tab-terminal-btn">
+          <i class="fa-solid fa-terminal"></i> terminal
+        </button>
+        <button class="tab-btn" id="docker-tab-editor-btn">
+          <i class="fa-solid fa-file-code"></i> Dockerfile
+        </button>
+        <div class="tab-spacer"></div>
+        <div class="env-status-badge font-mono">
+          <span class="badge-status-dot"></span>
+          <span>dockerd running</span>
+        </div>
+      </div>
+
+      <div class="terminal-workspace-body">
+        
+        <!-- STANDBY VIEW: Start Interactive Sandbox Button -->
+        <div class="terminal-standby-view" id="docker-terminal-standby-view">
+          <div class="terminal-standby-content">
+            <div class="standby-icon">
+              <i class="fa-brands fa-docker"></i>
+            </div>
+            <h4 class="standby-title font-mono">Ready to run containers</h4>
+            <p class="standby-desc">Start your live Docker daemon environment to execute labs and interactive container commands.</p>
+            <button class="btn-start-terminal font-mono" id="docker-btn-start-live-lab">
+              <i class="fa-solid fa-play"></i> Start Container Engine
+            </button>
+          </div>
+        </div>
+
+        <!-- ACTIVE TERMINAL VIEW (Shell CLI Simulation) -->
+        <div class="terminal-active-view" id="docker-terminal-active-view" style="display: none;" data-started="false">
+          <div class="terminal-output-viewport font-mono" id="docker-terminal-viewport">
+            <div class="term-boot-line text-green">Docker Engine v26.1.3 (containerd 1.7.15)</div>
+            <div class="term-boot-line text-muted">Daemon listening on /var/run/docker.sock</div>
+            <div class="term-boot-line">Cloud sandbox ready at /home/student/workspace</div>
+            <div class="term-boot-line text-accent font-bold">student@docker-sandbox:~$ <span class="term-cursor">_</span></div>
+          </div>
+          <div class="terminal-input-bar font-mono">
+            <span class="prompt-user text-accent">student@docker:~$</span>
+            <input type="text" class="terminal-cli-input" id="docker-terminal-cli-input" placeholder="Type command here (e.g. docker run -d -p 80:80 nginx, docker ps, docker images)..." autofocus>
+            <button class="btn-cli-submit" id="docker-btn-cli-submit"><i class="fa-solid fa-arrow-turn-down"></i></button>
+          </div>
+        </div>
+
+        <!-- LIVE DOCKERFILE / COMPOSE EDITOR VIEW -->
+        <div class="editor-active-view" id="docker-editor-active-view" style="display: none;">
+          <div class="editor-file-bar font-mono">
+            <span><i class="fa-brands fa-docker text-accent"></i> Dockerfile</span>
+            <span class="text-muted">UTF-8 &middot; UNIX</span>
+          </div>
+          <div class="editor-content-area font-mono">
+            <div class="editor-line-numbers font-mono">
+              1<br>2<br>3<br>4<br>5<br>6<br>7<br>8
+            </div>
+            <textarea class="editor-textarea font-mono" spellcheck="false" id="docker-editor-textarea">FROM node:20-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm install --production
+COPY . .
+EXPOSE 3000
+CMD ["node", "server.js"]</textarea>
+          </div>
+        </div>
+
+      </div>
+
+    </aside>
+
+  </div>
+
+  <div id="toast-container" class="toast-container"></div>
+
+</body>
+
+</html>
