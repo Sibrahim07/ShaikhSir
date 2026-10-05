@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>01 - What version control is — Shaikh Sir</title>
+  <meta name="description"
+    content="Learn version control from zero: snapshots, commits, staging area, working directory, and hands-on Git terminal sandbox labs.">
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    rel="stylesheet">
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+
+<body class="lesson-page-body">
+
+  <!-- 4-Column Workspace: Left Sidebar | Main Content | Terminal Workspace | Right Tool Strip -->
+  <div class="lesson-workspace-container" id="lesson-workspace">
+
+    <!-- =========================================================================
+         1. LEFT SIDEBAR: TRACK RECORD & 7-STEP TIMELINE
+         ========================================================================= -->
+    <aside class="lesson-sidebar">
+      
+      <!-- Top Topic Breadcrumb Header -->
+      <div class="sidebar-top-header">
+        <a href="skill-git.html" class="btn-sidebar-back font-mono" title="Back to Git Topics">
+          <i class="fa-solid fa-chevron-left"></i>
+        </a>
+        <div class="topic-tag-badge font-mono">
+          <span class="esc-pill">esc</span>
+          <span class="bash-pill">bash</span>
+          <span class="topic-title-text">01 - What version co...</span>
+        </div>
+      </div>
+
+      <!-- Radial Progress Circle -->
+      <div class="sidebar-progress-section">
+        <div class="progress-radial-wrapper">
+          <svg class="progress-radial-svg" viewBox="0 0 100 100">
+            <circle class="progress-radial-bg" cx="50" cy="50" r="42" />
+            <circle class="progress-radial-bar" id="git-lesson-progress-arc" cx="50" cy="50" r="42" stroke-dasharray="264" stroke-dashoffset="264" />
+          </svg>
+          <div class="progress-percentage-label font-mono" id="git-lesson-progress-percent">0%</div>
+        </div>
+
+        <!-- 3 Track Record Stat Counters -->
+        <div class="track-record-grid font-mono">
+          <div class="track-stat-box" id="git-stat-box-done">
+            <span class="stat-num" id="git-stat-done-count">0</span>
+            <span class="stat-label">DONE</span>
+          </div>
+          <div class="track-stat-box" id="git-stat-box-quizzes">
+            <span class="stat-num" id="git-stat-quizzes-count">0/1</span>
+            <span class="stat-label">QUIZZES</span>
+          </div>
+          <div class="track-stat-box" id="git-stat-box-tasks">
+            <span class="stat-num" id="git-stat-tasks-count">0/1</span>
+            <span class="stat-label">TASKS</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vertical Lesson Stepper Navigation (7 Steps matching pattern) -->
+      <div class="sidebar-stepper-list" id="git-sidebar-stepper-list">
+        
+        <!-- Step 1 (Active) -->
+        <div class="stepper-item active" data-git-step="1" data-type="lesson">
+          <div class="stepper-node">
+            <span class="node-ring"></span>
+          </div>
+          <div class="stepper-content font-mono">
+            <span class="stepper-badge lesson-badge">LESSON</span>
+            <span class="stepper-title">What version control is</span>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="stepper-item" data-git-step="2" data-type="lesson">
+          <div class="stepper-node">
+            <span class="node-ring"></span>
+          </div>
+          <div class="stepper-content font-mono">
+            <span class="stepper-badge lesson-badge">LESSON</span>
+            <span class="stepper-title">Snapshots vs delta diffs</span>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="stepper-item" data-git-step="3" data-type="task">
+          <div class="stepper-node">
+            <span class="node-ring"></span>
+          </div>
+          <div class="stepper-content font-mono">
+            <span class="stepper-badge task-badge">TASK</span>
+            <span class="stepper-title">Init your repository</span>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="stepper-item" data-git-step="4" data-type="lesson">
+          <div class="stepper-node">
+            <span class="node-ring"></span>
+          </div>
+          <div class="stepper-content font-mono">
+            <span class="stepper-badge lesson-badge">LESSON</span>
+            <span class="stepper-title">The three trees of Git</span>
+          </div>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="stepper-item" data-git-step="5" data-type="task">
+          <div class="stepper-node">
+            <span class="node-ring"></span>
+          </div>
+          <div class="stepper-content font-mono">
+            <span class="stepper-badge task-badge">TASK</span>
+            <span class="stepper-title">Stage and make a commit</span>
+          </div>
+        </div>
+
+        <!-- Step 6 -->
+        <div class="stepper-item" data-git-step="6" data-type="quiz">
+          <div class="stepper-node">
+            <span class="node-ring"></span>
+          </div>
+          <div class="stepper-content font-mono">
+            <span class="stepper-badge quiz-badge">QUIZ</span>
+            <span class="stepper-title">Concept Check: Git Core</span>
+          </div>
+        </div>
+
+        <!-- Step 7 -->
+        <div class="stepper-item" data-git-step="7" data-type="lesson">
+          <div class="stepper-node">
+            <span class="node-ring"></span>
+          </div>
+          <div class="stepper-content font-mono">
+            <span class="stepper-badge lesson-badge">LESSON</span>
+            <span class="stepper-title">Next in Git mastery</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Toolbar Controls matching reference screenshot -->
+      <div class="sidebar-bottom-toolbar">
+        <button class="btn-toolbar-icon" id="btn-collapse-sidebar" title="Collapse sidebar">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        <button class="btn-toolbar-icon" id="btn-git-lesson-theme-toggle" title="Toggle theme">
+          <i class="fa-regular fa-eye"></i>
+        </button>
+        <div class="toolbar-layout-group">
+          <button class="btn-toolbar-icon" title="Single pane"><i class="fa-regular fa-square"></i></button>
+          <button class="btn-toolbar-icon active" title="Split pane"><i class="fa-solid fa-table-columns"></i></button>
+          <button class="btn-toolbar-icon" title="Triple pane"><i class="fa-solid fa-bars-progress"></i></button>
+        </div>
+      </div>
+    </aside>
+
+
+    <!-- =========================================================================
+         2. CENTER PANEL: LESSON CONTENT, AI NARRATOR & GIT WORKFLOW DIAGRAM
+         ========================================================================= -->
+    <main class="lesson-content-panel">
+      
+      <!-- Top Action Bar (Header with Narrator Pill & Language) -->
+      <header class="lesson-top-bar font-mono">
+        <div class="lesson-step-counter-tag" id="git-lesson-step-counter">
+          LESSON &middot; 1 OF 7
+        </div>
+
+        <!-- Green AI Narrator Pill Button -->
+        <button class="btn-narrator-pill font-mono" id="git-btn-voice-play">
+          <i class="fa-solid fa-play" id="git-voice-icon"></i>
+          <span id="git-voice-status-text">Explain this lesson</span>
+          <span class="narrator-timer" id="git-voice-timer">&middot; 2:45</span>
+        </button>
+
+        <!-- Subtitle note beside narrator -->
+        <div class="narrator-subnote">
+          The narrator demonstrates commands in a strip above your terminal; your terminal stays yours.
+        </div>
+
+        <!-- Language Pill Dropdown -->
+        <div class="language-selector-pill font-mono">
+          <span>English</span>
+          <i class="fa-solid fa-chevron-down" style="font-size: 9px;"></i>
+        </div>
+      </header>
+
+      <!-- Scrollable Lesson Article Body -->
+      <div class="lesson-article-container">
+        
+        <!-- Step Heading -->
+        <h1 class="lesson-heading-title" id="git-lesson-heading">What version control is</h1>
+        
+        <!-- Step Type Pill -->
+        <div class="lesson-type-badge font-mono" id="git-lesson-type-pill">Lesson</div>
+
+        <!-- Dynamic Lesson Body / Diagram -->
+        <div class="lesson-body-text" id="git-lesson-body-content">
+          <p>
+            In this lesson you will learn what version control is, why Git has become the global standard for software engineering, and how Git records full filesystem snapshots instead of fragile file diffs.
+          </p>
+          <p>
+            A version control system (VCS) tracks changes to code over time. It lets you inspect history, revert bad commits, collaborate with teammates without overwriting work, and safely experiment in isolated branches.
+          </p>
+          <p>
+            Git models project history as a directed graph of immutable snapshots. Every commit has a unique SHA-1 hash cryptographic fingerprint, an author, a timestamp, and a pointer to its parent commit.
+          </p>
+
+          <!-- Interactive Git 3-Trees Workflow Diagram -->
+          <div class="git-workflow-diagram font-mono">
+            <div class="git-diagram-header">THE THREE TREES OF GIT WORKFLOW</div>
+            <div class="git-trees-row">
+              <div class="git-tree-card working-dir">
+                <span class="git-tree-title">1. Working Dir</span>
+                <span class="text-xs text-muted">Untracked / Modified files</span>
+                <span class="git-tree-cmd">edit files</span>
+              </div>
+              <div class="git-tree-card staging-area">
+                <span class="git-tree-title">2. Staging Area</span>
+                <span class="text-xs text-muted">Index ready for snapshot</span>
+                <span class="git-tree-cmd">git add .</span>
+              </div>
+              <div class="git-tree-card git-repo">
+                <span class="git-tree-title">3. Git Repository</span>
+                <span class="text-xs text-muted">Permanent commit graph</span>
+                <span class="git-tree-cmd">git commit</span>
+              </div>
+            </div>
+
+            <!-- Commits Timeline -->
+            <div class="git-commits-timeline">
+              <div class="git-commit-bubble" title="Initial commit">
+                <span>C1</span>
+              </div>
+              <i class="fa-solid fa-arrow-right text-muted" style="font-size: 10px;"></i>
+              <div class="git-commit-bubble" title="Add README">
+                <span>C2</span>
+              </div>
+              <i class="fa-solid fa-arrow-right text-accent" style="font-size: 10px;"></i>
+              <div class="git-commit-bubble head" title="Latest commit">
+                <span class="head-tag">HEAD -> main</span>
+                <span>C3</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quiz Container (For Quiz steps) -->
+        <div class="lesson-quiz-wrapper" id="git-lesson-quiz-container" style="display: none;">
+          <div class="quiz-badge font-mono"><i class="fa-solid fa-circle-question"></i> CONCEPT CHECK</div>
+          <h3 class="quiz-question-title" id="git-quiz-question-text">Quiz Question</h3>
+          <div class="quiz-options-list font-mono" id="git-quiz-options-list">
+            <!-- Options dynamically rendered -->
+          </div>
+          <div class="quiz-feedback-box" id="git-quiz-feedback-box" style="display: none;"></div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Step Navigation Footer -->
+      <footer class="lesson-bottom-bar font-mono">
+        <button class="btn-lesson-nav-prev font-mono" id="git-btn-lesson-prev" disabled>
+          &larr; Previous
+        </button>
+
+        <button class="btn-lesson-nav-next font-mono" id="git-btn-lesson-next">
+          Next &rarr;
+        </button>
+      </footer>
+    </main>
+
+
+    <!-- =========================================================================
+         3. RIGHT WORKSPACE: TERMINAL / LIVE CLOUD SANDBOX
+         ========================================================================= -->
+    <section class="lesson-terminal-workspace">
+      
+      <!-- Top Tab Bar -->
+      <div class="terminal-workspace-tabs font-mono">
+        <button class="workspace-tab-btn active" id="git-tab-terminal-btn">
+          Terminal 1
+        </button>
+        <button class="workspace-tab-add" id="git-tab-add-btn" title="Open new terminal">
+          <i class="fa-solid fa-plus"></i>
+        </button>
+      </div>
+
+      <!-- Main Terminal Body Container -->
+      <div class="terminal-container-card">
+        
+        <!-- Standby State matching reference design -->
+        <div class="terminal-standby-screen font-mono" id="git-terminal-standby-view">
+          <div class="standby-prompt-icon">&gt;_</div>
+          <h3 class="standby-main-text">Spin up a fresh environment and practice live.</h3>
+          <p class="standby-sub-text">linux-git-sandbox &middot; fresh machine &middot; ready in under a minute</p>
+          <button class="btn-start-lab-mint font-mono" id="git-btn-start-live-lab">
+            &gt;_ Start Lab
+          </button>
+        </div>
+
+        <!-- Active Live Linux Git Terminal Sandbox -->
+        <div class="terminal-active-screen font-mono" id="git-terminal-active-view" style="display: none;">
+          <div class="terminal-screen-viewport" id="git-terminal-viewport">
+            <div class="term-boot-line text-muted">Linux cloud sandbox (Ubuntu 24.04 LTS x86_64, Git version 2.45.2)</div>
+            <div class="term-boot-line text-muted">Workspace initialized at <span class="text-accent">~/devops-repo</span></div>
+            <div class="term-boot-line text-muted">Type <span class="text-accent">help</span> or run <span class="text-accent">git init</span> to begin.</div>
+            <div class="term-boot-line">&nbsp;</div>
+          </div>
+
+          <!-- Terminal Input Row -->
+          <div class="terminal-cli-input-row">
+            <span class="cli-prompt-label text-accent">student@git-box:~/devops-repo$</span>
+            <input type="text" class="cli-input font-mono" id="git-terminal-cli-input"
+              placeholder="Type command (e.g. git init, git status, git add .)..." autocomplete="off" spellcheck="false">
+            <button class="btn-cli-execute font-mono" id="git-btn-cli-submit" title="Run command">
+              <i class="fa-solid fa-arrow-turn-down"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================================================================
+         4. FAR-RIGHT VERTICAL TOOLS STRIP (Editor & Your notes)
+         ========================================================================= -->
+    <aside class="lesson-vertical-tools-strip">
+      <button class="vertical-tool-btn font-mono" id="git-btn-toggle-editor" title="Open Code Editor">
+        <i class="fa-regular fa-file-code"></i>
+        <span>Editor</span>
+      </button>
+
+      <button class="vertical-tool-btn font-mono" id="git-btn-toggle-notes" title="Open Scratchpad Notes">
+        <i class="fa-regular fa-note-sticky"></i>
+        <span>Your notes</span>
+      </button>
+    </aside>
+
+  </div>
+
+  <!-- Notes / Editor Drawer Modal Backdrop -->
+  <div class="tools-drawer-backdrop" id="git-tools-drawer" style="display: none;">
+    <div class="tools-drawer-window">
+      <div class="drawer-header font-mono">
+        <span id="git-drawer-title"><i class="fa-regular fa-note-sticky"></i> Your Notes</span>
+        <button class="btn-drawer-close" id="git-btn-close-drawer"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="drawer-body">
+        <textarea class="notes-textarea font-mono" id="git-user-scratchpad-notes" placeholder="Write markdown notes, commands, or branch tips for this Git lesson..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-container" class="toast-container"></div>
+
+</body>
+
+</html>

@@ -1,0 +1,11 @@
+0 verbose cli C:\nvm4w\nodejs\node.exe C:\Users\ibrahim\AppData\Roaming\npm\node_modules\npm\bin\npm-cli.js
+1 info using npm@11.19.1
+2 info using node@v25.9.0
+3 silly config load:file:C:\Users\ibrahim\AppData\Roaming\npm\node_modules\npm\npmrc
+4 silly config load:file:C:\Users\ibrahim\Desktop\Shaikh_Sir\.npmrc
+5 silly config load:file:C:\Users\ibrahim\.npmrc
+6 silly config load:file:C:\Users\ibrahim\AppData\Roaming\npm\etc\npmrc
+7 verbose title npm exec serve -l 8080 .
+8 verbose argv "exec" "--yes" "--" "serve" "-l" "8080" "."
+9 verbose logfile logs-max:10 dir:C:\Users\ibrahim\Desktop\Shaikh_Sir\.npm-cache-new\_logs\2026-10-05T18_36_58_992Z-
+10 verbose logfile C:\Users\ibrahim\Desktop\Shaikh_Sir\.npm-cache-new\_logs\2026-10-05T18_36_58_992Z-debug-0.log

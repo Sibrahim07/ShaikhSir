@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>01 - Introduction to GitOps — Shaikh Sir</title>
+  <meta name="description"
+    content="What GitOps is, OpenGitOps principles, declarative cluster states, and interactive 4-column workspace with live Argo CD sandbox.">
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    rel="stylesheet">
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+
+<body class="lesson-page-body">
+
+  <!-- 4-Column Workspace: Left Sidebar | Main Content | Terminal Workspace | Right Tool Strip -->
+  <div class="lesson-workspace-container" id="lesson-workspace">
+
+    <!-- =========================================================================
+         1. LEFT SIDEBAR: TRACK RECORD & 9-STEP TIMELINE
+         ========================================================================= -->
+    <aside class="lesson-sidebar">
+
+      <!-- Top Topic Breadcrumb Header -->
+      <div class="sidebar-top-header">
+        <a href="skill-argocd.html" class="btn-sidebar-back font-mono" title="Back to Argo CD Topics">
+          <i class="fa-solid fa-chevron-left"></i>
+        </a>
+        <div class="topic-tag-badge font-mono">
+          <span class="esc-pill">esc</span>
+          <span class="bash-pill">bash</span>
+          <span class="topic-title-text">01 - Introduction t...</span>
+        </div>
+      </div>
+
+      <!-- Radial Progress Circle -->
+      <div class="sidebar-progress-section">
+        <div class="progress-radial-wrapper">
+          <svg class="progress-radial-svg" viewBox="0 0 100 100">
+            <circle class="progress-radial-bg" cx="50" cy="50" r="42" />
+            <circle class="progress-radial-bar" id="argo-lesson-progress-arc" cx="50" cy="50" r="42"
+              stroke-dasharray="264" stroke-dashoffset="264" />
+          </svg>
+          <div class="progress-percentage-label font-mono" id="argo-lesson-progress-percent">0%</div>
+        </div>
+
+        <!-- 3 Track Record Stat Counters -->
+        <div class="track-record-grid font-mono">
+          <div class="track-stat-box" id="stat-box-done">
+            <span class="stat-num" id="argo-stat-done-count">0</span>
+            <span class="stat-label">DONE</span>
+          </div>
+          <div class="track-stat-box" id="stat-box-quizzes">
+            <span class="stat-num" id="argo-stat-quizzes-count">0/3</span>
+            <span class="stat-label">QUIZZES</span>
+          </div>
+          <div class="track-stat-box" id="stat-box-tasks">
+            <span class="stat-num" id="argo-stat-tasks-count">0/1</span>
+            <span class="stat-label">TASKS</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vertical Lesson Stepper Navigation (9 Steps matching screenshot) -->
+      <div class="sidebar-stepper-list" id="argo-sidebar-stepper-list">
+
+        <!-- Step 1 (Active) -->
+        <div class="stepper-item active" data-argo-step="1" data-type="lesson">
+          <div class="stepper-node">
+            <span class="node-ring"></span>
+          </div>
+          <div class="stepper-content font-mono">
+            <span class="stepper-badge lesson-badge">LESSON</span>
+            <span class="stepper-title">What is GitOps?</span>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="stepper-item" data-argo-step="2" data-type="lesson">
+          <div class="stepper-node">
+            <span class="node-ring"></span>
+          </div>
+          <div class="stepper-content font-mono">
+            <span class="stepper-badge lesson-badge">LESSON</span>
+            <span class="stepper-title">Why teams use GitOps</span>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="stepper-item" data-argo-step="3" data-type="lesson">
+          <div class="stepper-node">
+            <span class="node-ring"></span>
+          </div>
+          <div class="stepper-content font-mono">
+            <span class="stepper-badge lesson-badge">LESSON</span>
+            <span class="stepper-title">Changes without GitOps</span>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="stepper-item" data-argo-step="4" data-type="task">
+          <div class="stepper-node">
+            <span class="node-ring"></span>
+          </div>
+          <div class="stepper-content font-mono">
+            <span class="stepper-badge task-badge">TASK</span>
+            <span class="stepper-title">Change a Deployment by...</span>
+          </div>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="stepper-item" data-argo-step="5" data-type="lesson">
+          <div class="stepper-node">
+            <span class="node-ring"></span>
+          </div>
+          <div class="stepper-content font-mono">
+            <span class="stepper-badge lesson-badge">LESSON</span>
+            <span class="stepper-title">The four OpenGitOps pri...</span>
+          </div>
+        </div>
+
+        <!-- Step 6 -->
+        <div class="stepper-item" data-argo-step="6" data-type="quiz">
+          <div class="stepper-node">
+            <span class="node-ring"></span>
+          </div>
+          <div class="stepper-content font-mono">
+            <span class="stepper-badge task-badge">QUIZ</span>
+            <span class="stepper-title">Concept Check: GitOps Core</span>
+          </div>
+        </div>
+
+        <!-- Step 7 -->
+        <div class="stepper-item" data-argo-step="7" data-type="lesson">
+          <div class="stepper-node">
+            <span class="node-ring"></span>
+          </div>
+          <div class="stepper-content font-mono">
+            <span class="stepper-badge lesson-badge">LESSON</span>
+            <span class="stepper-title">Pull vs Push in CI/CD</span>
+          </div>
+        </div>
+
+        <!-- Step 8 -->
+        <div class="stepper-item" data-argo-step="8" data-type="quiz">
+          <div class="stepper-node">
+            <span class="node-ring"></span>
+          </div>
+          <div class="stepper-content font-mono">
+            <span class="stepper-badge task-badge">QUIZ</span>
+            <span class="stepper-title">Concept Check: Pull Model</span>
+          </div>
+        </div>
+
+        <!-- Step 9 -->
+        <div class="stepper-item" data-argo-step="9" data-type="quiz">
+          <div class="stepper-node">
+            <span class="node-ring"></span>
+          </div>
+          <div class="stepper-content font-mono">
+            <span class="stepper-badge task-badge">QUIZ</span>
+            <span class="stepper-title">Concept Check: Drift & Self-Heal</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Toolbar Controls matching screenshot -->
+      <div class="sidebar-bottom-toolbar">
+        <button class="btn-toolbar-icon" id="btn-collapse-sidebar" title="Collapse sidebar">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        <button class="btn-toolbar-icon" id="btn-argo-lesson-theme-toggle" title="Toggle theme">
+          <i class="fa-regular fa-eye"></i>
+        </button>
+        <div class="toolbar-layout-group">
+          <button class="btn-toolbar-icon" title="Single pane"><i class="fa-regular fa-square"></i></button>
+          <button class="btn-toolbar-icon active" title="Split pane"><i class="fa-solid fa-table-columns"></i></button>
+          <button class="btn-toolbar-icon" title="Triple pane"><i class="fa-solid fa-bars-progress"></i></button>
+        </div>
+      </div>
+    </aside>
+
+
+    <!-- =========================================================================
+         2. CENTER PANEL: LESSON CONTENT, AI NARRATOR & GITOPS DIAGRAM
+         ========================================================================= -->
+    <main class="lesson-content-panel">
+
+      <!-- Top Action Bar (Header with Narrator Pill & Language) -->
+      <header class="lesson-top-bar font-mono">
+        <div class="lesson-step-counter-tag" id="argo-lesson-step-counter">
+          LESSON &middot; 1 OF 9
+        </div>
+
+        <!-- Green AI Narrator Pill Button matching screenshot -->
+        <button class="btn-narrator-pill font-mono" id="argo-btn-voice-play">
+          <i class="fa-solid fa-play" id="argo-voice-icon"></i>
+          <span id="argo-voice-status-text">Explain this lesson</span>
+          <span class="narrator-timer" id="argo-voice-timer">&middot; 4:27</span>
+        </button>
+
+        <!-- Subtitle note beside narrator -->
+        <div class="narrator-subnote">
+          The narrator demonstrates commands in a strip above your terminal; your terminal stays yours.
+        </div>
+
+        <!-- Language Pill Dropdown -->
+        <div class="language-selector-pill font-mono">
+          <span>English</span>
+          <i class="fa-solid fa-chevron-down" style="font-size: 9px;"></i>
+        </div>
+      </header>
+
+      <!-- Scrollable Lesson Article Body -->
+      <div class="lesson-article-container">
+
+        <!-- Step Heading -->
+        <h1 class="lesson-heading-title" id="argo-lesson-heading">What is GitOps?</h1>
+
+        <!-- Step Type Pill -->
+        <div class="lesson-type-badge font-mono" id="argo-lesson-type-pill">Lesson</div>
+
+        <!-- Dynamic Lesson Body -->
+        <div class="lesson-body-text" id="argo-lesson-body-content">
+          <p>
+            In this lesson you will learn what GitOps is and why teams use it.
+          </p>
+          <p>
+            Think about how an app gets updated on a Kubernetes cluster today. A developer builds a new image. A DevOps engineer with access to the cluster edits a YAML file, or runs a kubectl command, and the new version starts. Tomorrow another DevOps engineer does the same for a different app. After a month, nobody can say for sure what is running, who changed it, or why.
+          </p>
+          <p>
+            GitOps fixes this with one rule. You keep the YAML files for the cluster in Git, and a program inside the cluster reads those files and makes the cluster match them. Nobody changes the cluster directly. Let us start with the files.
+          </p>
+
+          <h3 class="lesson-section-subtitle text-accent" style="color: var(--accent-green); font-size: 16px; font-weight: 700; margin: 24px 0 12px 0;">The YAML files</h3>
+
+          <p>
+            Every app on a cluster can be described in YAML files. A file says what should exist: this Deployment, with this image, with this many replicas. Together, these files describe what you want the cluster to look like.
+          </p>
+          <p>
+            This is called the <strong>desired state</strong>. The word <em>desired</em> is important. The files say what you want, not what is.
+          </p>
+
+          <!-- GitOps Sync Diagram -->
+          <div class="docker-arch-diagram font-mono">
+            <div class="arch-box client" style="border-color: rgba(239, 107, 74, 0.4);">
+              <div class="arch-title" style="color: #ef6b4a;"><i class="fa-brands fa-git-alt"></i> Git Repository</div>
+              <div class="arch-desc">Desired State (Declarative YAML files) · Single source of truth.</div>
+            </div>
+            <div class="arch-arrow">⟵ Sync Loop ⟶</div>
+            <div class="arch-box daemon" style="border-color: rgba(34, 229, 132, 0.4);">
+              <div class="arch-title" style="color: var(--accent-green);"><i class="fa-solid fa-circle-nodes"></i> Live Cluster</div>
+              <div class="arch-desc">Actual State · Argo CD continuously reconciles discrepancies and self-heals drift.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quiz Container (For Quiz steps) -->
+        <div class="lesson-quiz-wrapper" id="argo-lesson-quiz-container" style="display: none;">
+          <div class="quiz-badge font-mono"><i class="fa-solid fa-circle-question"></i> CONCEPT CHECK</div>
+          <h3 class="quiz-question-title" id="argo-quiz-question-text">Quiz Question</h3>
+          <div class="quiz-options-list font-mono" id="argo-quiz-options-list">
+            <!-- Options dynamically rendered -->
+          </div>
+          <div class="quiz-feedback-box" id="argo-quiz-feedback-box" style="display: none;"></div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Step Navigation Footer -->
+      <footer class="lesson-bottom-bar font-mono">
+        <button class="btn-lesson-nav-prev" id="argo-btn-lesson-prev" disabled>
+          &larr; Previous
+        </button>
+        <button class="btn-lesson-nav-next" id="argo-btn-lesson-next">
+          Next &rarr;
+        </button>
+      </footer>
+    </main>
+
+
+    <!-- =========================================================================
+         3. RIGHT TERMINAL PANEL: STANDBY OVERLAY & LIVE LINUX GITOPS SANDBOX
+         ========================================================================= -->
+    <section class="lesson-terminal-workspace">
+
+      <!-- Terminal Workspace Tab Bar -->
+      <div class="terminal-workspace-tabs font-mono">
+        <button class="workspace-tab-btn active" id="argo-tab-terminal-btn">Terminal 1</button>
+        <button class="workspace-tab-add" id="argo-tab-add-btn" title="Open new terminal tab"><i class="fa-solid fa-plus"></i></button>
+      </div>
+
+      <!-- Main Terminal Card -->
+      <div class="terminal-container-card">
+
+        <!-- Standby State / Boot Screen matching screenshot -->
+        <div class="terminal-standby-screen" id="argo-terminal-standby-view">
+          <div class="standby-prompt-icon font-mono">&gt;_</div>
+          <div class="standby-main-text">
+            Spin up a fresh environment and practice live.
+          </div>
+          <div class="standby-sub-text font-mono">
+            kind-single &middot; fresh machine &middot; ready in under a minute
+          </div>
+          <button class="btn-start-lab-mint font-mono" id="argo-btn-start-live-lab">
+            &gt;_ Start Lab
+          </button>
+        </div>
+
+        <!-- Active Running Terminal Sandbox -->
+        <div class="terminal-active-screen font-mono" id="argo-terminal-active-view" style="display: none;">
+          <div class="terminal-screen-viewport" id="argo-terminal-viewport">
+            <div class="term-line text-muted">Spinning up isolated Linux GitOps sandbox...</div>
+            <div class="term-line text-accent">argocd-server pod running in namespace 'argocd'.</div>
+            <div class="term-line text-green-glow">Argo CD v2.10.4 CLI connected.</div>
+            <div class="term-line text-muted">Type 'help' or 'kubectl get pods -n argocd' to begin.</div>
+          </div>
+          <div class="terminal-cli-input-row">
+            <span class="cli-prompt-label text-accent font-bold">shaikh@argocd-lab:~$</span>
+            <input type="text" class="cli-input font-mono" id="argo-terminal-cli-input"
+              placeholder="kubectl get pods -n argocd" autofocus autocomplete="off" spellcheck="false">
+            <button class="btn-cli-execute" id="argo-btn-cli-submit" title="Execute command">
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =========================================================================
+         4. FAR-RIGHT VERTICAL TOOLS STRIP (Editor & Your Notes)
+         ========================================================================= -->
+    <aside class="lesson-vertical-tools-strip font-mono">
+      <button class="vertical-tool-btn" id="argo-btn-toggle-editor" title="Open Code Editor">
+        <i class="fa-solid fa-code"></i>
+        <span>Editor</span>
+      </button>
+      <button class="vertical-tool-btn" id="argo-btn-toggle-notes" title="Open Your Notes">
+        <i class="fa-regular fa-note-sticky"></i>
+        <span>Your notes</span>
+      </button>
+    </aside>
+
+  </div>
+
+  <!-- Slide-out Tools Drawer (Editor & Notes) -->
+  <div class="tools-drawer-backdrop" id="argo-tools-drawer" style="display: none;">
+    <div class="tools-drawer-window font-mono">
+      <div class="drawer-header">
+        <span class="drawer-title" id="argo-drawer-title"><i class="fa-regular fa-note-sticky"></i> Your Notes</span>
+        <button class="btn-drawer-close" id="argo-btn-close-drawer">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="drawer-body">
+        <textarea class="notes-textarea" id="argo-notes-content"
+          placeholder="# Argo CD Topic 01 Notes&#10;&#10;- Git is the single source of truth&#10;- Desired state vs Live state&#10;- Declarative system state&#10;- Pull model with automated reconciliation"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-container" class="toast-container"></div>
+
+</body>
+
+</html>

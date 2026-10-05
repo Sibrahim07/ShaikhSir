@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>01 - What is a Network — Shaikh Sir</title>
+  <meta name="description"
+    content="Learn networking fundamentals for DevOps engineers: packets, clients, servers, loopback, interfaces, and live Linux terminal labs.">
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    rel="stylesheet">
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+
+<body class="lesson-page-body">
+
+  <!-- 4-Column Workspace: Left Sidebar | Main Content | Terminal Workspace | Right Tool Strip -->
+  <div class="lesson-workspace-container" id="lesson-workspace">
+
+    <!-- =========================================================================
+         1. LEFT SIDEBAR: TRACK RECORD & 7-STEP TIMELINE
+         ========================================================================= -->
+    <aside class="lesson-sidebar">
+      
+      <!-- Top Topic Breadcrumb Header -->
+      <div class="sidebar-top-header">
+        <a href="skill-networking.html" class="btn-sidebar-back font-mono" title="Back to Networking Topics">
+          <i class="fa-solid fa-chevron-left"></i>
+        </a>
+        <div class="topic-tag-badge font-mono">
+          <span class="esc-pill">esc</span>
+          <span class="bash-pill">bash</span>
+          <span class="topic-title-text">01 - What is a net...</span>
+        </div>
+      </div>
+
+      <!-- Radial Progress Circle -->
+      <div class="sidebar-progress-section">
+        <div class="progress-radial-wrapper">
+          <svg class="progress-radial-svg" viewBox="0 0 100 100">
+            <circle class="progress-radial-bg" cx="50" cy="50" r="42" />
+            <circle class="progress-radial-bar" id="net-lesson-progress-arc" cx="50" cy="50" r="42" stroke-dasharray="264" stroke-dashoffset="264" />
+          </svg>
+          <div class="progress-percentage-label font-mono" id="net-lesson-progress-percent">0%</div>
+        </div>
+
+        <!-- 3 Track Record Stat Counters -->
+        <div class="track-record-grid font-mono">
+          <div class="track-stat-box" id="stat-box-done">
+            <span class="stat-num" id="net-stat-done-count">0</span>
+            <span class="stat-label">DONE</span>
+          </div>
+          <div class="track-stat-box" id="stat-box-quizzes">
+            <span class="stat-num" id="net-stat-quizzes-count">0/0</span>
+            <span class="stat-label">QUIZZES</span>
+          </div>
+          <div class="track-stat-box" id="stat-box-tasks">
+            <span class="stat-num" id="net-stat-tasks-count">0/4</span>
+            <span class="stat-label">TASKS</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vertical Lesson Stepper Navigation (7 Steps matching screenshot) -->
+      <div class="sidebar-stepper-list" id="net-sidebar-stepper-list">
+        
+        <!-- Step 1 (Active) -->
+        <div class="stepper-item active" data-net-step="1" data-type="lesson">
+          <div class="stepper-node">
+            <span class="node-ring"></span>
+          </div>
+          <div class="stepper-content font-mono">
+            <span class="stepper-badge lesson-badge">LESSON</span>
+            <span class="stepper-title">What a network is</span>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="stepper-item" data-net-step="2" data-type="task">
+          <div class="stepper-node">
+            <span class="node-ring"></span>
+          </div>
+          <div class="stepper-content font-mono">
+            <span class="stepper-badge task-badge">TASK</span>
+            <span class="stepper-title">Run a web server and fet...</span>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="stepper-item" data-net-step="3" data-type="task">
+          <div class="stepper-node">
+            <span class="node-ring"></span>
+          </div>
+          <div class="stepper-content font-mono">
+            <span class="stepper-badge task-badge">TASK</span>
+            <span class="stepper-title">Run the server on a diffe...</span>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="stepper-item" data-net-step="4" data-type="lesson">
+          <div class="stepper-node">
+            <span class="node-ring"></span>
+          </div>
+          <div class="stepper-content font-mono">
+            <span class="stepper-badge lesson-badge">LESSON</span>
+            <span class="stepper-title">What a packet is</span>
+          </div>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="stepper-item" data-net-step="5" data-type="task">
+          <div class="stepper-node">
+            <span class="node-ring"></span>
+          </div>
+          <div class="stepper-content font-mono">
+            <span class="stepper-badge task-badge">TASK</span>
+            <span class="stepper-title">Ping localhost and read t...</span>
+          </div>
+        </div>
+
+        <!-- Step 6 -->
+        <div class="stepper-item" data-net-step="6" data-type="lesson">
+          <div class="stepper-node">
+            <span class="node-ring"></span>
+          </div>
+          <div class="stepper-content font-mono">
+            <span class="stepper-badge lesson-badge">LESSON</span>
+            <span class="stepper-title">The two questions every ...</span>
+          </div>
+        </div>
+
+        <!-- Step 7 -->
+        <div class="stepper-item" data-net-step="7" data-type="task">
+          <div class="stepper-node">
+            <span class="node-ring"></span>
+          </div>
+          <div class="stepper-content font-mono">
+            <span class="stepper-badge task-badge">TASK</span>
+            <span class="stepper-title">Explore interfaces with ip</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Toolbar Controls matching screenshot -->
+      <div class="sidebar-bottom-toolbar">
+        <button class="btn-toolbar-icon" id="btn-collapse-sidebar" title="Collapse sidebar">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        <button class="btn-toolbar-icon" id="btn-net-lesson-theme-toggle" title="Toggle theme">
+          <i class="fa-regular fa-eye"></i>
+        </button>
+        <div class="toolbar-layout-group">
+          <button class="btn-toolbar-icon" title="Single pane"><i class="fa-regular fa-square"></i></button>
+          <button class="btn-toolbar-icon active" title="Split pane"><i class="fa-solid fa-table-columns"></i></button>
+          <button class="btn-toolbar-icon" title="Triple pane"><i class="fa-solid fa-bars-progress"></i></button>
+        </div>
+      </div>
+    </aside>
+
+
+    <!-- =========================================================================
+         2. CENTER PANEL: LESSON CONTENT, AI NARRATOR & NETWORK DIAGRAM
+         ========================================================================= -->
+    <main class="lesson-content-panel">
+      
+      <!-- Top Action Bar (Header with Narrator Pill & Language) -->
+      <header class="lesson-top-bar font-mono">
+        <div class="lesson-step-counter-tag" id="net-lesson-step-counter">
+          LESSON &middot; 1 OF 7
+        </div>
+
+        <!-- Green AI Narrator Pill Button matching screenshot -->
+        <button class="btn-narrator-pill font-mono" id="net-btn-voice-play">
+          <i class="fa-solid fa-play" id="net-voice-icon"></i>
+          <span id="net-voice-status-text">Explain this lesson</span>
+          <span class="narrator-timer" id="net-voice-timer">&middot; 2:49</span>
+        </button>
+
+        <!-- Subtitle note beside narrator -->
+        <div class="narrator-subnote">
+          The narrator demonstrates commands in a strip above your terminal; your terminal stays yours.
+        </div>
+
+        <!-- Language Pill Dropdown -->
+        <div class="language-selector-pill font-mono">
+          <span>English</span>
+          <i class="fa-solid fa-chevron-down" style="font-size: 9px;"></i>
+        </div>
+      </header>
+
+      <!-- Scrollable Lesson Article Body -->
+      <div class="lesson-article-container">
+        
+        <!-- Step Heading -->
+        <h1 class="lesson-heading-title" id="net-lesson-heading">What a network is</h1>
+        
+        <!-- Step Type Pill -->
+        <div class="lesson-type-badge font-mono" id="net-lesson-type-pill">Lesson</div>
+
+        <!-- Dynamic Lesson Body / Diagram -->
+        <div class="lesson-body-text" id="net-lesson-body-content">
+          <p>
+            In this lesson you will learn what a network is and the two roles every network conversation has: a client that asks and a server that answers.
+          </p>
+          <p>
+            A network is two or more machines connected so they can send data to each other. That is the whole definition. Your laptop and your phone on the same wifi form a network. A company's thousand servers form a network. The internet is a network of networks.
+          </p>
+          <p>
+            Every useful thing a network does follows one pattern: one machine asks, another machine answers. The machine that asks is called the client. The machine that answers is called the server.
+          </p>
+
+          <!-- Interactive Network Conversation Diagram matching screenshot -->
+          <div class="network-diagram-container">
+            <div class="diagram-title font-mono">one network conversation</div>
+            <div class="diagram-flow">
+              <div class="diagram-node client-node font-mono">
+                <span>client</span>
+              </div>
+              <div class="diagram-arrows font-mono">
+                <div class="arrow-down">
+                  <span class="arrow-label">request &darr;</span>
+                  <div class="arrow-line"></div>
+                </div>
+                <div class="arrow-up">
+                  <span class="arrow-label">&uarr; response</span>
+                  <div class="arrow-line"></div>
+                </div>
+              </div>
+              <div class="diagram-node server-node font-mono">
+                <span>server</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quiz Container (For Quiz steps) -->
+        <div class="lesson-quiz-wrapper" id="net-lesson-quiz-container" style="display: none;">
+          <div class="quiz-badge font-mono"><i class="fa-solid fa-circle-question"></i> CONCEPT CHECK</div>
+          <h3 class="quiz-question-title" id="net-quiz-question-text">Quiz Question</h3>
+          <div class="quiz-options-list font-mono" id="net-quiz-options-list">
+            <!-- Options dynamically rendered -->
+          </div>
+          <div class="quiz-feedback-box" id="net-quiz-feedback-box" style="display: none;"></div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Step Navigation Footer -->
+      <footer class="lesson-bottom-bar font-mono">
+        <button class="btn-lesson-nav-prev font-mono" id="net-btn-lesson-prev" disabled>
+          &larr; Previous
+        </button>
+
+        <button class="btn-lesson-nav-next font-mono" id="net-btn-lesson-next">
+          Next &rarr;
+        </button>
+      </footer>
+    </main>
+
+
+    <!-- =========================================================================
+         3. RIGHT WORKSPACE: TERMINAL / LIVE CLOUD SANDBOX
+         ========================================================================= -->
+    <section class="lesson-terminal-workspace">
+      
+      <!-- Top Tab Bar -->
+      <div class="terminal-workspace-tabs font-mono">
+        <button class="workspace-tab-btn active" id="net-tab-terminal-btn">
+          Terminal 1
+        </button>
+        <button class="workspace-tab-add" id="net-tab-add-btn" title="Open new terminal">
+          <i class="fa-solid fa-plus"></i>
+        </button>
+      </div>
+
+      <!-- Main Terminal Body Container -->
+      <div class="terminal-container-card">
+        
+        <!-- Standby State matching screenshot -->
+        <div class="terminal-standby-screen font-mono" id="net-terminal-standby-view">
+          <div class="standby-prompt-icon">&gt;_</div>
+          <h3 class="standby-main-text">Spin up a fresh environment and practice live.</h3>
+          <p class="standby-sub-text">linux-devops-basic &middot; fresh machine &middot; ready in under a minute</p>
+          <button class="btn-start-lab-mint font-mono" id="net-btn-start-live-lab">
+            &gt;_ Start Lab
+          </button>
+        </div>
+
+        <!-- Active Live Linux Terminal Sandbox -->
+        <div class="terminal-active-screen font-mono" id="net-terminal-active-view" style="display: none;">
+          <div class="terminal-screen-viewport" id="net-terminal-viewport">
+            <div class="term-boot-line text-muted">Linux cloud sandbox (Ubuntu 24.04 LTS x86_64, kernel 6.8.0)</div>
+            <div class="term-boot-line text-muted">Virtual network interfaces: eth0 (192.168.1.10), lo (127.0.0.1)</div>
+            <div class="term-boot-line text-muted">Type <span class="text-accent">help</span> to view available networking tools.</div>
+            <div class="term-boot-line">&nbsp;</div>
+          </div>
+
+          <!-- Terminal Input Row -->
+          <div class="terminal-cli-input-row">
+            <span class="cli-prompt-label text-accent">student@net-box:~$</span>
+            <input type="text" class="cli-input font-mono" id="net-terminal-cli-input"
+              placeholder="Type command (e.g. python3 -m http.server 8000, curl, ping)..." autocomplete="off" spellcheck="false">
+            <button class="btn-cli-execute font-mono" id="net-btn-cli-submit" title="Run command">
+              <i class="fa-solid fa-arrow-turn-down"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================================================================
+         4. FAR-RIGHT VERTICAL TOOLS STRIP (Editor & Your notes)
+         ========================================================================= -->
+    <aside class="lesson-vertical-tools-strip">
+      <button class="vertical-tool-btn font-mono" id="btn-toggle-editor" title="Open Code Editor">
+        <i class="fa-regular fa-file-code"></i>
+        <span>Editor</span>
+      </button>
+
+      <button class="vertical-tool-btn font-mono" id="btn-toggle-notes" title="Open Scratchpad Notes">
+        <i class="fa-regular fa-note-sticky"></i>
+        <span>Your notes</span>
+      </button>
+    </aside>
+
+  </div>
+
+  <!-- Notes / Editor Drawer Modal Backdrop -->
+  <div class="tools-drawer-backdrop" id="tools-drawer" style="display: none;">
+    <div class="tools-drawer-window">
+      <div class="drawer-header font-mono">
+        <span id="drawer-title"><i class="fa-regular fa-note-sticky"></i> Your Notes</span>
+        <button class="btn-drawer-close" id="btn-close-drawer"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="drawer-body">
+        <textarea class="notes-textarea font-mono" id="user-scratchpad-notes" placeholder="Write markdown notes or commands for this lesson..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-container" class="toast-container"></div>
+
+</body>
+
+</html>

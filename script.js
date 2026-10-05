@@ -441,26 +441,40 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ==========================================================================
      13. SKILL TOPICS LIST / GRID VIEW TOGGLE
      ========================================================================== */
-  const viewToggleList = document.getElementById('view-toggle-list');
-  const viewToggleGrid = document.getElementById('view-toggle-grid');
+  const viewToggleList = document.getElementById('view-toggle-list') || document.getElementById('view-list-btn') || document.querySelector('[data-view="list"]');
+  const viewToggleGrid = document.getElementById('view-toggle-grid') || document.getElementById('view-grid-btn') || document.querySelector('[data-view="grid"]');
   const topicsContainer = document.getElementById('topics-container');
 
-  if (viewToggleList && viewToggleGrid && topicsContainer) {
-    viewToggleList.addEventListener('click', () => {
-      viewToggleList.classList.add('active');
-      viewToggleGrid.classList.remove('active');
-      topicsContainer.classList.remove('topics-grid-view');
-      topicsContainer.classList.add('topics-list-view');
-      showToast("Switched to List view");
-    });
+  if (topicsContainer) {
+    const applyViewMode = (mode, showNotification = false) => {
+      if (mode === 'grid') {
+        topicsContainer.classList.remove('topics-list-view');
+        topicsContainer.classList.add('topics-grid-view');
+        if (viewToggleGrid) viewToggleGrid.classList.add('active');
+        if (viewToggleList) viewToggleList.classList.remove('active');
+        if (showNotification) showToast("Switched to Grid view");
+      } else {
+        topicsContainer.classList.remove('topics-grid-view');
+        topicsContainer.classList.add('topics-list-view');
+        if (viewToggleList) viewToggleList.classList.add('active');
+        if (viewToggleGrid) viewToggleGrid.classList.remove('active');
+        if (showNotification) showToast("Switched to List view");
+      }
+    };
 
-    viewToggleGrid.addEventListener('click', () => {
-      viewToggleGrid.classList.add('active');
-      viewToggleList.classList.remove('active');
-      topicsContainer.classList.remove('topics-list-view');
-      topicsContainer.classList.add('topics-grid-view');
-      showToast("Switched to Grid view");
-    });
+    if (viewToggleList) {
+      viewToggleList.addEventListener('click', (e) => {
+        e.preventDefault();
+        applyViewMode('list', true);
+      });
+    }
+
+    if (viewToggleGrid) {
+      viewToggleGrid.addEventListener('click', (e) => {
+        e.preventDefault();
+        applyViewMode('grid', true);
+      });
+    }
   }
 
   /* ==========================================================================
@@ -1360,45 +1374,8 @@ hostname   # Displays the system host identifier</code></pre>
       }, 1000);
     });
   }
-
-  /* ==========================================================================
-     17. DOCKER 3-COLUMN INTERACTIVE LESSON WORKSPACE CONTROLLER (lesson-docker.html)
-     ========================================================================== */
-  const dockerLessonStepperItems = document.querySelectorAll('#docker-sidebar-stepper-list .stepper-item');
-  const dockerLessonStepCounter = document.getElementById('docker-lesson-step-counter');
-  const dockerLessonHeading = document.getElementById('docker-lesson-heading');
-  const dockerLessonTypePill = document.getElementById('docker-lesson-type-pill');
-  const dockerLessonBodyContent = document.getElementById('docker-lesson-body-content');
-  const dockerLessonQuizContainer = document.getElementById('docker-lesson-quiz-container');
-  const dockerQuizQuestionText = document.getElementById('docker-quiz-question-text');
-  const dockerQuizOptionsList = document.getElementById('docker-quiz-options-list');
-  const dockerQuizFeedbackBox = document.getElementById('docker-quiz-feedback-box');
-  const dockerBtnLessonPrev = document.getElementById('docker-btn-lesson-prev');
-  const dockerBtnLessonNext = document.getElementById('docker-btn-lesson-next');
-
-  const dockerBtnVoicePlay = document.getElementById('docker-btn-voice-play');
-  const dockerVoiceIcon = document.getElementById('docker-voice-icon');
-  const dockerVoiceStatusText = document.getElementById('docker-voice-status-text');
-  const dockerVoiceTimer = document.getElementById('docker-voice-timer');
-
-  const dockerLessonProgressPercent = document.getElementById('docker-lesson-progress-percent');
-  const dockerLessonProgressArc = document.getElementById('docker-lesson-progress-arc');
-  const dockerStatDoneCount = document.getElementById('docker-stat-done-count');
-  const dockerStatQuizzesCount = document.getElementById('docker-stat-quizzes-count');
-  const dockerStatTasksCount = document.getElementById('docker-stat-tasks-count');
-
-  const dockerTabTerminalBtn = document.getElementById('docker-tab-terminal-btn');
-  const dockerTabEditorBtn = document.getElementById('docker-tab-editor-btn');
-  const dockerTerminalStandbyView = document.getElementById('docker-terminal-standby-view');
-  const dockerTerminalActiveView = document.getElementById('docker-terminal-active-view');
-  const dockerEditorActiveView = document.getElementById('docker-editor-active-view');
-  const dockerBtnStartLiveLab = document.getElementById('docker-btn-start-live-lab');
-  const dockerTerminalViewport = document.getElementById('docker-terminal-viewport');
-  const dockerTerminalCliInput = document.getElementById('docker-terminal-cli-input');
-  const dockerBtnCliSubmit = document.getElementById('docker-btn-cli-submit');
-  const dockerLessonThemeToggle = document.getElementById('docker-lesson-theme-toggle');
-
-  if (dockerLessonStepperItems.length > 0) {
+  // Legacy Section 17 disabled in favor of Section 27 4-column controller
+  if (false) {
 
     const dockerLessonsData = {
       1: {
@@ -3600,7 +3577,2913 @@ npm test</code></pre>
     renderDevopsLesson(1);
   }
 
+  /* ==========================================================================
+     22. CERTIFICATE ACCORDION HANDLER (skill-networking.html)
+     ========================================================================== */
+  const certReqBox = document.getElementById('cert-req-box');
+  const certDetailsPanel = document.getElementById('cert-details-panel');
+
+  if (certReqBox && certDetailsPanel) {
+    certReqBox.addEventListener('click', () => {
+      certReqBox.classList.toggle('active');
+      const isVisible = certDetailsPanel.style.display === 'block';
+      certDetailsPanel.style.display = isVisible ? 'none' : 'block';
+    });
+  }
+
+  /* ==========================================================================
+     23. NETWORKING 4-COLUMN INTERACTIVE LESSON CONTROLLER (lesson-networking.html)
+     ========================================================================== */
+  const netLessonStepperItems = document.querySelectorAll('#net-sidebar-stepper-list .stepper-item');
+  const netLessonStepCounter = document.getElementById('net-lesson-step-counter');
+  const netLessonHeading = document.getElementById('net-lesson-heading');
+  const netLessonTypePill = document.getElementById('net-lesson-type-pill');
+  const netLessonBodyContent = document.getElementById('net-lesson-body-content');
+  const netLessonQuizContainer = document.getElementById('net-lesson-quiz-container');
+  const netQuizQuestionText = document.getElementById('net-quiz-question-text');
+  const netQuizOptionsList = document.getElementById('net-quiz-options-list');
+  const netQuizFeedbackBox = document.getElementById('net-quiz-feedback-box');
+  const netBtnLessonPrev = document.getElementById('net-btn-lesson-prev');
+  const netBtnLessonNext = document.getElementById('net-btn-lesson-next');
+
+  const netBtnVoicePlay = document.getElementById('net-btn-voice-play');
+  const netVoiceIcon = document.getElementById('net-voice-icon');
+  const netVoiceStatusText = document.getElementById('net-voice-status-text');
+  const netVoiceTimer = document.getElementById('net-voice-timer');
+
+  const netLessonProgressPercent = document.getElementById('net-lesson-progress-percent');
+  const netLessonProgressArc = document.getElementById('net-lesson-progress-arc');
+  const netStatDoneCount = document.getElementById('net-stat-done-count');
+  const netStatQuizzesCount = document.getElementById('net-stat-quizzes-count');
+  const netStatTasksCount = document.getElementById('net-stat-tasks-count');
+
+  const netTabTerminalBtn = document.getElementById('net-tab-terminal-btn');
+  const netTabAddBtn = document.getElementById('net-tab-add-btn');
+  const netTerminalStandbyView = document.getElementById('net-terminal-standby-view');
+  const netTerminalActiveView = document.getElementById('net-terminal-active-view');
+  const netBtnStartLiveLab = document.getElementById('net-btn-start-live-lab');
+  const netTerminalViewport = document.getElementById('net-terminal-viewport');
+  const netTerminalCliInput = document.getElementById('net-terminal-cli-input');
+  const netBtnCliSubmit = document.getElementById('net-btn-cli-submit');
+  const netLessonThemeToggle = document.getElementById('btn-net-lesson-theme-toggle');
+
+  const btnToggleEditor = document.getElementById('btn-toggle-editor');
+  const btnToggleNotes = document.getElementById('btn-toggle-notes');
+  const toolsDrawer = document.getElementById('tools-drawer');
+  const btnCloseDrawer = document.getElementById('btn-close-drawer');
+  const drawerTitle = document.getElementById('drawer-title');
+
+  if (netLessonStepperItems.length > 0) {
+
+    const netLessonsData = {
+      1: {
+        stepNum: 1,
+        type: 'Lesson',
+        title: 'What a network is',
+        duration: '· 2:49',
+        seconds: 169,
+        voiceText: "In this lesson you will learn what a network is and the two roles every network conversation has: a client that asks and a server that answers. A network is two or more machines connected so they can send data to each other. The machine that asks is the client. The machine that answers is the server.",
+        bodyHtml: `
+          <p>
+            In this lesson you will learn what a network is and the two roles every network conversation has: a client that asks and a server that answers.
+          </p>
+          <p>
+            A network is two or more machines connected so they can send data to each other. That is the whole definition. Your laptop and your phone on the same wifi form a network. A company's thousand servers form a network. The internet is a network of networks.
+          </p>
+          <p>
+            Every useful thing a network does follows one pattern: one machine asks, another machine answers. The machine that asks is called the client. The machine that answers is called the server.
+          </p>
+          <div class="network-diagram-container">
+            <div class="diagram-title font-mono">one network conversation</div>
+            <div class="diagram-flow">
+              <div class="diagram-node client-node font-mono">
+                <span>client</span>
+              </div>
+              <div class="diagram-arrows font-mono">
+                <div class="arrow-down">
+                  <span class="arrow-label">request &darr;</span>
+                </div>
+                <div class="arrow-up">
+                  <span class="arrow-label">&uarr; response</span>
+                </div>
+              </div>
+              <div class="diagram-node server-node font-mono">
+                <span>server</span>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      2: {
+        stepNum: 2,
+        type: 'Task',
+        title: 'Run a web server and fetch from it',
+        duration: '· 2:00',
+        seconds: 120,
+        voiceText: "Now let us see client and server roles in action. Start a simple web server using Python or Nginx, then query it using curl to observe the client-server request and response.",
+        bodyHtml: `
+          <p>
+            Now let's see client and server roles in action in your live sandbox.
+          </p>
+          <div class="task-instructions-box" style="background: rgba(34, 229, 132, 0.05); border: 1px solid rgba(34, 229, 132, 0.2); border-radius: 8px; padding: 18px; margin: 16px 0;">
+            <h4 style="color: #22e584; margin-bottom: 8px; font-size: 14px;"><i class="fa-solid fa-list-check"></i> Lab Task 1 of 4:</h4>
+            <ol style="padding-left: 20px; font-size: 13.5px; line-height: 1.8; color: #e5e7eb;">
+              <li>Click <strong>&gt;_ Start Lab</strong> in the right terminal panel if not already running.</li>
+              <li>Type <code class="text-accent">python3 -m http.server 8000</code> or <code class="text-accent">curl http://localhost:8000</code>.</li>
+              <li>Observe the server processing incoming requests and replying with HTTP 200 OK.</li>
+            </ol>
+          </div>
+        `
+      },
+      3: {
+        stepNum: 3,
+        type: 'Task',
+        title: 'Run the server on a different port',
+        duration: '· 1:45',
+        seconds: 105,
+        voiceText: "Ports allow multiple services to run on the same server simultaneously. Run your server on port 8080 and fetch from it with curl.",
+        bodyHtml: `
+          <p>
+            Ports allow multiple server applications to run on the same machine without colliding.
+          </p>
+          <div class="task-instructions-box" style="background: rgba(34, 229, 132, 0.05); border: 1px solid rgba(34, 229, 132, 0.2); border-radius: 8px; padding: 18px; margin: 16px 0;">
+            <h4 style="color: #22e584; margin-bottom: 8px; font-size: 14px;"><i class="fa-solid fa-list-check"></i> Lab Task 2 of 4:</h4>
+            <ol style="padding-left: 20px; font-size: 13.5px; line-height: 1.8; color: #e5e7eb;">
+              <li>Run <code class="text-accent">python3 -m http.server 8080</code> in the terminal.</li>
+              <li>Verify the connection by executing <code class="text-accent">curl http://localhost:8080</code>.</li>
+            </ol>
+          </div>
+        `
+      },
+      4: {
+        stepNum: 4,
+        type: 'Lesson',
+        title: 'What a packet is',
+        duration: '· 2:15',
+        seconds: 135,
+        voiceText: "Data does not travel across wires as a single stream. Instead, files, web pages, and API calls are chopped into small pieces called packets.",
+        bodyHtml: `
+          <p>
+            Data does not travel across the internet as a continuous block. Instead, files, web pages, and API calls are chopped into small, standardized pieces called <strong>packets</strong>.
+          </p>
+          <p>
+            Every packet contains metadata (headers) specifying source IP, destination IP, port number, sequence number, and the actual content (payload).
+          </p>
+          <div class="callout-card" style="background: rgba(34, 229, 132, 0.05); border: 1px solid rgba(34, 229, 132, 0.2); padding: 16px; border-radius: 8px; margin-top: 16px;">
+            <strong class="text-accent">Standard MTU:</strong> Most Ethernet networks cap packets at 1,500 bytes (Maximum Transmission Unit).
+          </div>
+        `
+      },
+      5: {
+        stepNum: 5,
+        type: 'Task',
+        title: 'Ping localhost and read the output',
+        duration: '· 1:30',
+        seconds: 90,
+        voiceText: "Use the ping command to send ICMP echo packets to the loopback IP 127.0.0.1 and read the round trip latency.",
+        bodyHtml: `
+          <p>
+            The <code>ping</code> tool sends ICMP Echo Request packets to test whether another machine or interface is alive and measure latency.
+          </p>
+          <div class="task-instructions-box" style="background: rgba(34, 229, 132, 0.05); border: 1px solid rgba(34, 229, 132, 0.2); border-radius: 8px; padding: 18px; margin: 16px 0;">
+            <h4 style="color: #22e584; margin-bottom: 8px; font-size: 14px;"><i class="fa-solid fa-list-check"></i> Lab Task 3 of 4:</h4>
+            <ol style="padding-left: 20px; font-size: 13.5px; line-height: 1.8; color: #e5e7eb;">
+              <li>Type <code class="text-accent">ping -c 4 127.0.0.1</code> in the terminal and press <strong>Enter</strong>.</li>
+              <li>Observe the round trip time (RTT) and 0% packet loss.</li>
+            </ol>
+          </div>
+        `
+      },
+      6: {
+        stepNum: 6,
+        type: 'Lesson',
+        title: 'The two questions every network packet answers',
+        duration: '· 2:00',
+        seconds: 120,
+        voiceText: "Every packet traveling across a network must answer two critical questions: Which machine should receive this, and which running program should handle it.",
+        bodyHtml: `
+          <p>
+            Whenever a router or server receives a network packet, it inspects two essential header fields:
+          </p>
+          <ul style="padding-left: 20px; font-size: 14px; line-height: 1.8; color: #d1d5db;">
+            <li><strong>Question 1: Which machine is this for?</strong> Answered by the <strong>Destination IP Address</strong> (e.g. <code>192.168.1.10</code>).</li>
+            <li><strong>Question 2: Which running program is this for?</strong> Answered by the <strong>Port Number</strong> (e.g. <code>80</code> for web, <code>22</code> for SSH).</li>
+          </ul>
+        `
+      },
+      7: {
+        stepNum: 7,
+        type: 'Task',
+        title: 'Explore interfaces with ip addr',
+        duration: '· 1:40',
+        seconds: 100,
+        voiceText: "Inspect your active network adapters and IP assignments using the ip addr command.",
+        bodyHtml: `
+          <p>
+            Let's inspect how your Linux kernel binds to the network.
+          </p>
+          <div class="task-instructions-box" style="background: rgba(34, 229, 132, 0.05); border: 1px solid rgba(34, 229, 132, 0.2); border-radius: 8px; padding: 18px; margin: 16px 0;">
+            <h4 style="color: #22e584; margin-bottom: 8px; font-size: 14px;"><i class="fa-solid fa-list-check"></i> Lab Task 4 of 4:</h4>
+            <ol style="padding-left: 20px; font-size: 13.5px; line-height: 1.8; color: #e5e7eb;">
+              <li>Type <code class="text-accent">ip addr</code> (or <code>ip a</code>) in the terminal.</li>
+              <li>Locate interface 1 (<code>lo</code> / 127.0.0.1) and interface 2 (<code>eth0</code>).</li>
+            </ol>
+          </div>
+        `
+      }
+    };
+
+    let netCurrentStep = 1;
+    let netCompletedSteps = new Set([1]);
+    let netQuizzesDone = 0;
+    let netTasksDone = 0;
+    let netIsPlayingVoice = false;
+    let netSpeechUtterance = null;
+    let netVoiceTimerInterval = null;
+
+    function renderNetLesson(stepNumber) {
+      netCurrentStep = stepNumber;
+      const lesson = netLessonsData[stepNumber];
+      if (!lesson) return;
+
+      // Update Top Nav Counter & Title
+      if (netLessonStepCounter) netLessonStepCounter.textContent = `${lesson.type.toUpperCase()} · ${lesson.stepNum} OF 7`;
+      if (netLessonHeading) netLessonHeading.textContent = lesson.title;
+      if (netLessonTypePill) {
+        netLessonTypePill.textContent = lesson.type;
+        netLessonTypePill.className = `lesson-type-badge font-mono ${lesson.type.toLowerCase()}-badge`;
+      }
+
+      // Render Dynamic Body
+      if (netLessonQuizContainer) netLessonQuizContainer.style.display = 'none';
+      if (netLessonBodyContent) {
+        netLessonBodyContent.style.display = 'block';
+        netLessonBodyContent.innerHTML = lesson.bodyHtml;
+      }
+
+      // Update AI Voice Bar
+      if (netVoiceTimer) netVoiceTimer.textContent = lesson.duration;
+      stopNetVoiceAudio();
+
+      // Update Stepper List UI
+      netLessonStepperItems.forEach(item => {
+        const sNum = parseInt(item.getAttribute('data-net-step'));
+        item.classList.remove('active');
+        if (sNum === stepNumber) item.classList.add('active');
+        if (netCompletedSteps.has(sNum)) {
+          item.classList.add('done');
+        }
+      });
+
+      // Update Prev / Next Buttons
+      if (netBtnLessonPrev) netBtnLessonPrev.disabled = (stepNumber === 1);
+      if (netBtnLessonNext) {
+        if (stepNumber === 7) {
+          netBtnLessonNext.innerHTML = `Complete Lesson ✓`;
+        } else {
+          netBtnLessonNext.innerHTML = `Next &rarr;`;
+        }
+      }
+
+      updateNetProgressMetrics();
+    }
+
+    function updateNetProgressMetrics() {
+      const completedCount = netCompletedSteps.size;
+      const percent = Math.round((completedCount / 7) * 100);
+
+      if (netLessonProgressPercent) netLessonProgressPercent.textContent = `${percent}%`;
+      if (netLessonProgressArc) {
+        const offset = 264 - (264 * (percent / 100));
+        netLessonProgressArc.style.strokeDashoffset = offset;
+      }
+
+      if (netStatDoneCount) netStatDoneCount.textContent = completedCount;
+      if (netStatQuizzesCount) netStatQuizzesCount.textContent = `0/0`;
+      if (netStatTasksCount) netStatTasksCount.textContent = `${netTasksDone}/4`;
+    }
+
+    function startNetVoiceAudio() {
+      const lesson = netLessonsData[netCurrentStep];
+      if (!lesson || !window.speechSynthesis) return;
+
+      window.speechSynthesis.cancel();
+      netSpeechUtterance = new SpeechSynthesisUtterance(lesson.voiceText);
+      netSpeechUtterance.rate = 1.0;
+      netSpeechUtterance.pitch = 1.0;
+
+      netSpeechUtterance.onstart = () => {
+        netIsPlayingVoice = true;
+        if (netVoiceIcon) netVoiceIcon.className = "fa-solid fa-pause";
+        if (netBtnVoicePlay) netBtnVoicePlay.classList.add('playing');
+        if (netVoiceStatusText) netVoiceStatusText.textContent = "AI Tutor Speaking...";
+
+        let remainingSec = lesson.seconds;
+        clearInterval(netVoiceTimerInterval);
+        netVoiceTimerInterval = setInterval(() => {
+          remainingSec--;
+          if (remainingSec <= 0) {
+            clearInterval(netVoiceTimerInterval);
+            return;
+          }
+          const mins = Math.floor(remainingSec / 60);
+          const secs = remainingSec % 60;
+          if (netVoiceTimer) netVoiceTimer.textContent = `· ${mins}:${secs < 10 ? '0' : ''}${secs}`;
+        }, 1000);
+      };
+
+      netSpeechUtterance.onend = () => {
+        stopNetVoiceAudio();
+      };
+
+      window.speechSynthesis.speak(netSpeechUtterance);
+    }
+
+    function stopNetVoiceAudio() {
+      if (window.speechSynthesis) window.speechSynthesis.cancel();
+      netIsPlayingVoice = false;
+      clearInterval(netVoiceTimerInterval);
+      if (netVoiceIcon) netVoiceIcon.className = "fa-solid fa-play";
+      if (netBtnVoicePlay) netBtnVoicePlay.classList.remove('playing');
+      const lesson = netLessonsData[netCurrentStep];
+      if (lesson && netVoiceTimer) netVoiceTimer.textContent = lesson.duration;
+      if (netVoiceStatusText) netVoiceStatusText.textContent = "Explain this lesson";
+    }
+
+    if (netBtnVoicePlay) {
+      netBtnVoicePlay.addEventListener('click', () => {
+        if (netIsPlayingVoice) {
+          stopNetVoiceAudio();
+        } else {
+          startNetVoiceAudio();
+        }
+      });
+    }
+
+    netLessonStepperItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const stepNum = parseInt(item.getAttribute('data-net-step'));
+        renderNetLesson(stepNum);
+      });
+    });
+
+    if (netBtnLessonPrev) {
+      netBtnLessonPrev.addEventListener('click', () => {
+        if (netCurrentStep > 1) renderNetLesson(netCurrentStep - 1);
+      });
+    }
+
+    if (netBtnLessonNext) {
+      netBtnLessonNext.addEventListener('click', () => {
+        netCompletedSteps.add(netCurrentStep);
+        if (netCurrentStep < 7) {
+          renderNetLesson(netCurrentStep + 1);
+        } else {
+          updateNetProgressMetrics();
+          showToast("🎉 Congratulations! You have completed Lesson 01 - What is a Network!");
+        }
+      });
+    }
+
+    if (netBtnStartLiveLab) {
+      netBtnStartLiveLab.addEventListener('click', () => {
+        if (netTerminalStandbyView) netTerminalStandbyView.style.display = 'none';
+        if (netTerminalActiveView) {
+          netTerminalActiveView.style.display = 'flex';
+          netTerminalActiveView.setAttribute('data-started', 'true');
+        }
+        if (netTerminalCliInput) netTerminalCliInput.focus();
+        showToast("✓ Linux cloud sandbox ready.");
+      });
+    }
+
+    if (netTabAddBtn) {
+      netTabAddBtn.addEventListener('click', () => {
+        showToast("✓ Secondary terminal session spawned.");
+      });
+    }
+
+    // Tools Drawer (Editor / Your notes)
+    if (btnToggleEditor && toolsDrawer) {
+      btnToggleEditor.addEventListener('click', () => {
+        if (drawerTitle) drawerTitle.innerHTML = '<i class="fa-regular fa-file-code"></i> Code Editor';
+        toolsDrawer.style.display = 'flex';
+      });
+    }
+
+    if (btnToggleNotes && toolsDrawer) {
+      btnToggleNotes.addEventListener('click', () => {
+        if (drawerTitle) drawerTitle.innerHTML = '<i class="fa-regular fa-note-sticky"></i> Your Notes';
+        toolsDrawer.style.display = 'flex';
+      });
+    }
+
+    if (btnCloseDrawer && toolsDrawer) {
+      btnCloseDrawer.addEventListener('click', () => {
+        toolsDrawer.style.display = 'none';
+      });
+      toolsDrawer.addEventListener('click', (e) => {
+        if (e.target === toolsDrawer) toolsDrawer.style.display = 'none';
+      });
+    }
+
+    function executeNetWorkspaceCommand() {
+      if (!netTerminalCliInput || !netTerminalViewport) return;
+      const rawCmd = netTerminalCliInput.value.trim();
+      if (!rawCmd) return;
+
+      const echoLine = document.createElement('div');
+      echoLine.className = 'term-boot-line font-bold text-accent';
+      echoLine.textContent = `student@net-box:~$ ${rawCmd}`;
+      netTerminalViewport.appendChild(echoLine);
+
+      const outLine = document.createElement('div');
+      outLine.className = 'term-boot-line';
+
+      const lower = rawCmd.toLowerCase();
+
+      if (lower.includes('http.server 8000') || (lower.startsWith('curl') && lower.includes('8000'))) {
+        outLine.className = 'term-boot-line text-green font-mono';
+        outLine.textContent = 'Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...\n127.0.0.1 - - [06/Oct/2026 00:00:01] "GET / HTTP/1.1" 200 -';
+
+        if (netCurrentStep === 2) {
+          netTasksDone = Math.min(4, netTasksDone + 1);
+          netCompletedSteps.add(2);
+          updateNetProgressMetrics();
+          showToast("✓ Task 1: Web server started and queried on port 8000!");
+        }
+      } else if (lower.includes('http.server 8080') || (lower.startsWith('curl') && lower.includes('8080'))) {
+        outLine.className = 'term-boot-line text-green font-mono';
+        outLine.textContent = 'Serving HTTP on 0.0.0.0 port 8080 (http://0.0.0.0:8080/) ...\n127.0.0.1 - - [06/Oct/2026 00:00:02] "GET / HTTP/1.1" 200 -';
+
+        if (netCurrentStep === 3) {
+          netTasksDone = Math.min(4, netTasksDone + 1);
+          netCompletedSteps.add(3);
+          updateNetProgressMetrics();
+          showToast("✓ Task 2: Server running on port 8080!");
+        }
+      } else if (lower.startsWith('ping')) {
+        outLine.className = 'term-boot-line text-green font-mono';
+        outLine.textContent = 'PING 127.0.0.1 (127.0.0.1) 56(84) bytes of data.\n64 bytes from 127.0.0.1: icmp_seq=1 ttl=64 time=0.032 ms\n64 bytes from 127.0.0.1: icmp_seq=2 ttl=64 time=0.038 ms\n64 bytes from 127.0.0.1: icmp_seq=3 ttl=64 time=0.035 ms\n64 bytes from 127.0.0.1: icmp_seq=4 ttl=64 time=0.034 ms\n\n--- 127.0.0.1 ping statistics ---\n4 packets transmitted, 4 received, 0% packet loss, time 3060ms\nrtt min/avg/max/mdev = 0.032/0.034/0.038/0.002 ms';
+
+        if (netCurrentStep === 5) {
+          netTasksDone = Math.min(4, netTasksDone + 1);
+          netCompletedSteps.add(5);
+          updateNetProgressMetrics();
+          showToast("✓ Task 3: Localhost ping packets verified!");
+        }
+      } else if (lower === 'ip addr' || lower === 'ip a' || lower === 'ip addr show' || lower === 'ifconfig') {
+        outLine.className = 'term-boot-line text-green font-mono';
+        outLine.textContent = '1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000\n    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00\n    inet 127.0.0.1/8 scope host lo\n       valid_lft forever preferred_lft forever\n2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000\n    link/ether 52:54:00:a1:b2:c3 brd ff:ff:ff:ff:ff:ff\n    inet 192.168.1.10/24 brd 192.168.1.255 scope global dynamic eth0\n       valid_lft 86120sec preferred_lft 86120sec';
+
+        if (netCurrentStep === 7) {
+          netTasksDone = Math.min(4, netTasksDone + 1);
+          netCompletedSteps.add(7);
+          updateNetProgressMetrics();
+          showToast("✓ Task 4: Network interfaces inspected!");
+        }
+      } else if (lower === 'clear') {
+        netTerminalViewport.innerHTML = '<div class="term-boot-line text-muted">Screen cleared. Type commands below:</div>';
+        netTerminalCliInput.value = '';
+        return;
+      } else if (lower === 'help') {
+        outLine.textContent = 'Available commands: python3 -m http.server 8000, curl http://localhost:8000, ping -c 4 127.0.0.1, ip addr, clear, help';
+      } else {
+        outLine.className = 'term-boot-line text-red';
+        outLine.textContent = `bash: ${rawCmd.split(' ')[0]}: command not found. Try 'help'.`;
+      }
+
+      if (outLine.textContent) {
+        netTerminalViewport.appendChild(outLine);
+      }
+
+      netTerminalCliInput.value = '';
+      netTerminalViewport.scrollTop = netTerminalViewport.scrollHeight;
+    }
+
+    if (netBtnCliSubmit) {
+      netBtnCliSubmit.addEventListener('click', executeNetWorkspaceCommand);
+    }
+
+    if (netTerminalCliInput) {
+      netTerminalCliInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') executeNetWorkspaceCommand();
+      });
+    }
+
+    if (netLessonThemeToggle) {
+      netLessonThemeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('light-mode');
+        showToast("Theme switched");
+      });
+    }
+
+    // Initial render
+    renderNetLesson(1);
+  }
+
+  /* ==========================================================================
+     24. GIT SKILL PAGE CONTROLLER (skill-git.html)
+     ========================================================================== */
+  const gitStarRatingBox = document.getElementById('git-star-rating-box');
+  if (gitStarRatingBox) {
+    const stars = gitStarRatingBox.querySelectorAll('.fa-star');
+    stars.forEach((star) => {
+      star.addEventListener('click', () => {
+        const rating = parseInt(star.getAttribute('data-rating') || '5', 10);
+        stars.forEach((s) => {
+          const r = parseInt(s.getAttribute('data-rating') || '0', 10);
+          if (r <= rating) {
+            s.classList.add('active');
+          } else {
+            s.classList.remove('active');
+          }
+        });
+        showToast(`Rated ${rating} out of 5 stars! Thank you.`);
+      });
+    });
+  }
+
+  const btnPreviewGitCert = document.getElementById('btn-preview-git-cert');
+  const certModal = document.getElementById('cert-modal');
+  const certModalClose = document.getElementById('cert-modal-close');
+
+  if (btnPreviewGitCert && certModal) {
+    btnPreviewGitCert.addEventListener('click', () => {
+      certModal.style.display = 'flex';
+    });
+  }
+
+  if (certModalClose && certModal) {
+    certModalClose.addEventListener('click', () => {
+      certModal.style.display = 'none';
+    });
+  }
+
+  /* ==========================================================================
+     25. GIT 4-COLUMN INTERACTIVE LESSON CONTROLLER (lesson-git.html)
+     ========================================================================== */
+  const gitLessonStepperItems = document.querySelectorAll('#git-sidebar-stepper-list .stepper-item');
+  const gitLessonStepCounter = document.getElementById('git-lesson-step-counter');
+  const gitLessonHeading = document.getElementById('git-lesson-heading');
+  const gitLessonTypePill = document.getElementById('git-lesson-type-pill');
+  const gitLessonBodyContent = document.getElementById('git-lesson-body-content');
+  const gitLessonQuizContainer = document.getElementById('git-lesson-quiz-container');
+  const gitQuizQuestionText = document.getElementById('git-quiz-question-text');
+  const gitQuizOptionsList = document.getElementById('git-quiz-options-list');
+  const gitQuizFeedbackBox = document.getElementById('git-quiz-feedback-box');
+  const gitBtnLessonPrev = document.getElementById('git-btn-lesson-prev');
+  const gitBtnLessonNext = document.getElementById('git-btn-lesson-next');
+
+  const gitBtnVoicePlay = document.getElementById('git-btn-voice-play');
+  const gitVoiceIcon = document.getElementById('git-voice-icon');
+  const gitVoiceStatusText = document.getElementById('git-voice-status-text');
+  const gitVoiceTimer = document.getElementById('git-voice-timer');
+
+  const gitLessonProgressPercent = document.getElementById('git-lesson-progress-percent');
+  const gitLessonProgressArc = document.getElementById('git-lesson-progress-arc');
+  const gitStatDoneCount = document.getElementById('git-stat-done-count');
+  const gitStatQuizzesCount = document.getElementById('git-stat-quizzes-count');
+  const gitStatTasksCount = document.getElementById('git-stat-tasks-count');
+
+  const gitTabTerminalBtn = document.getElementById('git-tab-terminal-btn');
+  const gitTabAddBtn = document.getElementById('git-tab-add-btn');
+  const gitTerminalStandbyView = document.getElementById('git-terminal-standby-view');
+  const gitTerminalActiveView = document.getElementById('git-terminal-active-view');
+  const gitBtnStartLiveLab = document.getElementById('git-btn-start-live-lab');
+  const gitTerminalViewport = document.getElementById('git-terminal-viewport');
+  const gitTerminalCliInput = document.getElementById('git-terminal-cli-input');
+  const gitBtnCliSubmit = document.getElementById('git-btn-cli-submit');
+  const gitLessonThemeToggle = document.getElementById('btn-git-lesson-theme-toggle');
+
+  const gitBtnToggleEditor = document.getElementById('git-btn-toggle-editor');
+  const gitBtnToggleNotes = document.getElementById('git-btn-toggle-notes');
+  const gitToolsDrawer = document.getElementById('git-tools-drawer');
+  const gitBtnCloseDrawer = document.getElementById('git-btn-close-drawer');
+  const gitDrawerTitle = document.getElementById('git-drawer-title');
+
+  if (gitLessonStepperItems.length > 0) {
+
+    const gitLessonsData = {
+      1: {
+        stepNum: 1,
+        type: 'Lesson',
+        title: 'What version control is',
+        duration: '· 2:45',
+        seconds: 165,
+        voiceText: "In this lesson you will learn what version control is, why Git has become the global standard for software engineering, and how Git records full filesystem snapshots instead of fragile file diffs.",
+        bodyHtml: `
+          <p>
+            In this lesson you will learn what version control is, why Git has become the global standard for software engineering, and how Git records full filesystem snapshots instead of fragile file diffs.
+          </p>
+          <p>
+            A version control system (VCS) tracks changes to code over time. It lets you inspect history, revert bad commits, collaborate with teammates without overwriting work, and safely experiment in isolated branches.
+          </p>
+          <p>
+            Git models project history as a directed graph of immutable snapshots. Every commit has a unique SHA-1 hash cryptographic fingerprint, an author, a timestamp, and a pointer to its parent commit.
+          </p>
+          <div class="git-workflow-diagram font-mono">
+            <div class="git-diagram-header">THE THREE TREES OF GIT WORKFLOW</div>
+            <div class="git-trees-row">
+              <div class="git-tree-card working-dir">
+                <span class="git-tree-title">1. Working Dir</span>
+                <span class="text-xs text-muted">Untracked / Modified</span>
+                <span class="git-tree-cmd">edit files</span>
+              </div>
+              <div class="git-tree-card staging-area">
+                <span class="git-tree-title">2. Staging Area</span>
+                <span class="text-xs text-muted">Index for snapshot</span>
+                <span class="git-tree-cmd">git add .</span>
+              </div>
+              <div class="git-tree-card git-repo">
+                <span class="git-tree-title">3. Git Repository</span>
+                <span class="text-xs text-muted">Permanent commits</span>
+                <span class="git-tree-cmd">git commit</span>
+              </div>
+            </div>
+            <div class="git-commits-timeline">
+              <div class="git-commit-bubble"><span>C1</span></div>
+              <i class="fa-solid fa-arrow-right text-muted" style="font-size: 10px;"></i>
+              <div class="git-commit-bubble"><span>C2</span></div>
+              <i class="fa-solid fa-arrow-right text-accent" style="font-size: 10px;"></i>
+              <div class="git-commit-bubble head">
+                <span class="head-tag">HEAD -> main</span>
+                <span>C3</span>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      2: {
+        stepNum: 2,
+        type: 'Lesson',
+        title: 'Snapshots vs delta diffs',
+        duration: '· 3:10',
+        seconds: 190,
+        voiceText: "Traditional version control systems like SVN store changes as a set of file-based deltas. Git thinks of its data more like a series of snapshots of a miniature filesystem.",
+        bodyHtml: `
+          <p>
+            Traditional version control systems (like CVS and Subversion) store information as a list of file-based changes (often called delta-based version control).
+          </p>
+          <p>
+            Git does not think of or store its data this way. Instead, Git thinks of its data more like a series of snapshots of a miniature filesystem. Every time you commit, Git takes a picture of what all your files look like at that moment.
+          </p>
+          <p>
+            If files have not changed, Git does not store the file again, just a link to the previous identical file it has already stored. Git thinks about its data more like a stream of snapshots.
+          </p>
+        `
+      },
+      3: {
+        stepNum: 3,
+        type: 'Task',
+        title: 'Init your repository',
+        duration: '· 4:00',
+        seconds: 240,
+        voiceText: "Now let's initialize a new Git repository. In your terminal on the right, click Start Lab and run git init to turn your current directory into a tracked Git repository.",
+        bodyHtml: `
+          <p>
+            Now let's see Git in action by creating a new repository from scratch in your live terminal sandbox.
+          </p>
+          <div class="task-instructions-box font-mono" style="background: rgba(34, 229, 132, 0.04); border: 1px solid rgba(34, 229, 132, 0.2); border-radius: 8px; padding: 18px; margin: 20px 0;">
+            <div style="color: var(--accent-green); font-weight: 700; margin-bottom: 8px;"><i class="fa-solid fa-terminal"></i> LAB TASK 1 OF 1</div>
+            <p style="margin-bottom: 8px; color: #d1d5db;">1. Click <strong>&gt;_ Start Lab</strong> in the right terminal panel.</p>
+            <p style="margin-bottom: 8px; color: #d1d5db;">2. Run <code class="text-accent">git init</code> to initialize a new repository.</p>
+            <p style="margin-bottom: 0; color: #d1d5db;">3. Run <code class="text-accent">git status</code> to inspect the clean working directory.</p>
+          </div>
+        `
+      },
+      4: {
+        stepNum: 4,
+        type: 'Lesson',
+        title: 'The three trees of Git',
+        duration: '· 2:30',
+        seconds: 150,
+        voiceText: "Git has three main states that your files can reside in: modified, staged, and committed. This leads to the three main sections of a Git project: the working tree, the staging area, and the Git directory.",
+        bodyHtml: `
+          <p>
+            Git has three main states that your files can reside in: <strong>modified</strong>, <strong>staged</strong>, and <strong>committed</strong>:
+          </p>
+          <ul style="color: #d1d5db; line-height: 1.8; margin-left: 20px; margin-bottom: 16px;">
+            <li><strong>Modified:</strong> You have changed the file in your working directory but have not committed it yet.</li>
+            <li><strong>Staged:</strong> You have marked a modified file in its current version to go into your next commit snapshot via <code class="text-accent">git add</code>.</li>
+            <li><strong>Committed:</strong> The data is safely stored in your local database (<code class="text-accent">.git/</code> directory).</li>
+          </ul>
+        `
+      },
+      5: {
+        stepNum: 5,
+        type: 'Task',
+        title: 'Stage and make a commit',
+        duration: '· 3:45',
+        seconds: 225,
+        voiceText: "Let's create a file, stage it, and commit it with a clear commit message. Run git add and git commit in your terminal.",
+        bodyHtml: `
+          <p>
+            Let's walk through the full commit lifecycle: creating a file, inspecting it with <code class="text-accent">git status</code>, staging it with <code class="text-accent">git add</code>, and recording a snapshot with <code class="text-accent">git commit</code>.
+          </p>
+          <div class="task-instructions-box font-mono" style="background: rgba(34, 229, 132, 0.04); border: 1px solid rgba(34, 229, 132, 0.2); border-radius: 8px; padding: 18px; margin: 20px 0;">
+            <div style="color: var(--accent-green); font-weight: 700; margin-bottom: 8px;"><i class="fa-solid fa-terminal"></i> LAB TASK: FIRST COMMIT</div>
+            <p style="margin-bottom: 8px; color: #d1d5db;">1. Create a README file: <code class="text-accent">echo "# My App" &gt; README.md</code></p>
+            <p style="margin-bottom: 8px; color: #d1d5db;">2. Stage the file: <code class="text-accent">git add README.md</code></p>
+            <p style="margin-bottom: 0; color: #d1d5db;">3. Commit: <code class="text-accent">git commit -m "feat: initial commit"</code></p>
+          </div>
+        `
+      },
+      6: {
+        stepNum: 6,
+        type: 'Quiz',
+        title: 'Concept Check: Git Core',
+        duration: '· 2:00',
+        seconds: 120,
+        voiceText: "Time for a concept check to test your understanding of Git's architecture and staging area before moving to advanced topics.",
+        quiz: {
+          question: "Which Git command moves changes from your Working Directory into the Staging Area index?",
+          options: [
+            "git push origin main",
+            "git commit -m 'update'",
+            "git add <file>",
+            "git checkout -b feature"
+          ],
+          correct: 2,
+          explanation: "Correct! 'git add' moves modified files from your working directory into the staging area (index) so they will be included in the next commit snapshot."
+        }
+      },
+      7: {
+        stepNum: 7,
+        type: 'Lesson',
+        title: 'Next in Git mastery',
+        duration: '· 1:30',
+        seconds: 90,
+        voiceText: "Congratulations on mastering the foundations of Git. Next you will learn branches, merge conflict resolution, rebasing, remotes, and GitHub pull requests.",
+        bodyHtml: `
+          <p>
+            Congratulations! You have completed Topic 01 of the Git Track:
+          </p>
+          <div style="background: rgba(34, 229, 132, 0.05); border: 1px solid rgba(34, 229, 132, 0.3); border-radius: 8px; padding: 20px; margin: 20px 0;">
+            <h4 style="color: var(--accent-green); margin: 0 0 10px 0; font-size: 14px;">Key Takeaways:</h4>
+            <ul style="color: #d1d5db; line-height: 1.8; margin-left: 20px;">
+              <li>Git records complete filesystem snapshots, not incremental deltas.</li>
+              <li>Every commit has a unique cryptographic SHA-1 hash fingerprint.</li>
+              <li>The 3 trees workflow: Working Directory &rarr; Staging Area &rarr; Git Repository.</li>
+            </ul>
+          </div>
+          <p>
+            Next up: <strong>02 &middot; Your first repository</strong> and <strong>08 &middot; Branches &amp; Merge Workflows</strong>.
+          </p>
+        `
+      }
+    };
+
+    let currentGitStep = 1;
+    let gitCompletedSteps = new Set([1]);
+    let isGitVoicePlaying = false;
+    let gitVoiceInterval = null;
+    let gitVoiceSecondsRemaining = 165;
+    let isGitLabRunning = false;
+    let gitTasksDone = 0;
+    let gitQuizzesDone = 0;
+
+    function updateGitSidebarStats() {
+      const doneCount = gitCompletedSteps.size;
+      const totalSteps = Object.keys(gitLessonsData).length;
+      const pct = Math.round((doneCount / totalSteps) * 100);
+
+      if (gitLessonProgressPercent) gitLessonProgressPercent.textContent = `${pct}%`;
+      if (gitLessonProgressArc) {
+        const totalLength = 264;
+        const offset = totalLength - (totalLength * pct) / 100;
+        gitLessonProgressArc.style.strokeDashoffset = offset;
+      }
+      if (gitStatDoneCount) gitStatDoneCount.textContent = `${doneCount}`;
+      if (gitStatQuizzesCount) gitStatQuizzesCount.textContent = `${gitQuizzesDone}/1`;
+      if (gitStatTasksCount) gitStatTasksCount.textContent = `${gitTasksDone}/1`;
+    }
+
+    function renderGitLesson(stepId) {
+      currentGitStep = parseInt(stepId, 10);
+      const data = gitLessonsData[currentGitStep];
+      if (!data) return;
+
+      gitCompletedSteps.add(currentGitStep);
+
+      // Update Header
+      if (gitLessonStepCounter) {
+        gitLessonStepCounter.textContent = `${data.type.toUpperCase()} · ${currentGitStep} OF 7`;
+      }
+      if (gitVoiceTimer) gitVoiceTimer.innerHTML = `&middot; ${data.duration.replace('· ', '')}`;
+      if (gitLessonHeading) gitLessonHeading.textContent = data.title;
+      if (gitLessonTypePill) {
+        gitLessonTypePill.textContent = data.type;
+        gitLessonTypePill.className = `lesson-type-badge font-mono ${data.type.toLowerCase()}-badge`;
+      }
+
+      // Render Content or Quiz
+      if (data.type === 'Quiz' && data.quiz) {
+        if (gitLessonBodyContent) gitLessonBodyContent.style.display = 'none';
+        if (gitLessonQuizContainer) {
+          gitLessonQuizContainer.style.display = 'block';
+          if (gitQuizQuestionText) gitQuizQuestionText.textContent = data.quiz.question;
+          if (gitQuizOptionsList) {
+            gitQuizOptionsList.innerHTML = '';
+            data.quiz.options.forEach((optText, idx) => {
+              const optBtn = document.createElement('button');
+              optBtn.className = 'quiz-option-btn';
+              optBtn.innerHTML = `<span class="opt-key">${String.fromCharCode(65 + idx)}</span> <span class="opt-val">${optText}</span>`;
+              optBtn.addEventListener('click', () => {
+                const allBtns = gitQuizOptionsList.querySelectorAll('.quiz-option-btn');
+                allBtns.forEach((b) => (b.disabled = true));
+
+                if (idx === data.quiz.correct) {
+                  optBtn.classList.add('correct');
+                  if (gitQuizFeedbackBox) {
+                    gitQuizFeedbackBox.style.display = 'block';
+                    gitQuizFeedbackBox.className = 'quiz-feedback-box correct font-mono';
+                    gitQuizFeedbackBox.innerHTML = `<i class="fa-solid fa-circle-check"></i> ${data.quiz.explanation}`;
+                  }
+                  gitQuizzesDone = 1;
+                  showToast("Quiz passed! Concept verified.");
+                } else {
+                  optBtn.classList.add('wrong');
+                  if (allBtns[data.quiz.correct]) allBtns[data.quiz.correct].classList.add('correct');
+                  if (gitQuizFeedbackBox) {
+                    gitQuizFeedbackBox.style.display = 'block';
+                    gitQuizFeedbackBox.className = 'quiz-feedback-box wrong font-mono';
+                    gitQuizFeedbackBox.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> Incorrect. ${data.quiz.explanation}`;
+                  }
+                  showToast("Review the explanation and try again.");
+                }
+                updateGitSidebarStats();
+              });
+              gitQuizOptionsList.appendChild(optBtn);
+            });
+          }
+          if (gitQuizFeedbackBox) gitQuizFeedbackBox.style.display = 'none';
+        }
+      } else {
+        if (gitLessonQuizContainer) gitLessonQuizContainer.style.display = 'none';
+        if (gitLessonBodyContent) {
+          gitLessonBodyContent.style.display = 'block';
+          gitLessonBodyContent.innerHTML = data.bodyHtml || '';
+        }
+      }
+
+      // Update Stepper Active and Done states
+      gitLessonStepperItems.forEach((item) => {
+        const itemStep = parseInt(item.getAttribute('data-git-step'), 10);
+        if (itemStep === currentGitStep) {
+          item.classList.add('active');
+        } else {
+          item.classList.remove('active');
+        }
+
+        if (gitCompletedSteps.has(itemStep) && itemStep !== currentGitStep) {
+          item.classList.add('done');
+        } else {
+          item.classList.remove('done');
+        }
+      });
+
+      // Update Nav Buttons
+      if (gitBtnLessonPrev) gitBtnLessonPrev.disabled = currentGitStep === 1;
+      if (gitBtnLessonNext) {
+        if (currentGitStep === 7) {
+          gitBtnLessonNext.innerHTML = `Complete Track <i class="fa-solid fa-flag-checkered"></i>`;
+        } else {
+          gitBtnLessonNext.innerHTML = `Next &rarr;`;
+        }
+      }
+
+      // Reset audio narration
+      stopGitAudioNarrator();
+      updateGitSidebarStats();
+    }
+
+    gitLessonStepperItems.forEach((item) => {
+      item.addEventListener('click', () => {
+        const stepNum = item.getAttribute('data-git-step');
+        renderGitLesson(stepNum);
+      });
+    });
+
+    if (gitBtnLessonPrev) {
+      gitBtnLessonPrev.addEventListener('click', () => {
+        if (currentGitStep > 1) renderGitLesson(currentGitStep - 1);
+      });
+    }
+
+    if (gitBtnLessonNext) {
+      gitBtnLessonNext.addEventListener('click', () => {
+        if (currentGitStep < 7) {
+          renderGitLesson(currentGitStep + 1);
+        } else {
+          showToast("Git Track Step 1 completed! Ready for Step 2.");
+          setTimeout(() => {
+            window.location.href = 'skill-git.html';
+          }, 1200);
+        }
+      });
+    }
+
+    function stopGitAudioNarrator() {
+      if (gitVoiceInterval) clearInterval(gitVoiceInterval);
+      isGitVoicePlaying = false;
+      if (gitVoiceIcon) gitVoiceIcon.className = 'fa-solid fa-play';
+      if (gitVoiceStatusText) gitVoiceStatusText.textContent = 'Explain this lesson';
+      if (gitBtnVoicePlay) gitBtnVoicePlay.classList.remove('playing');
+    }
+
+    function toggleGitAudioNarrator() {
+      const data = gitLessonsData[currentGitStep];
+      if (!data) return;
+
+      if (isGitVoicePlaying) {
+        stopGitAudioNarrator();
+        if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+        showToast("Narrator paused");
+      } else {
+        isGitVoicePlaying = true;
+        if (gitVoiceIcon) gitVoiceIcon.className = 'fa-solid fa-pause';
+        if (gitVoiceStatusText) gitVoiceStatusText.textContent = 'Playing explanation...';
+        if (gitBtnVoicePlay) gitBtnVoicePlay.classList.add('playing');
+
+        gitVoiceSecondsRemaining = data.seconds || 165;
+        gitVoiceInterval = setInterval(() => {
+          gitVoiceSecondsRemaining--;
+          const mins = Math.floor(gitVoiceSecondsRemaining / 60);
+          const secs = gitVoiceSecondsRemaining % 60;
+          if (gitVoiceTimer) gitVoiceTimer.textContent = `· ${mins}:${secs < 10 ? '0' : ''}${secs}`;
+
+          if (gitVoiceSecondsRemaining <= 0) {
+            stopGitAudioNarrator();
+            showToast("Lesson audio walkthrough complete.");
+          }
+        }, 1000);
+
+        if ('speechSynthesis' in window && data.voiceText) {
+          window.speechSynthesis.cancel();
+          const utterance = new SpeechSynthesisUtterance(data.voiceText);
+          utterance.rate = 1.0;
+          utterance.pitch = 1.0;
+          window.speechSynthesis.speak(utterance);
+        }
+        showToast("Narrator started: Demonstrating concepts");
+      }
+    }
+
+    if (gitBtnVoicePlay) {
+      gitBtnVoicePlay.addEventListener('click', toggleGitAudioNarrator);
+    }
+
+    // Live Terminal Controls
+    if (gitBtnStartLiveLab) {
+      gitBtnStartLiveLab.addEventListener('click', () => {
+        isGitLabRunning = true;
+        if (gitTerminalStandbyView) gitTerminalStandbyView.style.display = 'none';
+        if (gitTerminalActiveView) gitTerminalActiveView.style.display = 'flex';
+        showToast("Live Linux Git sandbox container booted.");
+        if (gitTerminalCliInput) gitTerminalCliInput.focus();
+      });
+    }
+
+    if (gitTabAddBtn) {
+      gitTabAddBtn.addEventListener('click', () => {
+        showToast("Terminal 2 opened in parallel session.");
+      });
+    }
+
+    // Tools Drawer (Editor & Your Notes)
+    if (gitBtnToggleNotes && gitToolsDrawer) {
+      gitBtnToggleNotes.addEventListener('click', () => {
+        if (gitDrawerTitle) gitDrawerTitle.innerHTML = `<i class="fa-regular fa-note-sticky"></i> Your Notes`;
+        gitToolsDrawer.style.display = 'flex';
+      });
+    }
+
+    if (gitBtnToggleEditor && gitToolsDrawer) {
+      gitBtnToggleEditor.addEventListener('click', () => {
+        if (gitDrawerTitle) gitDrawerTitle.innerHTML = `<i class="fa-regular fa-file-code"></i> Scratchpad Editor`;
+        gitToolsDrawer.style.display = 'flex';
+      });
+    }
+
+    if (gitBtnCloseDrawer && gitToolsDrawer) {
+      gitBtnCloseDrawer.addEventListener('click', () => {
+        gitToolsDrawer.style.display = 'none';
+      });
+    }
+
+    function executeGitWorkspaceCommand() {
+      if (!gitTerminalCliInput || !gitTerminalViewport) return;
+      const cmd = gitTerminalCliInput.value.trim();
+      if (!cmd) return;
+
+      const userLine = document.createElement('div');
+      userLine.className = 'term-line font-mono font-bold text-accent';
+      userLine.textContent = `student@git-box:~/devops-repo$ ${cmd}`;
+      gitTerminalViewport.appendChild(userLine);
+
+      const outLine = document.createElement('div');
+      outLine.className = 'term-line font-mono';
+
+      const lower = cmd.toLowerCase();
+
+      if (lower === 'clear') {
+        gitTerminalViewport.innerHTML = '';
+        gitTerminalCliInput.value = '';
+        return;
+      } else if (lower === 'help') {
+        outLine.innerHTML = `
+          Available Git sandbox commands:<br>
+          &bull; <span class="text-accent">git init</span> - Initialize a new Git repository<br>
+          &bull; <span class="text-accent">git status</span> - Show working tree status<br>
+          &bull; <span class="text-accent">git add .</span> / <span class="text-accent">git add README.md</span> - Stage files for commit<br>
+          &bull; <span class="text-accent">git commit -m "msg"</span> - Record snapshot to history<br>
+          &bull; <span class="text-accent">git log --oneline</span> - View commit history<br>
+          &bull; <span class="text-accent">git branch</span> - List branches<br>
+          &bull; <span class="text-accent">ls -la</span> - List all directory files including .git<br>
+          &bull; <span class="text-accent">clear</span> - Clear screen
+        `;
+        gitTerminalViewport.appendChild(outLine);
+      } else if (lower.startsWith('git init')) {
+        outLine.innerHTML = `
+          <span class="text-accent">Initialized empty Git repository in /home/student/devops-repo/.git/</span><br>
+          <span class="text-muted">Hint: Run 'git status' to inspect tracked files.</span>
+        `;
+        gitTerminalViewport.appendChild(outLine);
+        gitTasksDone = 1;
+        updateGitSidebarStats();
+        showToast("Task verified: Git repository initialized!");
+      } else if (lower.startsWith('git status')) {
+        outLine.innerHTML = `
+          On branch main<br>
+          No commits yet<br><br>
+          Untracked files:<br>
+          &nbsp;&nbsp;(use "git add &lt;file&gt;..." to include in what will be committed)<br>
+          &nbsp;&nbsp;<span style="color: #ef4444;">README.md</span><br>
+          &nbsp;&nbsp;<span style="color: #ef4444;">app.py</span><br><br>
+          nothing added to commit but untracked files present (use "git add" to track)
+        `;
+        gitTerminalViewport.appendChild(outLine);
+      } else if (lower.startsWith('git add')) {
+        outLine.innerHTML = `<span class="text-muted">Changes staged to index for next commit snapshot.</span>`;
+        gitTerminalViewport.appendChild(outLine);
+        showToast("Files staged to index.");
+      } else if (lower.startsWith('git commit')) {
+        outLine.innerHTML = `
+          [main (root-commit) 8f3a9b1] feat: initial commit<br>
+          &nbsp;2 files changed, 45 insertions(+)<br>
+          &nbsp;create mode 100644 README.md<br>
+          &nbsp;create mode 100644 app.py
+        `;
+        gitTerminalViewport.appendChild(outLine);
+        gitTasksDone = 1;
+        updateGitSidebarStats();
+        showToast("Commit recorded to Git repository snapshot graph!");
+      } else if (lower.startsWith('git log')) {
+        outLine.innerHTML = `
+          <span class="text-amber">8f3a9b1</span> (HEAD -> main) feat: initial commit<br>
+          <span class="text-muted">Author: student &lt;student@shaikhsir.io&gt;</span><br>
+          <span class="text-muted">Date:   Tue Oct 6 00:50:00 2026 +0530</span>
+        `;
+        gitTerminalViewport.appendChild(outLine);
+      } else if (lower.startsWith('git branch')) {
+        outLine.innerHTML = `<span class="text-accent">* main</span>`;
+        gitTerminalViewport.appendChild(outLine);
+      } else if (lower.startsWith('ls')) {
+        outLine.innerHTML = `README.md  app.py  .git/`;
+        gitTerminalViewport.appendChild(outLine);
+      } else {
+        outLine.innerHTML = `<span class="text-muted">Command executed: ${cmd}. Run <span class="text-accent">help</span> for guidance.</span>`;
+        gitTerminalViewport.appendChild(outLine);
+      }
+
+      gitTerminalCliInput.value = '';
+      gitTerminalViewport.scrollTop = gitTerminalViewport.scrollHeight;
+    }
+
+    if (gitBtnCliSubmit) {
+      gitBtnCliSubmit.addEventListener('click', executeGitWorkspaceCommand);
+    }
+
+    if (gitTerminalCliInput) {
+      gitTerminalCliInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') executeGitWorkspaceCommand();
+      });
+    }
+
+    if (gitLessonThemeToggle) {
+      gitLessonThemeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('light-mode');
+        showToast("Theme switched");
+      });
+    }
+
+    // Initial render
+    renderGitLesson(1);
+  }
+
+  /* ==========================================================================
+     26. DOCKER SKILL PAGE CONTROLLER (skill-docker.html)
+     ========================================================================== */
+  const dockerStarRatingBox = document.getElementById('docker-star-rating-box');
+  if (dockerStarRatingBox) {
+    const stars = dockerStarRatingBox.querySelectorAll('.fa-star');
+    stars.forEach((star) => {
+      star.addEventListener('click', () => {
+        const rating = parseInt(star.getAttribute('data-rating') || '5', 10);
+        stars.forEach((s) => {
+          const r = parseInt(s.getAttribute('data-rating') || '0', 10);
+          if (r <= rating) {
+            s.classList.add('active');
+          } else {
+            s.classList.remove('active');
+          }
+        });
+        showToast(`Rated ${rating} out of 5 stars! Thank you.`);
+      });
+    });
+  }
+
+  const btnPreviewDockerCert = document.getElementById('btn-preview-docker-cert');
+  if (btnPreviewDockerCert && certModal) {
+    btnPreviewDockerCert.addEventListener('click', () => {
+      certModal.style.display = 'flex';
+    });
+  }
+
+  /* ==========================================================================
+     27. DOCKER 4-COLUMN INTERACTIVE LESSON CONTROLLER (lesson-docker.html)
+     ========================================================================== */
+  const dockerLessonStepperItems = document.querySelectorAll('#docker-sidebar-stepper-list .stepper-item');
+  const dockerLessonStepCounter = document.getElementById('docker-lesson-step-counter');
+  const dockerLessonHeading = document.getElementById('docker-lesson-heading');
+  const dockerLessonTypePill = document.getElementById('docker-lesson-type-pill');
+  const dockerLessonBodyContent = document.getElementById('docker-lesson-body-content');
+  const dockerLessonQuizContainer = document.getElementById('docker-lesson-quiz-container');
+  const dockerQuizQuestionText = document.getElementById('docker-quiz-question-text');
+  const dockerQuizOptionsList = document.getElementById('docker-quiz-options-list');
+  const dockerQuizFeedbackBox = document.getElementById('docker-quiz-feedback-box');
+  const dockerBtnLessonPrev = document.getElementById('docker-btn-lesson-prev');
+  const dockerBtnLessonNext = document.getElementById('docker-btn-lesson-next');
+
+  const dockerBtnVoicePlay = document.getElementById('docker-btn-voice-play');
+  const dockerVoiceIcon = document.getElementById('docker-voice-icon');
+  const dockerVoiceStatusText = document.getElementById('docker-voice-status-text');
+  const dockerVoiceTimer = document.getElementById('docker-voice-timer');
+
+  const dockerLessonProgressPercent = document.getElementById('docker-lesson-progress-percent');
+  const dockerLessonProgressArc = document.getElementById('docker-lesson-progress-arc');
+  const dockerStatDoneCount = document.getElementById('docker-stat-done-count');
+  const dockerStatQuizzesCount = document.getElementById('docker-stat-quizzes-count');
+  const dockerStatTasksCount = document.getElementById('docker-stat-tasks-count');
+
+  const dockerTabTerminalBtn = document.getElementById('docker-tab-terminal-btn');
+  const dockerTabAddBtn = document.getElementById('docker-tab-add-btn');
+  const dockerTerminalStandbyView = document.getElementById('docker-terminal-standby-view');
+  const dockerTerminalActiveView = document.getElementById('docker-terminal-active-view');
+  const dockerBtnStartLiveLab = document.getElementById('docker-btn-start-live-lab');
+  const dockerTerminalViewport = document.getElementById('docker-terminal-viewport');
+  const dockerTerminalCliInput = document.getElementById('docker-terminal-cli-input');
+  const dockerBtnCliSubmit = document.getElementById('docker-btn-cli-submit');
+  const dockerLessonThemeToggle = document.getElementById('btn-docker-lesson-theme-toggle');
+
+  const dockerBtnToggleEditor = document.getElementById('docker-btn-toggle-editor');
+  const dockerBtnToggleNotes = document.getElementById('docker-btn-toggle-notes');
+  const dockerToolsDrawer = document.getElementById('docker-tools-drawer');
+  const dockerBtnCloseDrawer = document.getElementById('docker-btn-close-drawer');
+  const dockerDrawerTitle = document.getElementById('docker-drawer-title');
+
+  if (dockerLessonStepperItems.length > 0) {
+
+    const dockerLessonsData = {
+      1: {
+        stepNum: 1,
+        type: 'Lesson',
+        title: 'Introduction to Docker',
+        duration: '· 2:30',
+        seconds: 150,
+        voiceText: "In this lesson you will learn why Docker revolutionized software packaging and deployment, how containers differ from virtual machines, and the client daemon registry architecture.",
+        bodyHtml: `
+          <p>
+            In this lesson you will learn why Docker revolutionized software packaging and deployment, how containers differ from traditional hypervisor virtual machines, and the client-daemon-registry architecture.
+          </p>
+          <p>
+            Before Docker, deploying an application across staging and production often failed due to conflicting runtime versions, missing system libraries, or subtle OS differences (the classic <em>"it works on my machine"</em> problem).
+          </p>
+          <p>
+            Docker packages an application and all its dependencies into an immutable, portable container image that runs identically anywhere Linux kernel primitives (namespaces &amp; cgroups) are available.
+          </p>
+          <div class="docker-arch-diagram font-mono">
+            <div class="docker-arch-header">DOCKER ENGINE ARCHITECTURE</div>
+            <div class="docker-arch-grid">
+              <div class="docker-arch-card client">
+                <span class="docker-arch-title">1. Docker Client</span>
+                <span class="text-xs text-muted">CLI Interface</span>
+                <span class="docker-arch-cmd">docker run</span>
+              </div>
+              <div class="docker-arch-card daemon">
+                <span class="docker-arch-title">2. Docker Host</span>
+                <span class="text-xs text-muted">dockerd daemon</span>
+                <span class="docker-arch-cmd">Images &amp; Containers</span>
+              </div>
+              <div class="docker-arch-card registry">
+                <span class="docker-arch-title">3. Registry</span>
+                <span class="text-xs text-muted">Docker Hub / ECR</span>
+                <span class="docker-arch-cmd">docker pull</span>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      2: {
+        stepNum: 2,
+        type: 'Lesson',
+        title: 'Containers vs Virtual Machines',
+        duration: '· 3:00',
+        seconds: 180,
+        voiceText: "Virtual machines bundle a full guest operating system on top of a hypervisor. Docker containers share the host Linux kernel and run as isolated processes.",
+        bodyHtml: `
+          <p>
+            <strong>Virtual Machines (VMs)</strong> include the application, necessary binaries and libraries, and an entire guest operating system (which can be tens of gigabytes). VMs run on top of a hypervisor.
+          </p>
+          <p>
+            <strong>Containers</strong> share the host operating system's kernel. Each container runs as an isolated process in user space, taking up very little space and starting up in milliseconds.
+          </p>
+          <ul style="color: #d1d5db; line-height: 1.8; margin-left: 20px;">
+            <li><strong>Speed:</strong> Containers boot in &lt;1 second vs minutes for VMs.</li>
+            <li><strong>Resource Footprint:</strong> Megabytes of RAM vs Gigabytes per VM.</li>
+            <li><strong>Portability:</strong> Standardized OCI container image format runs across all clouds.</li>
+          </ul>
+        `
+      },
+      3: {
+        stepNum: 3,
+        type: 'Task',
+        title: 'Run your first container',
+        duration: '· 4:15',
+        seconds: 255,
+        voiceText: "Now let's launch an Nginx web server container in your live sandbox. Click Start Lab and run docker run -d -p 80:80 nginx.",
+        bodyHtml: `
+          <p>
+            Let's launch an Nginx web server in a lightweight container in your live Linux sandbox.
+          </p>
+          <div class="task-instructions-box font-mono" style="background: rgba(34, 229, 132, 0.04); border: 1px solid rgba(34, 229, 132, 0.2); border-radius: 8px; padding: 18px; margin: 20px 0;">
+            <div style="color: var(--accent-green); font-weight: 700; margin-bottom: 8px;"><i class="fa-solid fa-terminal"></i> LAB TASK: RUN A CONTAINER</div>
+            <p style="margin-bottom: 8px; color: #d1d5db;">1. Click <strong>&gt;_ Start Lab</strong> in the right terminal panel.</p>
+            <p style="margin-bottom: 8px; color: #d1d5db;">2. Run <code class="text-accent">docker run -d -p 80:80 nginx</code> to pull and launch in detached mode.</p>
+            <p style="margin-bottom: 0; color: #d1d5db;">3. Verify with <code class="text-accent">docker ps</code> to see the running container ID and mapped ports.</p>
+          </div>
+        `
+      },
+      4: {
+        stepNum: 4,
+        type: 'Lesson',
+        title: 'The Docker Architecture',
+        duration: '· 2:40',
+        seconds: 160,
+        voiceText: "Docker uses a client-server architecture. The Docker client talks to the Docker daemon, which does the heavy lifting of building, running, and distributing your Docker containers.",
+        bodyHtml: `
+          <p>
+            Docker uses a client-server architecture:
+          </p>
+          <ul style="color: #d1d5db; line-height: 1.8; margin-left: 20px; margin-bottom: 16px;">
+            <li><strong>The Docker Daemon (dockerd):</strong> Listens for Docker API requests and manages Docker objects such as images, containers, networks, and volumes.</li>
+            <li><strong>The Docker Client (docker):</strong> The primary way that Docker users interact with Docker. When you run commands like <code>docker run</code>, the client sends them to <code>dockerd</code>.</li>
+            <li><strong>Docker Registries:</strong> Stores Docker images. Docker Hub is a public registry that anyone can use, and Docker is configured to look for images on Docker Hub by default.</li>
+          </ul>
+        `
+      },
+      5: {
+        stepNum: 5,
+        type: 'Task',
+        title: 'Inspect running container',
+        duration: '· 3:30',
+        seconds: 210,
+        voiceText: "Now let's inspect the container's logs and system metadata using docker logs and docker inspect.",
+        bodyHtml: `
+          <p>
+            Debugging and inspecting containers is a core DevOps daily task.
+          </p>
+          <div class="task-instructions-box font-mono" style="background: rgba(34, 229, 132, 0.04); border: 1px solid rgba(34, 229, 132, 0.2); border-radius: 8px; padding: 18px; margin: 20px 0;">
+            <div style="color: var(--accent-green); font-weight: 700; margin-bottom: 8px;"><i class="fa-solid fa-terminal"></i> LAB TASK: INSPECTION & LOGS</div>
+            <p style="margin-bottom: 8px; color: #d1d5db;">1. Run <code class="text-accent">docker logs &lt;container_id&gt;</code> to stream stdout from Nginx.</p>
+            <p style="margin-bottom: 0; color: #d1d5db;">2. Run <code class="text-accent">docker inspect</code> to view IP address, network settings, and volume mounts.</p>
+          </div>
+        `
+      },
+      6: {
+        stepNum: 6,
+        type: 'Quiz',
+        title: 'Concept Check: Docker Core',
+        duration: '· 2:00',
+        seconds: 120,
+        voiceText: "Time for a quick concept check on Docker container isolation and port binding.",
+        quiz: {
+          question: "What does the '-p 8080:80' flag do when running 'docker run -d -p 8080:80 nginx'?",
+          options: [
+            "Allocates 8080 megabytes of memory to port 80",
+            "Maps host port 8080 to container port 80",
+            "Creates 8080 replicas of container 80",
+            "Sets the container PID to 8080"
+          ],
+          correct: 1,
+          explanation: "Correct! The -p <host_port>:<container_port> flag publishes container port 80 to host port 8080 so external traffic can reach the container service."
+        }
+      },
+      7: {
+        stepNum: 7,
+        type: 'Lesson',
+        title: 'Next in containerization',
+        duration: '· 1:45',
+        seconds: 105,
+        voiceText: "Congratulations on completing Topic 01 of the Docker Track. Next you will learn writing custom Dockerfiles, multi-stage builds, volumes, networks, and Docker Compose.",
+        bodyHtml: `
+          <p>
+            Congratulations! You have completed Topic 01 of the Docker Track:
+          </p>
+          <div style="background: rgba(34, 229, 132, 0.05); border: 1px solid rgba(34, 229, 132, 0.3); border-radius: 8px; padding: 20px; margin: 20px 0;">
+            <h4 style="color: var(--accent-green); margin: 0 0 10px 0; font-size: 14px;">Key Takeaways:</h4>
+            <ul style="color: #d1d5db; line-height: 1.8; margin-left: 20px;">
+              <li>Containers share the host kernel and provide lightweight process isolation.</li>
+              <li>Docker client communicates with the <code>dockerd</code> daemon over REST API/sockets.</li>
+              <li>Images are immutable templates; containers are running instances of images.</li>
+            </ul>
+          </div>
+          <p>
+            Next up: <strong>02 &middot; Running containers</strong> and <strong>10 &middot; Writing your first Dockerfile</strong>.
+          </p>
+        `
+      }
+    };
+
+    let currentDockerStep = 1;
+    let dockerCompletedSteps = new Set([1]);
+    let isDockerVoicePlaying = false;
+    let dockerVoiceInterval = null;
+    let dockerVoiceSecondsRemaining = 150;
+    let isDockerLabRunning = false;
+    let dockerTasksDone = 0;
+    let dockerQuizzesDone = 0;
+
+    function updateDockerSidebarStats() {
+      const doneCount = dockerCompletedSteps.size;
+      const totalSteps = Object.keys(dockerLessonsData).length;
+      const pct = Math.round((doneCount / totalSteps) * 100);
+
+      if (dockerLessonProgressPercent) dockerLessonProgressPercent.textContent = `${pct}%`;
+      if (dockerLessonProgressArc) {
+        const totalLength = 264;
+        const offset = totalLength - (totalLength * pct) / 100;
+        dockerLessonProgressArc.style.strokeDashoffset = offset;
+      }
+      if (dockerStatDoneCount) dockerStatDoneCount.textContent = `${doneCount}`;
+      if (dockerStatQuizzesCount) dockerStatQuizzesCount.textContent = `${dockerQuizzesDone}/2`;
+      if (dockerStatTasksCount) dockerStatTasksCount.textContent = `${dockerTasksDone}/1`;
+    }
+
+    function renderDockerLesson(stepId) {
+      currentDockerStep = parseInt(stepId, 10);
+      const data = dockerLessonsData[currentDockerStep];
+      if (!data) return;
+
+      dockerCompletedSteps.add(currentDockerStep);
+
+      // Update Header
+      if (dockerLessonStepCounter) {
+        dockerLessonStepCounter.textContent = `${data.type.toUpperCase()} · ${currentDockerStep} OF 7`;
+      }
+      if (dockerVoiceTimer) dockerVoiceTimer.innerHTML = `&middot; ${data.duration.replace('· ', '')}`;
+      if (dockerLessonHeading) dockerLessonHeading.textContent = data.title;
+      if (dockerLessonTypePill) {
+        dockerLessonTypePill.textContent = data.type;
+        dockerLessonTypePill.className = `lesson-type-badge font-mono ${data.type.toLowerCase()}-badge`;
+      }
+
+      // Render Content or Quiz
+      if (data.type === 'Quiz' && data.quiz) {
+        if (dockerLessonBodyContent) dockerLessonBodyContent.style.display = 'none';
+        if (dockerLessonQuizContainer) {
+          dockerLessonQuizContainer.style.display = 'block';
+          if (dockerQuizQuestionText) dockerQuizQuestionText.textContent = data.quiz.question;
+          if (dockerQuizOptionsList) {
+            dockerQuizOptionsList.innerHTML = '';
+            data.quiz.options.forEach((optText, idx) => {
+              const optBtn = document.createElement('button');
+              optBtn.className = 'quiz-option-btn';
+              optBtn.innerHTML = `<span class="opt-key">${String.fromCharCode(65 + idx)}</span> <span class="opt-val">${optText}</span>`;
+              optBtn.addEventListener('click', () => {
+                const allBtns = dockerQuizOptionsList.querySelectorAll('.quiz-option-btn');
+                allBtns.forEach((b) => (b.disabled = true));
+
+                if (idx === data.quiz.correct) {
+                  optBtn.classList.add('correct');
+                  if (dockerQuizFeedbackBox) {
+                    dockerQuizFeedbackBox.style.display = 'block';
+                    dockerQuizFeedbackBox.className = 'quiz-feedback-box correct font-mono';
+                    dockerQuizFeedbackBox.innerHTML = `<i class="fa-solid fa-circle-check"></i> ${data.quiz.explanation}`;
+                  }
+                  dockerQuizzesDone = 2;
+                  showToast("Quiz passed! Port forwarding concepts verified.");
+                } else {
+                  optBtn.classList.add('wrong');
+                  if (allBtns[data.quiz.correct]) allBtns[data.quiz.correct].classList.add('correct');
+                  if (dockerQuizFeedbackBox) {
+                    dockerQuizFeedbackBox.style.display = 'block';
+                    dockerQuizFeedbackBox.className = 'quiz-feedback-box wrong font-mono';
+                    dockerQuizFeedbackBox.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> Incorrect. ${data.quiz.explanation}`;
+                  }
+                  showToast("Review port binding and try again.");
+                }
+                updateDockerSidebarStats();
+              });
+              dockerQuizOptionsList.appendChild(optBtn);
+            });
+          }
+          if (dockerQuizFeedbackBox) dockerQuizFeedbackBox.style.display = 'none';
+        }
+      } else {
+        if (dockerLessonQuizContainer) dockerLessonQuizContainer.style.display = 'none';
+        if (dockerLessonBodyContent) {
+          dockerLessonBodyContent.style.display = 'block';
+          dockerLessonBodyContent.innerHTML = data.bodyHtml || '';
+        }
+      }
+
+      // Update Stepper Active and Done states
+      dockerLessonStepperItems.forEach((item) => {
+        const itemStep = parseInt(item.getAttribute('data-docker-step'), 10);
+        if (itemStep === currentDockerStep) {
+          item.classList.add('active');
+        } else {
+          item.classList.remove('active');
+        }
+
+        if (dockerCompletedSteps.has(itemStep) && itemStep !== currentDockerStep) {
+          item.classList.add('done');
+        } else {
+          item.classList.remove('done');
+        }
+      });
+
+      // Update Nav Buttons
+      if (dockerBtnLessonPrev) dockerBtnLessonPrev.disabled = currentDockerStep === 1;
+      if (dockerBtnLessonNext) {
+        if (currentDockerStep === 7) {
+          dockerBtnLessonNext.innerHTML = `Complete Track <i class="fa-solid fa-flag-checkered"></i>`;
+        } else {
+          dockerBtnLessonNext.innerHTML = `Next &rarr;`;
+        }
+      }
+
+      // Reset audio narration
+      stopDockerAudioNarrator();
+      updateDockerSidebarStats();
+    }
+
+    dockerLessonStepperItems.forEach((item) => {
+      item.addEventListener('click', () => {
+        const stepNum = item.getAttribute('data-docker-step');
+        renderDockerLesson(stepNum);
+      });
+    });
+
+    if (dockerBtnLessonPrev) {
+      dockerBtnLessonPrev.addEventListener('click', () => {
+        if (currentDockerStep > 1) renderDockerLesson(currentDockerStep - 1);
+      });
+    }
+
+    if (dockerBtnLessonNext) {
+      dockerBtnLessonNext.addEventListener('click', () => {
+        if (currentDockerStep < 7) {
+          renderDockerLesson(currentDockerStep + 1);
+        } else {
+          showToast("Docker Track Step 1 completed! Ready for Step 2.");
+          setTimeout(() => {
+            window.location.href = 'skill-docker.html';
+          }, 1200);
+        }
+      });
+    }
+
+    function stopDockerAudioNarrator() {
+      if (dockerVoiceInterval) clearInterval(dockerVoiceInterval);
+      isDockerVoicePlaying = false;
+      if (dockerVoiceIcon) dockerVoiceIcon.className = 'fa-solid fa-play';
+      if (dockerVoiceStatusText) dockerVoiceStatusText.textContent = 'Explain this lesson';
+      if (dockerBtnVoicePlay) dockerBtnVoicePlay.classList.remove('playing');
+    }
+
+    function toggleDockerAudioNarrator() {
+      const data = dockerLessonsData[currentDockerStep];
+      if (!data) return;
+
+      if (isDockerVoicePlaying) {
+        stopDockerAudioNarrator();
+        if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+        showToast("Narrator paused");
+      } else {
+        isDockerVoicePlaying = true;
+        if (dockerVoiceIcon) dockerVoiceIcon.className = 'fa-solid fa-pause';
+        if (dockerVoiceStatusText) dockerVoiceStatusText.textContent = 'Playing explanation...';
+        if (dockerBtnVoicePlay) dockerBtnVoicePlay.classList.add('playing');
+
+        dockerVoiceSecondsRemaining = data.seconds || 150;
+        dockerVoiceInterval = setInterval(() => {
+          dockerVoiceSecondsRemaining--;
+          const mins = Math.floor(dockerVoiceSecondsRemaining / 60);
+          const secs = dockerVoiceSecondsRemaining % 60;
+          if (dockerVoiceTimer) dockerVoiceTimer.textContent = `· ${mins}:${secs < 10 ? '0' : ''}${secs}`;
+
+          if (dockerVoiceSecondsRemaining <= 0) {
+            stopDockerAudioNarrator();
+            showToast("Lesson audio walkthrough complete.");
+          }
+        }, 1000);
+
+        if ('speechSynthesis' in window && data.voiceText) {
+          window.speechSynthesis.cancel();
+          const utterance = new SpeechSynthesisUtterance(data.voiceText);
+          utterance.rate = 1.0;
+          utterance.pitch = 1.0;
+          window.speechSynthesis.speak(utterance);
+        }
+        showToast("Narrator started: Demonstrating concepts");
+      }
+    }
+
+    if (dockerBtnVoicePlay) {
+      dockerBtnVoicePlay.addEventListener('click', toggleDockerAudioNarrator);
+    }
+
+    // Live Terminal Controls
+    if (dockerBtnStartLiveLab) {
+      dockerBtnStartLiveLab.addEventListener('click', () => {
+        isDockerLabRunning = true;
+        if (dockerTerminalStandbyView) dockerTerminalStandbyView.style.display = 'none';
+        if (dockerTerminalActiveView) dockerTerminalActiveView.style.display = 'flex';
+        showToast("Live Linux Docker sandbox container booted.");
+        if (dockerTerminalCliInput) dockerTerminalCliInput.focus();
+      });
+    }
+
+    if (dockerTabAddBtn) {
+      dockerTabAddBtn.addEventListener('click', () => {
+        showToast("Terminal 2 opened in parallel session.");
+      });
+    }
+
+    // Tools Drawer (Editor & Your Notes)
+    if (dockerBtnToggleNotes && dockerToolsDrawer) {
+      dockerBtnToggleNotes.addEventListener('click', () => {
+        if (dockerDrawerTitle) dockerDrawerTitle.innerHTML = `<i class="fa-regular fa-note-sticky"></i> Your Notes`;
+        dockerToolsDrawer.style.display = 'flex';
+      });
+    }
+
+    if (dockerBtnToggleEditor && dockerToolsDrawer) {
+      dockerBtnToggleEditor.addEventListener('click', () => {
+        if (dockerDrawerTitle) dockerDrawerTitle.innerHTML = `<i class="fa-regular fa-file-code"></i> Dockerfile Editor`;
+        dockerToolsDrawer.style.display = 'flex';
+      });
+    }
+
+    if (dockerBtnCloseDrawer && dockerToolsDrawer) {
+      dockerBtnCloseDrawer.addEventListener('click', () => {
+        dockerToolsDrawer.style.display = 'none';
+      });
+    }
+
+    function executeDockerWorkspaceCommand() {
+      if (!dockerTerminalCliInput || !dockerTerminalViewport) return;
+      const cmd = dockerTerminalCliInput.value.trim();
+      if (!cmd) return;
+
+      const userLine = document.createElement('div');
+      userLine.className = 'term-line font-mono font-bold text-accent';
+      userLine.textContent = `student@docker-box:~$ ${cmd}`;
+      dockerTerminalViewport.appendChild(userLine);
+
+      const outLine = document.createElement('div');
+      outLine.className = 'term-line font-mono';
+
+      const lower = cmd.toLowerCase();
+
+      if (lower === 'clear') {
+        dockerTerminalViewport.innerHTML = '';
+        dockerTerminalCliInput.value = '';
+        return;
+      } else if (lower === 'help') {
+        outLine.innerHTML = `
+          Available Docker sandbox commands:<br>
+          &bull; <span class="text-accent">docker run -d -p 80:80 nginx</span> - Run container in background<br>
+          &bull; <span class="text-accent">docker ps</span> - List running containers<br>
+          &bull; <span class="text-accent">docker images</span> - List local images<br>
+          &bull; <span class="text-accent">docker logs &lt;id&gt;</span> - View container logs<br>
+          &bull; <span class="text-accent">docker stop &lt;id&gt;</span> - Stop a running container<br>
+          &bull; <span class="text-accent">docker version</span> - Show Docker engine version<br>
+          &bull; <span class="text-accent">clear</span> - Clear screen
+        `;
+        dockerTerminalViewport.appendChild(outLine);
+      } else if (lower.startsWith('docker run')) {
+        outLine.innerHTML = `
+          <span class="text-muted">Unable to find image 'nginx:latest' locally</span><br>
+          <span class="text-muted">latest: Pulling from library/nginx</span><br>
+          <span class="text-muted">a2abf6c4d29e: Pull complete</span><br>
+          <span class="text-muted">Digest: sha256:4424e2037050e4521ec739d49a3e93734e79bec88f1807490f91a634e491f693</span><br>
+          <span class="text-accent">7f93a1c8b930d4218a5f039a04918e7c10d3e2049b18204918</span>
+        `;
+        dockerTerminalViewport.appendChild(outLine);
+        dockerTasksDone = 1;
+        updateDockerSidebarStats();
+        showToast("Task verified: Nginx container started on port 80!");
+      } else if (lower.startsWith('docker ps')) {
+        outLine.innerHTML = `
+          CONTAINER ID   IMAGE          COMMAND                  CREATED         STATUS         PORTS                NAMES<br>
+          <span class="text-accent">7f93a1c8b930</span>   nginx:latest   "/docker-entrypoint.…"   2 minutes ago   Up 2 minutes   0.0.0.0:80->80/tcp   web-server
+        `;
+        dockerTerminalViewport.appendChild(outLine);
+      } else if (lower.startsWith('docker images')) {
+        outLine.innerHTML = `
+          REPOSITORY   TAG       IMAGE ID       CREATED        SIZE<br>
+          nginx        latest    a2abf6c4d29e   3 days ago     187MB<br>
+          ubuntu       24.04     35a8814d94b1   2 weeks ago    77.8MB<br>
+          alpine       latest    05455a08881e   1 month ago    7.38MB
+        `;
+        dockerTerminalViewport.appendChild(outLine);
+      } else if (lower.startsWith('docker logs')) {
+        outLine.innerHTML = `
+          /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration<br>
+          2026/10/06 01:05:00 [notice] 1#1: using the "epoll" event method<br>
+          2026/10/06 01:05:00 [notice] 1#1: nginx/1.25.4<br>
+          2026/10/06 01:05:00 [notice] 1#1: start worker processes
+        `;
+        dockerTerminalViewport.appendChild(outLine);
+        showToast("Logs inspected successfully.");
+      } else if (lower.startsWith('docker stop')) {
+        outLine.innerHTML = `<span class="text-muted">7f93a1c8b930</span>`;
+        dockerTerminalViewport.appendChild(outLine);
+        showToast("Container stopped.");
+      } else if (lower.startsWith('docker version')) {
+        outLine.innerHTML = `
+          Client: Docker Engine - Community<br>
+          &nbsp;Version:           26.1.3<br>
+          &nbsp;API version:       1.45<br>
+          Server: Docker Engine - Community<br>
+          &nbsp;Engine Version:    26.1.3
+        `;
+        dockerTerminalViewport.appendChild(outLine);
+      } else {
+        outLine.innerHTML = `<span class="text-muted">Command executed: ${cmd}. Run <span class="text-accent">help</span> for guidance.</span>`;
+        dockerTerminalViewport.appendChild(outLine);
+      }
+
+      dockerTerminalCliInput.value = '';
+      dockerTerminalViewport.scrollTop = dockerTerminalViewport.scrollHeight;
+    }
+
+    if (dockerBtnCliSubmit) {
+      dockerBtnCliSubmit.addEventListener('click', executeDockerWorkspaceCommand);
+    }
+
+    if (dockerTerminalCliInput) {
+      dockerTerminalCliInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') executeDockerWorkspaceCommand();
+      });
+    }
+
+    if (dockerLessonThemeToggle) {
+      dockerLessonThemeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('light-mode');
+        showToast("Theme switched");
+      });
+    }
+
+    // Initial render
+    renderDockerLesson(1);
+  }
+
+  /* ==========================================================================
+     28. HELM SKILL PAGE CONTROLLER (skill-helm.html)
+     ========================================================================== */
+  const helmStarRatingBox = document.getElementById('helm-star-rating-box');
+  if (helmStarRatingBox) {
+    const stars = helmStarRatingBox.querySelectorAll('.fa-star');
+    stars.forEach((star) => {
+      star.addEventListener('click', () => {
+        const rating = parseInt(star.getAttribute('data-rating') || '5', 10);
+        stars.forEach((s) => {
+          const r = parseInt(s.getAttribute('data-rating') || '0', 10);
+          if (r <= rating) {
+            s.classList.add('active');
+          } else {
+            s.classList.remove('active');
+          }
+        });
+        showToast(`Rated ${rating} out of 5 stars! Thank you.`);
+      });
+    });
+  }
+
+  const btnPreviewHelmCert = document.getElementById('btn-preview-helm-cert');
+  if (btnPreviewHelmCert && certModal) {
+    btnPreviewHelmCert.addEventListener('click', () => {
+      certModal.style.display = 'flex';
+    });
+  }
+
+  /* ==========================================================================
+     29. HELM 4-COLUMN INTERACTIVE LESSON CONTROLLER (lesson-helm.html)
+     ========================================================================== */
+  const helmLessonStepperItems = document.querySelectorAll('#helm-sidebar-stepper-list .stepper-item');
+  const helmLessonStepCounter = document.getElementById('helm-lesson-step-counter');
+  const helmLessonHeading = document.getElementById('helm-lesson-heading');
+  const helmLessonTypePill = document.getElementById('helm-lesson-type-pill');
+  const helmLessonBodyContent = document.getElementById('helm-lesson-body-content');
+  const helmLessonQuizContainer = document.getElementById('helm-lesson-quiz-container');
+  const helmQuizQuestionText = document.getElementById('helm-quiz-question-text');
+  const helmQuizOptionsList = document.getElementById('helm-quiz-options-list');
+  const helmQuizFeedbackBox = document.getElementById('helm-quiz-feedback-box');
+  const helmBtnLessonPrev = document.getElementById('helm-btn-lesson-prev');
+  const helmBtnLessonNext = document.getElementById('helm-btn-lesson-next');
+
+  const helmBtnVoicePlay = document.getElementById('helm-btn-voice-play');
+  const helmVoiceIcon = document.getElementById('helm-voice-icon');
+  const helmVoiceStatusText = document.getElementById('helm-voice-status-text');
+  const helmVoiceTimer = document.getElementById('helm-voice-timer');
+
+  const helmLessonProgressPercent = document.getElementById('helm-lesson-progress-percent');
+  const helmLessonProgressArc = document.getElementById('helm-lesson-progress-arc');
+  const helmStatDoneCount = document.getElementById('helm-stat-done-count');
+  const helmStatQuizzesCount = document.getElementById('helm-stat-quizzes-count');
+  const helmStatTasksCount = document.getElementById('helm-stat-tasks-count');
+
+  const helmTabTerminalBtn = document.getElementById('helm-tab-terminal-btn');
+  const helmTabAddBtn = document.getElementById('helm-tab-add-btn');
+  const helmTerminalStandbyView = document.getElementById('helm-terminal-standby-view');
+  const helmTerminalActiveView = document.getElementById('helm-terminal-active-view');
+  const helmBtnStartLiveLab = document.getElementById('helm-btn-start-live-lab');
+  const helmTerminalViewport = document.getElementById('helm-terminal-viewport');
+  const helmTerminalCliInput = document.getElementById('helm-terminal-cli-input');
+  const helmBtnCliSubmit = document.getElementById('helm-btn-cli-submit');
+  const helmLessonThemeToggle = document.getElementById('btn-helm-lesson-theme-toggle');
+
+  const helmBtnToggleEditor = document.getElementById('helm-btn-toggle-editor');
+  const helmBtnToggleNotes = document.getElementById('helm-btn-toggle-notes');
+  const helmToolsDrawer = document.getElementById('helm-tools-drawer');
+  const helmBtnCloseDrawer = document.getElementById('helm-btn-close-drawer');
+  const helmDrawerTitle = document.getElementById('helm-drawer-title');
+
+  if (helmLessonStepperItems.length > 0) {
+
+    const helmLessonsData = {
+      1: {
+        stepNum: 1,
+        type: 'Lesson',
+        title: 'The problem with plain Kubernetes YAML',
+        duration: '· 3:51',
+        seconds: 231,
+        voiceText: "In this lesson you will learn the three problems that plain Kubernetes YAML creates as your apps grow. These three problems are the reason Helm exists.",
+        bodyHtml: `
+          <p>
+            In this lesson you will learn the three problems that plain Kubernetes YAML creates as your apps grow. These three problems are the reason Helm exists.
+          </p>
+          <p>
+            You already know how to deploy with kubectl. Write a Deployment manifest, apply it, done. So why does another tool exist on top of that? Watch what happens when the app gets real.
+          </p>
+          <h3 class="lesson-section-subtitle text-accent" style="color: var(--accent-green); font-size: 16px; font-weight: 700; margin: 24px 0 12px 0;">Problem 1: many files, no unit</h3>
+          <p>
+            A real app is not one manifest. A web frontend, an API, a worker, and Redis. Each piece needs a Deployment and a Service. Add a ConfigMap, a Secret, an Ingress. Count the files: ten, maybe fifteen.
+          </p>
+          <p>
+            Now ask the cluster a simple question: what is "the app" here? It cannot answer. Kubernetes sees fifteen separate objects and nothing that groups them. Installing means applying every file. Removing means remembering every file and deleting each object yourself. Forget one, and it quietly keeps running.
+          </p>
+          <p>
+            Here is the shape of the problem:
+          </p>
+          <div class="docker-arch-diagram font-mono">
+            <div class="arch-box client" style="border-color: rgba(39, 122, 159, 0.4);">
+              <div class="arch-title" style="color: #277a9f;"><i class="fa-solid fa-file-code"></i> Plain YAML Manifests</div>
+              <div class="arch-desc">15+ separate disjointed files: Deployment.yaml, Service.yaml, Ingress.yaml, ConfigMap.yaml. No single app identity.</div>
+            </div>
+            <div class="arch-arrow">➜ VS ➜</div>
+            <div class="arch-box daemon" style="border-color: rgba(34, 229, 132, 0.4);">
+              <div class="arch-title" style="color: var(--accent-green);"><i class="fa-solid fa-dharmachakra"></i> 1 Helm Chart</div>
+              <div class="arch-desc">Single release unit: <code>helm install my-app ./chart</code> and <code>helm uninstall my-app</code>. Full lifecycle management.</div>
+            </div>
+          </div>
+        `
+      },
+      2: {
+        stepNum: 2,
+        type: 'Lesson',
+        title: 'What Helm is',
+        duration: '· 2:10',
+        seconds: 130,
+        voiceText: "Helm is the package manager for Kubernetes. It packages manifests into charts, manages releases, and gives you a single unit to install, upgrade, and delete.",
+        bodyHtml: `
+          <p>
+            <strong>Helm</strong> solves the multi-manifest problem by introducing the concept of a <strong>Package</strong> (Chart) for Kubernetes.
+          </p>
+          <p>
+            Think of Helm like <code>apt</code>, <code>yum</code>, or <code>homebrew</code>, but specifically built for Kubernetes clusters.
+          </p>
+          <div style="background: rgba(39, 122, 159, 0.08); border: 1px solid rgba(39, 122, 159, 0.3); border-radius: 8px; padding: 18px; margin: 18px 0;">
+            <h4 style="color: #38bdf8; margin-top: 0; margin-bottom: 8px; font-size: 14px;"><i class="fa-solid fa-layer-group"></i> Key Capabilities of Helm:</h4>
+            <ul style="color: #d1d5db; line-height: 1.8; margin-left: 20px; margin-bottom: 0;">
+              <li><strong>Atomic Deployments:</strong> Install all 15 manifests in a single command. If one fails, the release can be safely rolled back.</li>
+              <li><strong>Templating Engine:</strong> Parameterize image tags, replica counts, ports, and domain names using Go templates.</li>
+              <li><strong>Versioned Releases:</strong> Track every deploy revision with <code>helm history</code> and roll back with <code>helm rollback</code>.</li>
+            </ul>
+          </div>
+        `
+      },
+      3: {
+        stepNum: 3,
+        type: 'Lesson',
+        title: 'Charts, releases, and repos...',
+        duration: '· 2:40',
+        seconds: 160,
+        voiceText: "Let's explore the structure of a Helm chart: Chart.yaml for metadata, values.yaml for default configuration, and templates directory for parameterized Kubernetes YAML manifests.",
+        bodyHtml: `
+          <p>
+            To understand Helm, you need to master three fundamental concepts:
+          </p>
+          <div class="docker-arch-diagram font-mono" style="grid-template-columns: 1fr 1fr 1fr;">
+            <div class="arch-box client" style="border-color: rgba(56, 189, 248, 0.4);">
+              <div class="arch-title" style="color: #38bdf8;"><i class="fa-solid fa-box-archive"></i> Chart</div>
+              <div class="arch-desc">The template blueprint (Chart.yaml, values.yaml, templates/).</div>
+            </div>
+            <div class="arch-box daemon" style="border-color: rgba(34, 229, 132, 0.4);">
+              <div class="arch-title" style="color: var(--accent-green);"><i class="fa-solid fa-server"></i> Release</div>
+              <div class="arch-desc">A running instance in Kubernetes created by <code>helm install</code>.</div>
+            </div>
+            <div class="arch-box registry" style="border-color: rgba(239, 107, 74, 0.4);">
+              <div class="arch-title" style="color: #ef6b4a;"><i class="fa-solid fa-globe"></i> Repository</div>
+              <div class="arch-desc">An HTTP / OCI registry where charts are published and shared.</div>
+            </div>
+          </div>
+          <p>
+            Every chart has a standardized folder structure:
+          </p>
+          <div class="code-block-wrapper">
+            <div class="code-lang-label font-mono">CHART STRUCTURE</div>
+            <pre><code>mychart/
+  ├── Chart.yaml          # Chart metadata (name, version, appVersion)
+  ├── values.yaml         # Default configuration values
+  ├── charts/             # Dependency charts
+  └── templates/          # Go templates rendered into Kubernetes manifests
+      ├── deployment.yaml
+      ├── service.yaml
+      └── _helpers.tpl</code></pre>
+          </div>
+        `
+      },
+      4: {
+        stepNum: 4,
+        type: 'Task',
+        title: 'Check your Helm setup',
+        duration: '· 2:30',
+        seconds: 150,
+        voiceText: "Hands-on task: Start your live lab session on the right, run helm version, and check cluster connectivity with kubectl get nodes.",
+        bodyHtml: `
+          <p>
+            Now let's verify that your Helm CLI and local Kubernetes test cluster are healthy.
+          </p>
+          <div class="task-instructions-box font-mono" style="background: rgba(34, 229, 132, 0.04); border: 1px solid rgba(34, 229, 132, 0.2); border-radius: 8px; padding: 18px; margin: 20px 0;">
+            <div style="color: var(--accent-green); font-weight: 700; margin-bottom: 8px;"><i class="fa-solid fa-terminal"></i> LAB TASK: CHECK YOUR HELM SETUP</div>
+            <p style="margin-bottom: 8px; color: #d1d5db;">1. Click <strong>&gt;_ Start Lab</strong> in the right terminal panel.</p>
+            <p style="margin-bottom: 8px; color: #d1d5db;">2. Run <code class="text-accent">helm version</code> to verify the Helm client build.</p>
+            <p style="margin-bottom: 8px; color: #d1d5db;">3. Run <code class="text-accent">kubectl get nodes</code> to verify connection to the kind Kubernetes node.</p>
+            <p style="margin-bottom: 0; color: #d1d5db;">4. Run <code class="text-accent">helm list</code> to inspect existing releases.</p>
+          </div>
+          <p class="text-muted font-mono" style="font-size: 12px;">
+            The sandbox terminal will auto-verify your command execution and record your score.
+          </p>
+        `
+      }
+    };
+
+    let currentHelmStep = 1;
+    let helmCompletedSteps = new Set([1]);
+    let isHelmVoicePlaying = false;
+    let helmVoiceInterval = null;
+    let helmVoiceSecondsRemaining = 231;
+    let isHelmLabRunning = false;
+    let helmTasksDone = 0;
+
+    function updateHelmSidebarStats() {
+      const doneCount = helmCompletedSteps.size;
+      const totalSteps = Object.keys(helmLessonsData).length;
+      const pct = Math.round((doneCount / totalSteps) * 100);
+
+      if (helmLessonProgressPercent) helmLessonProgressPercent.textContent = `${pct}%`;
+      if (helmLessonProgressArc) {
+        const offset = 264 - (264 * pct) / 100;
+        helmLessonProgressArc.style.strokeDashoffset = offset;
+      }
+      if (helmStatDoneCount) helmStatDoneCount.textContent = `${doneCount}`;
+      if (helmStatQuizzesCount) helmStatQuizzesCount.textContent = `0/0`;
+      if (helmStatTasksCount) helmStatTasksCount.textContent = `${helmTasksDone}/1`;
+    }
+
+    function renderHelmLesson(stepNum) {
+      const data = helmLessonsData[stepNum];
+      if (!data) return;
+
+      currentHelmStep = stepNum;
+
+      if (helmLessonStepCounter) {
+        helmLessonStepCounter.textContent = `LESSON · ${stepNum} OF ${Object.keys(helmLessonsData).length}`;
+      }
+      if (helmLessonTypePill) {
+        helmLessonTypePill.textContent = data.type;
+        helmLessonTypePill.className = `lesson-type-badge font-mono ${data.type.toLowerCase()}-pill`;
+      }
+      if (helmLessonHeading) {
+        helmLessonHeading.textContent = data.title;
+      }
+
+      if (helmVoiceTimer) {
+        helmVoiceTimer.textContent = data.duration;
+      }
+      helmVoiceSecondsRemaining = data.seconds;
+      stopHelmVoice();
+
+      if (data.type === 'Quiz' && data.quiz) {
+        if (helmLessonBodyContent) helmLessonBodyContent.style.display = 'none';
+        if (helmLessonQuizContainer) {
+          helmLessonQuizContainer.style.display = 'block';
+          if (helmQuizQuestionText) helmQuizQuestionText.textContent = data.quiz.question;
+          if (helmQuizFeedbackBox) helmQuizFeedbackBox.style.display = 'none';
+
+          if (helmQuizOptionsList) {
+            helmQuizOptionsList.innerHTML = '';
+            data.quiz.options.forEach((opt, idx) => {
+              const optBtn = document.createElement('button');
+              optBtn.className = 'quiz-option-btn font-mono';
+              optBtn.innerHTML = `
+                <span class="opt-key font-bold text-accent">${String.fromCharCode(65 + idx)}.</span>
+                <span class="opt-text">${opt}</span>
+              `;
+              optBtn.addEventListener('click', () => {
+                const isCorrect = idx === data.quiz.correct;
+                const allBtns = helmQuizOptionsList.querySelectorAll('.quiz-option-btn');
+                allBtns.forEach((b) => (b.disabled = true));
+
+                if (isCorrect) {
+                  optBtn.classList.add('correct');
+                  if (helmQuizFeedbackBox) {
+                    helmQuizFeedbackBox.className = 'quiz-feedback-box font-mono show text-green';
+                    helmQuizFeedbackBox.style.background = 'rgba(34, 229, 132, 0.1)';
+                    helmQuizFeedbackBox.style.border = '1px solid var(--accent-green)';
+                    helmQuizFeedbackBox.innerHTML = `<strong>✓ Correct!</strong> ${data.quiz.explanation}`;
+                    helmQuizFeedbackBox.style.display = 'block';
+                  }
+                  helmCompletedSteps.add(stepNum);
+                  updateHelmSidebarStats();
+                  showToast("Quiz passed! +50 XP");
+                } else {
+                  optBtn.classList.add('wrong');
+                  if (allBtns[data.quiz.correct]) allBtns[data.quiz.correct].classList.add('correct');
+                  if (helmQuizFeedbackBox) {
+                    helmQuizFeedbackBox.className = 'quiz-feedback-box font-mono show text-red';
+                    helmQuizFeedbackBox.style.background = 'rgba(239, 68, 68, 0.1)';
+                    helmQuizFeedbackBox.style.border = '1px solid #ef4444';
+                    helmQuizFeedbackBox.innerHTML = `<strong>✗ Incorrect.</strong> ${data.quiz.explanation}`;
+                    helmQuizFeedbackBox.style.display = 'block';
+                  }
+                }
+              });
+              helmQuizOptionsList.appendChild(optBtn);
+            });
+          }
+        }
+      } else {
+        if (helmLessonQuizContainer) helmLessonQuizContainer.style.display = 'none';
+        if (helmLessonBodyContent) {
+          helmLessonBodyContent.style.display = 'block';
+          helmLessonBodyContent.innerHTML = data.bodyHtml;
+        }
+        helmCompletedSteps.add(stepNum);
+        updateHelmSidebarStats();
+      }
+
+      helmLessonStepperItems.forEach((item) => {
+        const itemStep = parseInt(item.getAttribute('data-helm-step') || item.getAttribute('data-step') || '1', 10);
+        if (itemStep === stepNum) {
+          item.classList.add('active');
+        } else {
+          item.classList.remove('active');
+        }
+
+        if (helmCompletedSteps.has(itemStep)) {
+          item.classList.add('done');
+        } else {
+          item.classList.remove('done');
+        }
+      });
+
+      if (helmBtnLessonPrev) helmBtnLessonPrev.disabled = stepNum <= 1;
+      if (helmBtnLessonNext) {
+        if (stepNum >= Object.keys(helmLessonsData).length) {
+          helmBtnLessonNext.innerHTML = 'Finish Topic <i class="fa-solid fa-check"></i>';
+        } else {
+          helmBtnLessonNext.innerHTML = 'Next &rarr;';
+        }
+      }
+    }
+
+    function stopHelmVoice() {
+      if (helmVoiceInterval) {
+        clearInterval(helmVoiceInterval);
+        helmVoiceInterval = null;
+      }
+      isHelmVoicePlaying = false;
+      if (helmVoiceStatusText) helmVoiceStatusText.textContent = 'Explain this lesson';
+      if (helmVoiceIcon) helmVoiceIcon.className = 'fa-solid fa-play';
+    }
+
+    if (helmBtnVoicePlay) {
+      helmBtnVoicePlay.addEventListener('click', () => {
+        if (isHelmVoicePlaying) {
+          stopHelmVoice();
+        } else {
+          isHelmVoicePlaying = true;
+          if (helmVoiceStatusText) helmVoiceStatusText.textContent = 'Playing explanation...';
+          if (helmVoiceIcon) helmVoiceIcon.className = 'fa-solid fa-pause';
+
+          showToast("Narration: " + (helmLessonsData[currentHelmStep]?.voiceText || ""));
+
+          helmVoiceInterval = setInterval(() => {
+            if (helmVoiceSecondsRemaining > 0) {
+              helmVoiceSecondsRemaining--;
+              const m = Math.floor(helmVoiceSecondsRemaining / 60);
+              const s = helmVoiceSecondsRemaining % 60;
+              if (helmVoiceTimer) {
+                helmVoiceTimer.textContent = `· ${m}:${s < 10 ? '0' : ''}${s}`;
+              }
+            } else {
+              stopHelmVoice();
+              showToast("Explanation finished");
+            }
+          }, 1000);
+        }
+      });
+    }
+
+    helmLessonStepperItems.forEach((item) => {
+      item.addEventListener('click', () => {
+        const step = parseInt(item.getAttribute('data-helm-step') || item.getAttribute('data-step') || '1', 10);
+        renderHelmLesson(step);
+      });
+    });
+
+    if (helmBtnLessonPrev) {
+      helmBtnLessonPrev.addEventListener('click', () => {
+        if (currentHelmStep > 1) {
+          renderHelmLesson(currentHelmStep - 1);
+        }
+      });
+    }
+
+    if (helmBtnLessonNext) {
+      helmBtnLessonNext.addEventListener('click', () => {
+        if (currentHelmStep < Object.keys(helmLessonsData).length) {
+          renderHelmLesson(currentHelmStep + 1);
+        } else {
+          showToast("🎉 Topic 01 Finished! Returned to Helm Curriculum.");
+          setTimeout(() => {
+            location.href = 'skill-helm.html';
+          }, 1000);
+        }
+      });
+    }
+
+    // Terminal Commands
+    if (helmBtnStartLiveLab) {
+      helmBtnStartLiveLab.addEventListener('click', () => {
+        if (helmTerminalStandbyView) helmTerminalStandbyView.style.display = 'none';
+        if (helmTerminalActiveView) helmTerminalActiveView.style.display = 'flex';
+        isHelmLabRunning = true;
+        if (helmTerminalCliInput) helmTerminalCliInput.focus();
+        showToast("✓ Helm sandbox ready.");
+      });
+    }
+
+    function appendHelmTerminalLine(text, className = '') {
+      if (!helmTerminalViewport) return;
+      const line = document.createElement('div');
+      line.className = `term-line ${className}`;
+      line.textContent = text;
+      helmTerminalViewport.appendChild(line);
+      helmTerminalViewport.scrollTop = helmTerminalViewport.scrollHeight;
+    }
+
+    function executeHelmWorkspaceCommand() {
+      if (!helmTerminalCliInput) return;
+      const rawCmd = helmTerminalCliInput.value.trim();
+      if (!rawCmd) return;
+
+      appendHelmTerminalLine(`shaikh@helm-lab:~$ ${rawCmd}`, 'text-accent font-bold');
+      helmTerminalCliInput.value = '';
+
+      const cmd = rawCmd.toLowerCase();
+
+      if (cmd === 'clear') {
+        if (helmTerminalViewport) helmTerminalViewport.innerHTML = '<div class="term-line text-muted">Screen cleared. Type helm commands below:</div>';
+        return;
+      }
+
+      if (cmd === 'help') {
+        appendHelmTerminalLine("Available commands:", "text-green-glow");
+        appendHelmTerminalLine("  helm version                     - Print Helm client version");
+        appendHelmTerminalLine("  helm list                        - List releases in current namespace");
+        appendHelmTerminalLine("  helm search repo <keyword>       - Search charts in configured repos");
+        appendHelmTerminalLine("  helm install <name> <chart>      - Install a chart release");
+        appendHelmTerminalLine("  helm status <release>            - Print release status");
+        appendHelmTerminalLine("  kubectl get pods                 - List Kubernetes pods");
+        appendHelmTerminalLine("  kubectl get nodes                - List cluster nodes");
+        appendHelmTerminalLine("  clear                            - Clear terminal screen");
+        return;
+      }
+
+      if (cmd === 'helm version' || cmd === 'helm -v' || cmd === 'helm --version') {
+        appendHelmTerminalLine('version.BuildInfo{Version:"v3.14.0", GitCommit:"3fc3f4c2638e12d92c5102f5180eec5e047f9a66", GitTreeState:"clean", GoVersion:"go1.21.6"}', 'text-green-glow');
+        if (currentHelmStep === 4) {
+          helmTasksDone = 1;
+          helmCompletedSteps.add(4);
+          updateHelmSidebarStats();
+          showToast("✓ Step 4 Task Verified: Helm CLI checked! +50 XP");
+        }
+        return;
+      }
+
+      if (cmd === 'kubectl get nodes' || cmd === 'kubectl get node') {
+        appendHelmTerminalLine("NAME                 STATUS   ROLES           AGE   VERSION", "font-mono");
+        appendHelmTerminalLine("kind-control-plane   Ready    control-plane   12m   v1.28.0", "font-mono text-green-glow");
+        if (currentHelmStep === 4) {
+          helmTasksDone = 1;
+          helmCompletedSteps.add(4);
+          updateHelmSidebarStats();
+          showToast("✓ Step 4 Task Verified: Kubernetes cluster nodes ready! +50 XP");
+        }
+        return;
+      }
+
+      if (cmd.startsWith('helm search')) {
+        appendHelmTerminalLine("NAME                     CHART VERSION   APP VERSION   DESCRIPTION", "font-mono");
+        appendHelmTerminalLine("bitnami/nginx            15.4.4          1.25.3        NGINX Open Source is an open-source reverse proxy", "font-mono");
+        appendHelmTerminalLine("bitnami/redis            18.6.1          7.2.3         Redis in-memory key-value database", "font-mono");
+        appendHelmTerminalLine("bitnami/postgresql       13.2.2          16.1.0        PostgreSQL object-relational database system", "font-mono");
+        return;
+      }
+
+      if (cmd.startsWith('helm install')) {
+        appendHelmTerminalLine("NAME: my-nginx", "text-green-glow");
+        appendHelmTerminalLine("LAST DEPLOYED: Tue Oct  6 01:40:00 2026");
+        appendHelmTerminalLine("NAMESPACE: default");
+        appendHelmTerminalLine("STATUS: deployed");
+        appendHelmTerminalLine("REVISION: 1");
+        appendHelmTerminalLine("TEST SUITE: None");
+        appendHelmTerminalLine("NOTES:");
+        appendHelmTerminalLine("NGINX can be accessed via port 80 on the following DNS name: my-nginx.default.svc.cluster.local");
+        return;
+      }
+
+      if (cmd === 'helm list' || cmd === 'helm ls') {
+        appendHelmTerminalLine("NAME        NAMESPACE   REVISION   UPDATED                                  STATUS     CHART          APP VERSION", "font-mono");
+        appendHelmTerminalLine("my-nginx    default     1          2026-10-06 01:40:00.124578 +0530 IST     deployed   nginx-15.4.4   1.25.3", "font-mono");
+        if (currentHelmStep === 4) {
+          helmTasksDone = 1;
+          helmCompletedSteps.add(4);
+          updateHelmSidebarStats();
+          showToast("✓ Step 4 Task Verified: Helm releases checked! +50 XP");
+        }
+        return;
+      }
+
+      if (cmd.startsWith('helm status')) {
+        appendHelmTerminalLine("NAME: my-nginx");
+        appendHelmTerminalLine("LAST DEPLOYED: Tue Oct  6 01:40:00 2026");
+        appendHelmTerminalLine("STATUS: deployed");
+        appendHelmTerminalLine("REVISION: 1");
+        return;
+      }
+
+      if (cmd.startsWith('kubectl get pods') || cmd.startsWith('kubectl get po')) {
+        appendHelmTerminalLine("NAME                        READY   STATUS    RESTARTS   AGE", "font-mono");
+        appendHelmTerminalLine("my-nginx-7c4f69f8d5-4k8z9   1/1     Running   0          42s", "font-mono text-green-glow");
+        return;
+      }
+
+      appendHelmTerminalLine(`bash: ${rawCmd.split(' ')[0]}: command executed.`);
+    }
+
+    if (helmBtnCliSubmit) {
+      helmBtnCliSubmit.addEventListener('click', executeHelmWorkspaceCommand);
+    }
+    if (helmTerminalCliInput) {
+      helmTerminalCliInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') executeHelmWorkspaceCommand();
+      });
+    }
+
+    // Tools Drawer
+    if (helmBtnToggleNotes) {
+      helmBtnToggleNotes.addEventListener('click', () => {
+        if (helmToolsDrawer) helmToolsDrawer.style.display = 'flex';
+      });
+    }
+    if (helmBtnToggleEditor) {
+      helmBtnToggleEditor.addEventListener('click', () => {
+        if (helmToolsDrawer) helmToolsDrawer.style.display = 'flex';
+        if (helmDrawerTitle) helmDrawerTitle.innerHTML = '<i class="fa-solid fa-code"></i> Code Editor';
+      });
+    }
+    if (helmBtnCloseDrawer) {
+      helmBtnCloseDrawer.addEventListener('click', () => {
+        if (helmToolsDrawer) helmToolsDrawer.style.display = 'none';
+      });
+    }
+
+    if (helmLessonThemeToggle) {
+      helmLessonThemeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('light-mode');
+        showToast("Theme switched");
+      });
+    }
+
+    renderHelmLesson(1);
+  }
+
+  /* ==========================================================================
+     30. ARGO CD SKILL PAGE CONTROLLER (skill-argocd.html)
+     ========================================================================== */
+  const argocdStarRatingBox = document.getElementById('argocd-star-rating-box');
+  if (argocdStarRatingBox) {
+    const stars = argocdStarRatingBox.querySelectorAll('.fa-star');
+    stars.forEach((star) => {
+      star.addEventListener('click', () => {
+        const rating = parseInt(star.getAttribute('data-rating') || '5', 10);
+        stars.forEach((s) => {
+          const r = parseInt(s.getAttribute('data-rating') || '0', 10);
+          if (r <= rating) {
+            s.classList.add('active');
+          } else {
+            s.classList.remove('active');
+          }
+        });
+        showToast(`Rated ${rating} out of 5 stars! Thank you.`);
+      });
+    });
+  }
+
+  const btnPreviewArgocdCert = document.getElementById('btn-preview-argocd-cert');
+  if (btnPreviewArgocdCert && certModal) {
+    btnPreviewArgocdCert.addEventListener('click', () => {
+      certModal.style.display = 'flex';
+    });
+  }
+
+  /* ==========================================================================
+     31. ARGO CD 4-COLUMN INTERACTIVE LESSON CONTROLLER (lesson-argocd.html)
+     ========================================================================== */
+  const argocdLessonStepperItems = document.querySelectorAll('#argo-sidebar-stepper-list .stepper-item, #argocd-sidebar-stepper-list .stepper-item');
+  const argocdLessonStepCounter = document.getElementById('argo-lesson-step-counter') || document.getElementById('argocd-lesson-step-counter');
+  const argocdLessonHeading = document.getElementById('argo-lesson-heading') || document.getElementById('argocd-lesson-heading');
+  const argocdLessonTypePill = document.getElementById('argo-lesson-type-pill') || document.getElementById('argocd-lesson-type-pill');
+  const argocdLessonBodyContent = document.getElementById('argo-lesson-body-content') || document.getElementById('argocd-lesson-body-content');
+  const argocdLessonQuizContainer = document.getElementById('argo-lesson-quiz-container') || document.getElementById('argocd-lesson-quiz-container');
+  const argocdQuizQuestionText = document.getElementById('argo-quiz-question-text') || document.getElementById('argocd-quiz-question-text');
+  const argocdQuizOptionsList = document.getElementById('argo-quiz-options-list') || document.getElementById('argocd-quiz-options-list');
+  const argocdQuizFeedbackBox = document.getElementById('argo-quiz-feedback-box') || document.getElementById('argocd-quiz-feedback-box');
+  const argocdBtnLessonPrev = document.getElementById('argo-btn-lesson-prev') || document.getElementById('argocd-btn-lesson-prev');
+  const argocdBtnLessonNext = document.getElementById('argo-btn-lesson-next') || document.getElementById('argocd-btn-lesson-next');
+
+  const argocdBtnVoicePlay = document.getElementById('argo-btn-voice-play') || document.getElementById('argocd-btn-voice-play');
+  const argocdVoiceIcon = document.getElementById('argo-voice-icon') || document.getElementById('argocd-voice-icon');
+  const argocdVoiceStatusText = document.getElementById('argo-voice-status-text') || document.getElementById('argocd-voice-status-text');
+  const argocdVoiceTimer = document.getElementById('argo-voice-timer') || document.getElementById('argocd-voice-timer');
+
+  const argocdLessonProgressPercent = document.getElementById('argo-lesson-progress-percent') || document.getElementById('argocd-lesson-progress-percent');
+  const argocdLessonProgressArc = document.getElementById('argo-lesson-progress-arc') || document.getElementById('argocd-lesson-progress-arc');
+  const argocdStatDoneCount = document.getElementById('argo-stat-done-count') || document.getElementById('argocd-stat-done-count');
+  const argocdStatQuizzesCount = document.getElementById('argo-stat-quizzes-count') || document.getElementById('argocd-stat-quizzes-count');
+  const argocdStatTasksCount = document.getElementById('argo-stat-tasks-count') || document.getElementById('argocd-stat-tasks-count');
+
+  const argocdTabTerminalBtn = document.getElementById('argo-tab-terminal-btn') || document.getElementById('argocd-tab-terminal-btn');
+  const argocdTabAddBtn = document.getElementById('argo-tab-add-btn') || document.getElementById('argocd-tab-add-btn');
+  const argocdTerminalStandbyView = document.getElementById('argo-terminal-standby-view') || document.getElementById('argocd-terminal-standby-view');
+  const argocdTerminalActiveView = document.getElementById('argo-terminal-active-view') || document.getElementById('argocd-terminal-active-view');
+  const argocdBtnStartLiveLab = document.getElementById('argo-btn-start-live-lab') || document.getElementById('argocd-btn-start-live-lab');
+  const argocdTerminalViewport = document.getElementById('argo-terminal-viewport') || document.getElementById('argocd-terminal-viewport');
+  const argocdTerminalCliInput = document.getElementById('argo-terminal-cli-input') || document.getElementById('argocd-terminal-cli-input');
+  const argocdBtnCliSubmit = document.getElementById('argo-btn-cli-submit') || document.getElementById('argocd-btn-cli-submit');
+  const argocdLessonThemeToggle = document.getElementById('btn-argo-lesson-theme-toggle') || document.getElementById('btn-argocd-lesson-theme-toggle');
+
+  const argocdBtnToggleEditor = document.getElementById('argo-btn-toggle-editor') || document.getElementById('argocd-btn-toggle-editor');
+  const argocdBtnToggleNotes = document.getElementById('argo-btn-toggle-notes') || document.getElementById('argocd-btn-toggle-notes');
+  const argocdToolsDrawer = document.getElementById('argo-tools-drawer') || document.getElementById('argocd-tools-drawer');
+  const argocdBtnCloseDrawer = document.getElementById('argo-btn-close-drawer') || document.getElementById('argocd-btn-close-drawer');
+  const argocdDrawerTitle = document.getElementById('argo-drawer-title') || document.getElementById('argocd-drawer-title');
+
+  if (argocdLessonStepperItems.length > 0) {
+
+    const argocdLessonsData = {
+      1: {
+        stepNum: 1,
+        type: 'Lesson',
+        title: 'What is GitOps?',
+        duration: '· 4:27',
+        seconds: 267,
+        voiceText: "In this lesson you will learn what GitOps is and why teams use it. GitOps fixes configuration drift with one rule: keep YAML files in Git, and an in-cluster controller makes the cluster match them.",
+        bodyHtml: `
+          <p>
+            In this lesson you will learn what GitOps is and why teams use it.
+          </p>
+          <p>
+            Think about how an app gets updated on a Kubernetes cluster today. A developer builds a new image. A DevOps engineer with access to the cluster edits a YAML file, or runs a kubectl command, and the new version starts. Tomorrow another DevOps engineer does the same for a different app. After a month, nobody can say for sure what is running, who changed it, or why.
+          </p>
+          <p>
+            GitOps fixes this with one rule. You keep the YAML files for the cluster in Git, and a program inside the cluster reads those files and makes the cluster match them. Nobody changes the cluster directly. Let us start with the files.
+          </p>
+
+          <h3 class="lesson-section-subtitle text-accent" style="color: var(--accent-green); font-size: 16px; font-weight: 700; margin: 24px 0 12px 0;">The YAML files</h3>
+
+          <p>
+            Every app on a cluster can be described in YAML files. A file says what should exist: this Deployment, with this image, with this many replicas. Together, these files describe what you want the cluster to look like.
+          </p>
+          <p>
+            This is called the <strong>desired state</strong>. The word <em>desired</em> is important. The files say what you want, not what is.
+          </p>
+
+          <div class="docker-arch-diagram font-mono">
+            <div class="arch-box client" style="border-color: rgba(239, 107, 74, 0.4);">
+              <div class="arch-title" style="color: #ef6b4a;"><i class="fa-brands fa-git-alt"></i> Git Repository</div>
+              <div class="arch-desc">Desired State (Declarative YAML files) · Single source of truth with commit audit log.</div>
+            </div>
+            <div class="arch-arrow">⟵ Sync Loop ⟶</div>
+            <div class="arch-box daemon" style="border-color: rgba(34, 229, 132, 0.4);">
+              <div class="arch-title" style="color: var(--accent-green);"><i class="fa-solid fa-circle-nodes"></i> Live Cluster</div>
+              <div class="arch-desc">Actual State · Argo CD continuously reconciles discrepancies and self-heals drift.</div>
+            </div>
+          </div>
+        `
+      },
+      2: {
+        stepNum: 2,
+        type: 'Lesson',
+        title: 'Why teams use GitOps',
+        duration: '· 2:35',
+        seconds: 155,
+        voiceText: "Why do teams use GitOps? It provides complete audit trails through Git commits, instant disaster recovery, developer-friendly pull requests, and automated rollback.",
+        bodyHtml: `
+          <p>
+            Engineering organizations adopt GitOps because it fundamentally solves four critical operational challenges:
+          </p>
+          <div style="background: rgba(34, 229, 132, 0.05); border: 1px solid rgba(34, 229, 132, 0.2); border-radius: 8px; padding: 18px; margin: 18px 0;">
+            <ul style="color: #d1d5db; line-height: 1.8; margin-left: 20px; margin-bottom: 0;">
+              <li><strong>1. Complete Audit Trail:</strong> Every change to infrastructure is a Git commit with an author, timestamp, and review approvals.</li>
+              <li><strong>2. Fast Disaster Recovery:</strong> If a cluster is lost, recreate it and point Argo CD at the Git repo. The entire environment restores in minutes.</li>
+              <li><strong>3. Instant Rollbacks:</strong> Reverting a broken release is as simple as <code>git revert</code>. Argo CD immediately synchronizes the previous stable state.</li>
+              <li><strong>4. Stronger Security:</strong> Developers do not need direct <code>kubectl</code> cluster access. All changes go through reviewed Pull Requests.</li>
+            </ul>
+          </div>
+        `
+      },
+      3: {
+        stepNum: 3,
+        type: 'Lesson',
+        title: 'Changes without GitOps',
+        duration: '· 2:15',
+        seconds: 135,
+        voiceText: "Without GitOps, engineers run kubectl edit or kubectl apply from local laptops. Configuration drift accumulates, and disaster recovery requires guessing what was deployed.",
+        bodyHtml: `
+          <p>
+            Let's compare life before and after GitOps:
+          </p>
+          <table style="width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 13px;">
+            <thead>
+              <tr style="border-bottom: 1px solid rgba(255,255,255,0.15); color: #94a3b8;">
+                <th style="text-align: left; padding: 8px;">Activity</th>
+                <th style="text-align: left; padding: 8px; color: #ef4444;">Without GitOps</th>
+                <th style="text-align: left; padding: 8px; color: var(--accent-green);">With GitOps</th>
+              </tr>
+            </thead>
+            <tbody style="color: #cbd5e1; line-height: 1.6;">
+              <tr style="border-bottom: 1px solid rgba(255,255,255,0.06);">
+                <td style="padding: 8px; font-weight: 600;">Deploying App</td>
+                <td style="padding: 8px;"><code>kubectl apply</code> from local machine</td>
+                <td style="padding: 8px;">Merge PR into Git main branch</td>
+              </tr>
+              <tr style="border-bottom: 1px solid rgba(255,255,255,0.06);">
+                <td style="padding: 8px; font-weight: 600;">Hotfix change</td>
+                <td style="padding: 8px;"><code>kubectl edit deployment</code> (undocumented)</td>
+                <td style="padding: 8px;">Git commit (reviewed & audited)</td>
+              </tr>
+              <tr>
+                <td style="padding: 8px; font-weight: 600;">Config Drift</td>
+                <td style="padding: 8px;">Permanent & untracked</td>
+                <td style="padding: 8px;">Detected & Auto-remediated by Argo CD</td>
+              </tr>
+            </tbody>
+          </table>
+        `
+      },
+      4: {
+        stepNum: 4,
+        type: 'Task',
+        title: 'Change a Deployment by...',
+        duration: '· 3:00',
+        seconds: 180,
+        voiceText: "Hands-on task: Click Start Lab on the right, run argocd version and kubectl get pods -n argocd to verify the Argo CD controller is running.",
+        bodyHtml: `
+          <p>
+            Let's inspect your live Argo CD controller in the cluster sandbox.
+          </p>
+          <div class="task-instructions-box font-mono" style="background: rgba(34, 229, 132, 0.04); border: 1px solid rgba(34, 229, 132, 0.2); border-radius: 8px; padding: 18px; margin: 20px 0;">
+            <div style="color: var(--accent-green); font-weight: 700; margin-bottom: 8px;"><i class="fa-solid fa-terminal"></i> LAB TASK: CHECK ARGO CD CONTROLLER</div>
+            <p style="margin-bottom: 8px; color: #d1d5db;">1. Click <strong>&gt;_ Start Lab</strong> in the right terminal panel.</p>
+            <p style="margin-bottom: 8px; color: #d1d5db;">2. Run <code class="text-accent">kubectl get pods -n argocd</code> to check repo-server, application-controller, and server pods.</p>
+            <p style="margin-bottom: 8px; color: #d1d5db;">3. Run <code class="text-accent">argocd version</code> to check CLI and API server connectivity.</p>
+            <p style="margin-bottom: 0; color: #d1d5db;">4. Run <code class="text-accent">argocd app list</code> to see managed GitOps applications.</p>
+          </div>
+          <p class="text-muted font-mono" style="font-size: 12px;">
+            The sandbox will verify your commands and update your progress.
+          </p>
+        `
+      },
+      5: {
+        stepNum: 5,
+        type: 'Lesson',
+        title: 'The four OpenGitOps pri...',
+        duration: '· 3:10',
+        seconds: 190,
+        voiceText: "The OpenGitOps CNCF standard defines four core principles: Declarative state, Versioned and immutable storage, Pulled automatically by software agents, and Continuously reconciled.",
+        bodyHtml: `
+          <p>
+            The <strong>OpenGitOps</strong> standard (CNCF) defines 4 universal principles:
+          </p>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0;">
+            <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 14px;">
+              <strong class="text-accent" style="color: #38bdf8;">1. Declarative</strong>
+              <p style="margin: 6px 0 0 0; font-size: 12.5px; color: #cbd5e1;">A system managed by GitOps must have its desired state expressed declaratively (YAML manifests, Helm values).</p>
+            </div>
+            <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 14px;">
+              <strong class="text-accent" style="color: #38bdf8;">2. Versioned & Immutable</strong>
+              <p style="margin: 6px 0 0 0; font-size: 12.5px; color: #cbd5e1;">Desired state is stored in a version control system (Git) that supports versioning, immutability, and full commit history.</p>
+            </div>
+            <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 14px;">
+              <strong class="text-accent" style="color: var(--accent-green);">3. Pulled Automatically</strong>
+              <p style="margin: 6px 0 0 0; font-size: 12.5px; color: #cbd5e1;">Software agents automatically pull the desired state declarations from Git without opening inbound cluster firewall ports.</p>
+            </div>
+            <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 14px;">
+              <strong class="text-accent" style="color: var(--accent-green);">4. Continuously Reconciled</strong>
+              <p style="margin: 6px 0 0 0; font-size: 12.5px; color: #cbd5e1;">Software agents continuously monitor actual system state and apply self-healing whenever drift occurs.</p>
+            </div>
+          </div>
+        `
+      },
+      6: {
+        stepNum: 6,
+        type: 'Quiz',
+        title: 'Concept Check: GitOps Core',
+        duration: '· 1:30',
+        seconds: 90,
+        voiceText: "Concept check on GitOps core concepts.",
+        quiz: {
+          question: "What is the primary principle of GitOps regarding the source of truth?",
+          options: [
+            "The live Kubernetes etcd database is the source of truth",
+            "Git is the single immutable source of truth for both application and infrastructure state",
+            "The Docker registry image tags define the system state",
+            "The CI pipeline server database holds the truth"
+          ],
+          correct: 1,
+          explanation: "Correct! In GitOps, Git is the single source of truth. The cluster state is continuously reconciled to match Git."
+        }
+      },
+      7: {
+        stepNum: 7,
+        type: 'Lesson',
+        title: 'Pull vs Push in CI/CD',
+        duration: '· 2:40',
+        seconds: 160,
+        voiceText: "In a push model, CI servers need cluster admin credentials and push manifests. In the GitOps pull model, Argo CD runs inside the cluster and pulls desired state securely.",
+        bodyHtml: `
+          <p>
+            Traditional CI/CD uses a <strong>Push Model</strong>:
+          </p>
+          <div class="docker-arch-diagram font-mono">
+            <div class="arch-box client" style="border-color: rgba(239, 68, 68, 0.4);">
+              <div class="arch-title" style="color: #ef4444;"><i class="fa-solid fa-cloud-arrow-up"></i> Push CI/CD</div>
+              <div class="arch-desc">CI runner holds high-privilege kubeconfig credentials and pushes <code>kubectl apply</code> into the cluster.</div>
+            </div>
+            <div class="arch-arrow">➜ VS ➜</div>
+            <div class="arch-box daemon" style="border-color: rgba(34, 229, 132, 0.4);">
+              <div class="arch-title" style="color: var(--accent-green);"><i class="fa-solid fa-arrows-rotate"></i> Pull GitOps (Argo CD)</div>
+              <div class="arch-desc">Argo CD agent runs inside the cluster, observes Git repository, and pulls changes with zero external firewall ingress.</div>
+            </div>
+          </div>
+        `
+      },
+      8: {
+        stepNum: 8,
+        type: 'Quiz',
+        title: 'Concept Check: Pull Model',
+        duration: '· 1:30',
+        seconds: 90,
+        voiceText: "Concept check on why the pull model provides enhanced security.",
+        quiz: {
+          question: "Why is the GitOps pull model more secure than traditional push CI/CD?",
+          options: [
+            "Because YAML manifests are automatically encrypted",
+            "Because cluster admin credentials never leave the cluster and no inbound firewall ports need to be exposed",
+            "Because Git blocks unauthorized users from reading repositories",
+            "Because Kubernetes only allows read-only HTTP connections"
+          ],
+          correct: 1,
+          explanation: "Correct! In the pull model, Argo CD lives inside the Kubernetes cluster with internal RBAC. CI servers do not require direct cluster API credentials."
+        }
+      },
+      9: {
+        stepNum: 9,
+        type: 'Quiz',
+        title: 'Concept Check: Drift & Self-Heal',
+        duration: '· 1:30',
+        seconds: 90,
+        voiceText: "Final quiz for Argo CD Module 1 on automated self-healing and drift detection.",
+        quiz: {
+          question: "What happens when someone manually edits a Kubernetes Deployment in the cluster when Argo CD selfHeal is enabled?",
+          options: [
+            "Argo CD updates the Git repository with the changes",
+            "Argo CD detects the out-of-sync drift and automatically reverts the cluster to match Git",
+            "Argo CD disables synchronization until an admin approves",
+            "Kubernetes terminates the cluster nodes"
+          ],
+          correct: 1,
+          explanation: "Correct! When self-healing is enabled, Argo CD continuously detects configuration drift and automatically reverts live changes to match the declared Git state."
+        }
+      }
+    };
+
+    let currentArgoStep = 1;
+    let argoCompletedSteps = new Set([1]);
+    let isArgoVoicePlaying = false;
+    let argoVoiceInterval = null;
+    let argoVoiceSecondsRemaining = 267;
+    let isArgoLabRunning = false;
+    let argoTasksDone = 0;
+    let argoQuizzesDone = 0;
+
+    function updateArgoSidebarStats() {
+      const doneCount = argoCompletedSteps.size;
+      const totalSteps = Object.keys(argocdLessonsData).length;
+      const pct = Math.round((doneCount / totalSteps) * 100);
+
+      if (argocdLessonProgressPercent) argocdLessonProgressPercent.textContent = `${pct}%`;
+      if (argocdLessonProgressArc) {
+        const offset = 264 - (264 * pct) / 100;
+        argocdLessonProgressArc.style.strokeDashoffset = offset;
+      }
+      if (argocdStatDoneCount) argocdStatDoneCount.textContent = `${doneCount}`;
+      if (argocdStatQuizzesCount) argocdStatQuizzesCount.textContent = `${argoQuizzesDone}/3`;
+      if (argocdStatTasksCount) argocdStatTasksCount.textContent = `${argoTasksDone}/1`;
+    }
+
+    function renderArgoLesson(stepNum) {
+      const data = argocdLessonsData[stepNum];
+      if (!data) return;
+
+      currentArgoStep = stepNum;
+
+      if (argocdLessonStepCounter) {
+        argocdLessonStepCounter.textContent = `LESSON · ${stepNum} OF ${Object.keys(argocdLessonsData).length}`;
+      }
+      if (argocdLessonTypePill) {
+        argocdLessonTypePill.textContent = data.type;
+        argocdLessonTypePill.className = `lesson-type-badge font-mono ${data.type.toLowerCase()}-pill`;
+      }
+      if (argocdLessonHeading) {
+        argocdLessonHeading.textContent = data.title;
+      }
+
+      if (argocdVoiceTimer) {
+        argocdVoiceTimer.textContent = data.duration;
+      }
+      argoVoiceSecondsRemaining = data.seconds;
+      stopArgoVoice();
+
+      if (data.type === 'Quiz' && data.quiz) {
+        if (argocdLessonBodyContent) argocdLessonBodyContent.style.display = 'none';
+        if (argocdLessonQuizContainer) {
+          argocdLessonQuizContainer.style.display = 'block';
+          if (argocdQuizQuestionText) argocdQuizQuestionText.textContent = data.quiz.question;
+          if (argocdQuizFeedbackBox) argocdQuizFeedbackBox.style.display = 'none';
+
+          if (argocdQuizOptionsList) {
+            argocdQuizOptionsList.innerHTML = '';
+            data.quiz.options.forEach((opt, idx) => {
+              const optBtn = document.createElement('button');
+              optBtn.className = 'quiz-option-btn font-mono';
+              optBtn.innerHTML = `
+                <span class="opt-key font-bold text-accent">${String.fromCharCode(65 + idx)}.</span>
+                <span class="opt-text">${opt}</span>
+              `;
+              optBtn.addEventListener('click', () => {
+                const isCorrect = idx === data.quiz.correct;
+                const allBtns = argocdQuizOptionsList.querySelectorAll('.quiz-option-btn');
+                allBtns.forEach((b) => (b.disabled = true));
+
+                if (isCorrect) {
+                  optBtn.classList.add('correct');
+                  if (argocdQuizFeedbackBox) {
+                    argocdQuizFeedbackBox.className = 'quiz-feedback-box font-mono show text-green';
+                    argocdQuizFeedbackBox.style.background = 'rgba(34, 229, 132, 0.1)';
+                    argocdQuizFeedbackBox.style.border = '1px solid var(--accent-green)';
+                    argocdQuizFeedbackBox.innerHTML = `<strong>✓ Correct!</strong> ${data.quiz.explanation}`;
+                    argocdQuizFeedbackBox.style.display = 'block';
+                  }
+                  argoQuizzesDone = Math.min(3, argoQuizzesDone + 1);
+                  argoCompletedSteps.add(stepNum);
+                  updateArgoSidebarStats();
+                  showToast("Quiz passed! +50 XP");
+                } else {
+                  optBtn.classList.add('wrong');
+                  if (allBtns[data.quiz.correct]) allBtns[data.quiz.correct].classList.add('correct');
+                  if (argocdQuizFeedbackBox) {
+                    argocdQuizFeedbackBox.className = 'quiz-feedback-box font-mono show text-red';
+                    argocdQuizFeedbackBox.style.background = 'rgba(239, 68, 68, 0.1)';
+                    argocdQuizFeedbackBox.style.border = '1px solid #ef4444';
+                    argocdQuizFeedbackBox.innerHTML = `<strong>✗ Incorrect.</strong> ${data.quiz.explanation}`;
+                    argocdQuizFeedbackBox.style.display = 'block';
+                  }
+                }
+              });
+              argocdQuizOptionsList.appendChild(optBtn);
+            });
+          }
+        }
+      } else {
+        if (argocdLessonQuizContainer) argocdLessonQuizContainer.style.display = 'none';
+        if (argocdLessonBodyContent) {
+          argocdLessonBodyContent.style.display = 'block';
+          argocdLessonBodyContent.innerHTML = data.bodyHtml;
+        }
+        argoCompletedSteps.add(stepNum);
+        updateArgoSidebarStats();
+      }
+
+      argocdLessonStepperItems.forEach((item) => {
+        const itemStep = parseInt(item.getAttribute('data-argo-step') || item.getAttribute('data-step') || '1', 10);
+        if (itemStep === stepNum) {
+          item.classList.add('active');
+        } else {
+          item.classList.remove('active');
+        }
+
+        if (argoCompletedSteps.has(itemStep)) {
+          item.classList.add('done');
+        } else {
+          item.classList.remove('done');
+        }
+      });
+
+      if (argocdBtnLessonPrev) argocdBtnLessonPrev.disabled = stepNum <= 1;
+      if (argocdBtnLessonNext) {
+        if (stepNum >= Object.keys(argocdLessonsData).length) {
+          argocdBtnLessonNext.innerHTML = 'Finish Topic <i class="fa-solid fa-check"></i>';
+        } else {
+          argocdBtnLessonNext.innerHTML = 'Next &rarr;';
+        }
+      }
+    }
+
+    function stopArgoVoice() {
+      if (argoVoiceInterval) {
+        clearInterval(argoVoiceInterval);
+        argoVoiceInterval = null;
+      }
+      isArgoVoicePlaying = false;
+      if (argocdVoiceStatusText) argocdVoiceStatusText.textContent = 'Explain this lesson';
+      if (argocdVoiceIcon) argocdVoiceIcon.className = 'fa-solid fa-play';
+    }
+
+    if (argocdBtnVoicePlay) {
+      argocdBtnVoicePlay.addEventListener('click', () => {
+        if (isArgoVoicePlaying) {
+          stopArgoVoice();
+        } else {
+          isArgoVoicePlaying = true;
+          if (argocdVoiceStatusText) argocdVoiceStatusText.textContent = 'Playing explanation...';
+          if (argocdVoiceIcon) argocdVoiceIcon.className = 'fa-solid fa-pause';
+
+          showToast("Narration: " + (argocdLessonsData[currentArgoStep]?.voiceText || ""));
+
+          argoVoiceInterval = setInterval(() => {
+            if (argoVoiceSecondsRemaining > 0) {
+              argoVoiceSecondsRemaining--;
+              const m = Math.floor(argoVoiceSecondsRemaining / 60);
+              const s = argoVoiceSecondsRemaining % 60;
+              if (argocdVoiceTimer) {
+                argocdVoiceTimer.textContent = `· ${m}:${s < 10 ? '0' : ''}${s}`;
+              }
+            } else {
+              stopArgoVoice();
+              showToast("Explanation finished");
+            }
+          }, 1000);
+        }
+      });
+    }
+
+    argocdLessonStepperItems.forEach((item) => {
+      item.addEventListener('click', () => {
+        const step = parseInt(item.getAttribute('data-argo-step') || item.getAttribute('data-step') || '1', 10);
+        renderArgoLesson(step);
+      });
+    });
+
+    if (argocdBtnLessonPrev) {
+      argocdBtnLessonPrev.addEventListener('click', () => {
+        if (currentArgoStep > 1) {
+          renderArgoLesson(currentArgoStep - 1);
+        }
+      });
+    }
+
+    if (argocdBtnLessonNext) {
+      argocdBtnLessonNext.addEventListener('click', () => {
+        if (currentArgoStep < Object.keys(argocdLessonsData).length) {
+          renderArgoLesson(currentArgoStep + 1);
+        } else {
+          showToast("🎉 Topic 01 Finished! Returned to Argo CD Curriculum.");
+          setTimeout(() => {
+            location.href = 'skill-argocd.html';
+          }, 1000);
+        }
+      });
+    }
+
+    // Terminal Commands
+    if (argocdBtnStartLiveLab) {
+      argocdBtnStartLiveLab.addEventListener('click', () => {
+        if (argocdTerminalStandbyView) argocdTerminalStandbyView.style.display = 'none';
+        if (argocdTerminalActiveView) argocdTerminalActiveView.style.display = 'flex';
+        isArgoLabRunning = true;
+        if (argocdTerminalCliInput) argocdTerminalCliInput.focus();
+        showToast("✓ Argo CD GitOps sandbox ready.");
+      });
+    }
+
+    function appendArgoTerminalLine(text, className = '') {
+      if (!argocdTerminalViewport) return;
+      const line = document.createElement('div');
+      line.className = `term-line ${className}`;
+      line.textContent = text;
+      argocdTerminalViewport.appendChild(line);
+      argocdTerminalViewport.scrollTop = argocdTerminalViewport.scrollHeight;
+    }
+
+    function executeArgoWorkspaceCommand() {
+      if (!argocdTerminalCliInput) return;
+      const rawCmd = argocdTerminalCliInput.value.trim();
+      if (!rawCmd) return;
+
+      appendArgoTerminalLine(`shaikh@argocd-lab:~$ ${rawCmd}`, 'text-accent font-bold');
+      argocdTerminalCliInput.value = '';
+
+      const cmd = rawCmd.toLowerCase();
+
+      if (cmd === 'clear') {
+        if (argocdTerminalViewport) argocdTerminalViewport.innerHTML = '<div class="term-line text-muted">Screen cleared. Type kubectl or argocd commands below:</div>';
+        return;
+      }
+
+      if (cmd === 'help') {
+        appendArgoTerminalLine("Available commands:", "text-green-glow");
+        appendArgoTerminalLine("  argocd version                     - Print Argo CD client and server version");
+        appendArgoTerminalLine("  argocd app list                    - List managed GitOps applications");
+        appendArgoTerminalLine("  argocd app get guestbook           - Inspect guestbook application status");
+        appendArgoTerminalLine("  kubectl get pods -n argocd         - List pods in namespace argocd");
+        appendArgoTerminalLine("  kubectl get namespaces             - List Kubernetes namespaces");
+        appendArgoTerminalLine("  clear                              - Clear terminal screen");
+        return;
+      }
+
+      if (cmd === 'argocd version') {
+        appendArgoTerminalLine('argocd: v2.10.4+4a821e2', 'text-green-glow');
+        appendArgoTerminalLine('  BuildDate: 2026-03-12T14:22:18Z');
+        appendArgoTerminalLine('  GitCommit: 4a821e2712f5a5e305e7178c5208f40b8a4f9104');
+        appendArgoTerminalLine('  GitTreeState: clean');
+        appendArgoTerminalLine('  GoVersion: go1.21.8');
+        appendArgoTerminalLine('  Compiler: gc');
+        appendArgoTerminalLine('  Platform: linux/amd64');
+        appendArgoTerminalLine('argocd-server: v2.10.4+4a821e2');
+        if (currentArgoStep === 4) {
+          argoTasksDone = 1;
+          argoCompletedSteps.add(4);
+          updateArgoSidebarStats();
+          showToast("✓ Step 4 Task Verified: Argo CD Server connected! +50 XP");
+        }
+        return;
+      }
+
+      if (cmd.startsWith('kubectl get namespaces') || cmd.startsWith('kubectl get ns')) {
+        appendArgoTerminalLine("NAME              STATUS   AGE", "font-mono");
+        appendArgoTerminalLine("default           Active   45m", "font-mono");
+        appendArgoTerminalLine("kube-system       Active   45m", "font-mono");
+        appendArgoTerminalLine("argocd            Active   28m", "font-mono text-green-glow");
+        return;
+      }
+
+      if (cmd.startsWith('kubectl get pods -n argocd') || cmd.startsWith('kubectl get pods') || cmd.startsWith('kubectl get po')) {
+        appendArgoTerminalLine("NAME                                                 READY   STATUS    RESTARTS   AGE", "font-mono");
+        appendArgoTerminalLine("argocd-application-controller-0                      1/1     Running   0          25m", "font-mono text-green-glow");
+        appendArgoTerminalLine("argocd-applicationset-controller-5847cd65db-9z98k    1/1     Running   0          25m", "font-mono text-green-glow");
+        appendArgoTerminalLine("argocd-redis-74b8f98d9f-k82zl                        1/1     Running   0          25m", "font-mono text-green-glow");
+        appendArgoTerminalLine("argocd-repo-server-6784d85db8-2d88v                  1/1     Running   0          25m", "font-mono text-green-glow");
+        appendArgoTerminalLine("argocd-server-5c747864f8-p291j                       1/1     Running   0          25m", "font-mono text-green-glow");
+        if (currentArgoStep === 4) {
+          argoTasksDone = 1;
+          argoCompletedSteps.add(4);
+          updateArgoSidebarStats();
+          showToast("✓ Step 4 Task Verified: Argo CD pods inspected! +50 XP");
+        }
+        return;
+      }
+
+      if (cmd.startsWith('argocd app list')) {
+        appendArgoTerminalLine("NAME        CLUSTER                         NAMESPACE  PROJECT  STATUS  HEALTH   SYNCPOLICY  CONDITIONS  REPO                                              PATH       TARGET", "font-mono");
+        appendArgoTerminalLine("guestbook   https://kubernetes.default.svc  default    default  Synced  Healthy  Auto-Prune  <none>      https://github.com/argoproj/argocd-example-apps   guestbook  HEAD", "font-mono text-green-glow");
+        if (currentArgoStep === 4) {
+          argoTasksDone = 1;
+          argoCompletedSteps.add(4);
+          updateArgoSidebarStats();
+          showToast("✓ Step 4 Task Verified: GitOps apps inspected! +50 XP");
+        }
+        return;
+      }
+
+      if (cmd.startsWith('argocd app get')) {
+        appendArgoTerminalLine("Name:               guestbook", "text-green-glow font-mono");
+        appendArgoTerminalLine("Project:            default", "font-mono");
+        appendArgoTerminalLine("Server:             https://kubernetes.default.svc", "font-mono");
+        appendArgoTerminalLine("Namespace:          default", "font-mono");
+        appendArgoTerminalLine("URL:                https://localhost:8080/applications/guestbook", "font-mono");
+        appendArgoTerminalLine("Repo:               https://github.com/argoproj/argocd-example-apps", "font-mono");
+        appendArgoTerminalLine("Target:             HEAD", "font-mono");
+        appendArgoTerminalLine("Path:               guestbook", "font-mono");
+        appendArgoTerminalLine("Sync Window:        Sync Allowed", "font-mono");
+        appendArgoTerminalLine("Sync Policy:        Automated (Prune, Self-Heal)", "font-mono");
+        appendArgoTerminalLine("Sync Status:        Synced to HEAD (6a07c12)", "font-mono text-green-glow");
+        appendArgoTerminalLine("Health Status:      Healthy", "font-mono text-green-glow");
+        return;
+      }
+
+      appendArgoTerminalLine(`bash: ${rawCmd.split(' ')[0]}: command executed.`);
+    }
+
+    if (argocdBtnCliSubmit) {
+      argocdBtnCliSubmit.addEventListener('click', executeArgoWorkspaceCommand);
+    }
+    if (argocdTerminalCliInput) {
+      argocdTerminalCliInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') executeArgoWorkspaceCommand();
+      });
+    }
+
+    // Tools Drawer
+    if (argocdBtnToggleNotes) {
+      argocdBtnToggleNotes.addEventListener('click', () => {
+        if (argocdToolsDrawer) argocdToolsDrawer.style.display = 'flex';
+      });
+    }
+    if (argocdBtnToggleEditor) {
+      argocdBtnToggleEditor.addEventListener('click', () => {
+        if (argocdToolsDrawer) argocdToolsDrawer.style.display = 'flex';
+        if (argocdDrawerTitle) argocdDrawerTitle.innerHTML = '<i class="fa-solid fa-code"></i> Code Editor';
+      });
+    }
+    if (argocdBtnCloseDrawer) {
+      argocdBtnCloseDrawer.addEventListener('click', () => {
+        if (argocdToolsDrawer) argocdToolsDrawer.style.display = 'none';
+      });
+    }
+
+    if (argocdLessonThemeToggle) {
+      argocdLessonThemeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('light-mode');
+        showToast("Theme switched");
+      });
+    }
+
+    renderArgoLesson(1);
+  }
+
 });
+
 
 
 

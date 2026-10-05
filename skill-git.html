@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Git Skill — Shaikh Sir</title>
+  <meta name="description"
+    content="Learn version control from zero - snapshots, branches, merges, undo, and real GitHub workflows with pushes, pulls, and pull requests.">
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    rel="stylesheet">
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+
+  <!-- Sticky Navigation Bar -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <div class="logo-icon">&gt;_</div>
+        <span class="logo-text">Shaikh Sir</span>
+      </a>
+
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html#skills" class="nav-link active">Skills</a></li>
+        <li><a href="roadmap-devops.html" class="nav-link">Roadmaps</a></li>
+        <li><a href="#" class="nav-link" id="nav-cert-btn">Certifications</a></li>
+        <li>
+          <a href="#" class="nav-link leaderboard-link">
+            Leaderboard <span class="badge-dot"></span>
+          </a>
+        </li>
+        <li><a href="#" class="nav-link">My Sessions</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <div class="search-container">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input type="text" class="search-input" placeholder="Search labs, topics...">
+        </div>
+
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle visual theme">
+          <i class="fa-solid fa-moon theme-icon-dark"></i>
+          <i class="fa-solid fa-sun theme-icon-light" style="display: none;"></i>
+        </button>
+
+        <a href="#" class="btn-signin">Sign in</a>
+
+        <button class="hamburger-menu" id="hamburger-menu" aria-label="Toggle menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Dropdown Menu -->
+  <div class="mobile-menu" id="mobile-menu">
+    <div class="mobile-search">
+      <i class="fa-solid fa-magnifying-glass search-icon"></i>
+      <input type="text" class="search-input" placeholder="Search labs, topics...">
+    </div>
+    <ul class="mobile-links">
+      <li><a href="index.html#skills" class="mobile-link">Skills</a></li>
+      <li><a href="roadmap-devops.html" class="mobile-link">Roadmaps</a></li>
+      <li><a href="#" class="mobile-link">Certifications</a></li>
+      <li><a href="#" class="mobile-link">Leaderboard <span class="badge-dot"></span></a></li>
+      <li><a href="#" class="mobile-link">My Sessions</a></li>
+    </ul>
+    <div class="mobile-actions">
+      <a href="#" class="btn-signin-mobile">Sign in</a>
+    </div>
+  </div>
+
+  <!-- Skill Page Header Section -->
+  <div class="skill-page-header">
+    <div class="starfield" id="starfield"></div>
+    <div class="container relative z-10">
+      <!-- Breadcrumbs -->
+      <nav class="breadcrumb font-mono">
+        <a href="index.html#skills">Skills</a>
+        <i class="fa-solid fa-chevron-right separator"></i>
+        <span class="current">Git</span>
+      </nav>
+
+      <!-- Skill Title & Description -->
+      <div class="skill-title-block">
+        <h1 class="skill-hero-title">
+          <i class="fa-brands fa-git-alt git-brand-icon"></i> Git
+        </h1>
+        <p class="skill-hero-description text-secondary">
+          Learn version control from zero - snapshots, branches, merges, undo, and real GitHub workflows with pushes, pulls, and pull requests.
+        </p>
+
+        <!-- Stats Pills matching reference screenshot -->
+        <div class="skill-header-pills font-mono">
+          <span class="skill-stat-pill"><i class="fa-solid fa-layer-group"></i> 24 topics</span>
+          <span class="skill-stat-pill"><i class="fa-solid fa-bolt text-accent"></i> 48 hands-on tasks</span>
+          <span class="skill-stat-pill"><i class="fa-regular fa-circle-question"></i> 21 quizzes</span>
+          <span class="skill-stat-pill"><i class="fa-solid fa-trophy text-amber"></i> 4 challenges</span>
+          <span class="skill-stat-pill"><i class="fa-regular fa-clock"></i> ~1260 min</span>
+        </div>
+
+        <!-- Star Rating Row -->
+        <div class="course-rating-row font-mono" id="git-course-rating">
+          <span>RATE THIS COURSE</span>
+          <div class="stars-wrapper" id="git-star-rating-box">
+            <i class="fa-solid fa-star active" data-rating="1"></i>
+            <i class="fa-solid fa-star active" data-rating="2"></i>
+            <i class="fa-solid fa-star active" data-rating="3"></i>
+            <i class="fa-solid fa-star active" data-rating="4"></i>
+            <i class="fa-solid fa-star active" data-rating="5"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Topics Area -->
+  <main class="skill-content-area">
+    <div class="container">
+
+      <!-- Certificate Requirements Bar Accordion -->
+      <div class="certificate-req-bar reveal-element" id="cert-req-box">
+        <div class="cert-req-left font-mono">
+          <i class="fa-solid fa-asterisk text-accent"></i>
+          <span class="cert-req-label">Certificate requirements</span>
+        </div>
+        <div class="cert-req-right font-mono">
+          <span class="cert-status-tag">In progress <i class="fa-solid fa-chevron-down cert-chevron"></i></span>
+        </div>
+      </div>
+
+      <!-- Collapsible Certificate Requirements Details -->
+      <div class="cert-details-panel font-mono" id="cert-details-panel" style="display: none;">
+        <div class="cert-details-grid">
+          <div class="cert-req-item">
+            <i class="fa-solid fa-check text-accent"></i>
+            <span>Complete all 24 curriculum topics</span>
+          </div>
+          <div class="cert-req-item">
+            <i class="fa-solid fa-check text-accent"></i>
+            <span>Pass 48 hands-on terminal tasks</span>
+          </div>
+          <div class="cert-req-item">
+            <i class="fa-solid fa-check text-accent"></i>
+            <span>Achieve &ge;80% on all 21 concept quizzes</span>
+          </div>
+          <div class="cert-req-item">
+            <i class="fa-solid fa-check text-accent"></i>
+            <span>Complete 4 capstone repo challenge projects</span>
+          </div>
+        </div>
+        <div class="cert-claim-row">
+          <button class="btn-cert-preview font-mono" id="btn-preview-git-cert">
+            <i class="fa-solid fa-award"></i> Preview Git Certificate
+          </button>
+        </div>
+      </div>
+
+      <!-- Topics Section Header & View Toggles -->
+      <div class="topics-section-header">
+        <div class="topics-count-heading font-mono">
+          <span>24 TOPICS</span>
+          <span class="text-muted text-xs">&middot; Complete in sequence or jump to topics</span>
+        </div>
+
+        <div class="topics-view-controls topic-view-switcher font-mono">
+          <button class="topic-view-btn active" id="view-toggle-list" data-view="list" title="List View" aria-label="List View">
+            <i class="fa-solid fa-list"></i>
+          </button>
+          <button class="topic-view-btn" id="view-toggle-grid" data-view="grid" title="Grid View" aria-label="Grid View">
+            <i class="fa-solid fa-table-cells-large"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Topics Container (List View by Default) -->
+      <div class="topics-wrapper topics-list-view" id="topics-container">
+
+        <!-- Topic 1: What version control is (Active / Free) -->
+        <div class="topic-step-card active-step reveal-element">
+          <div class="step-indicator-wrapper">
+            <div class="step-active-dot"></div>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 1</span>
+              <span class="badge-free">FREE</span>
+            </div>
+            <h3 class="step-title">
+              <i class="fa-brands fa-git-alt git-brand-icon" style="font-size: 14px; margin-right: 4px;"></i> 01 &middot; What version control is
+            </h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-play text-accent"></i> 3 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-bolt text-accent"></i> 1 task</span>
+              <span class="meta-item"><i class="fa-regular fa-circle-question"></i> 1 quizzes</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 50 min</span>
+            </div>
+          </div>
+          <div class="step-card-action">
+            <a href="lesson-git.html" class="btn-step-action btn-continue-lab">
+              <span>Start Lab</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Topic 2: Your first repository -->
+        <div class="topic-step-card pro-locked-card reveal-element" data-topic-id="2" data-topic-title="Your first repository">
+          <div class="step-indicator-wrapper">
+            <div class="step-idle-dot"></div>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 2</span>
+            </div>
+            <h3 class="step-title">
+              <i class="fa-brands fa-git-alt git-brand-icon" style="font-size: 14px; margin-right: 4px;"></i> 02 &middot; Your first repository
+            </h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-play text-accent"></i> 3 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-bolt text-accent"></i> 2 tasks</span>
+              <span class="meta-item"><i class="fa-regular fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 35 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon" title="Pro subscription required">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- Topic 3: The staging area -->
+        <div class="topic-step-card pro-locked-card reveal-element" data-topic-id="3" data-topic-title="The staging area">
+          <div class="step-indicator-wrapper">
+            <div class="step-idle-dot"></div>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 3</span>
+            </div>
+            <h3 class="step-title">
+              <i class="fa-brands fa-git-alt git-brand-icon" style="font-size: 14px; margin-right: 4px;"></i> 03 &middot; The staging area
+            </h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-play text-accent"></i> 3 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-bolt text-accent"></i> 3 tasks</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 45 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon" title="Pro subscription required">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- Topic 4: Commits -->
+        <div class="topic-step-card pro-locked-card reveal-element" data-topic-id="4" data-topic-title="Commits">
+          <div class="step-indicator-wrapper">
+            <div class="step-idle-dot"></div>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 4</span>
+            </div>
+            <h3 class="step-title">
+              <i class="fa-brands fa-git-alt git-brand-icon" style="font-size: 14px; margin-right: 4px;"></i> 04 &middot; Commits
+            </h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-play text-accent"></i> 2 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-bolt text-accent"></i> 2 tasks</span>
+              <span class="meta-item"><i class="fa-regular fa-circle-question"></i> 2 quizzes</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 45 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon" title="Pro subscription required">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- Topic 5: Reading history -->
+        <div class="topic-step-card pro-locked-card reveal-element" data-topic-id="5" data-topic-title="Reading history">
+          <div class="step-indicator-wrapper">
+            <div class="step-idle-dot"></div>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 5</span>
+            </div>
+            <h3 class="step-title">
+              <i class="fa-brands fa-git-alt git-brand-icon" style="font-size: 14px; margin-right: 4px;"></i> 05 &middot; Reading history
+            </h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-play text-accent"></i> 3 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-bolt text-accent"></i> 2 tasks</span>
+              <span class="meta-item"><i class="fa-regular fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 40 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon" title="Pro subscription required">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- Topic 6: Seeing what changed -->
+        <div class="topic-step-card pro-locked-card reveal-element" data-topic-id="6" data-topic-title="Seeing what changed">
+          <div class="step-indicator-wrapper">
+            <div class="step-idle-dot"></div>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 6</span>
+            </div>
+            <h3 class="step-title">
+              <i class="fa-brands fa-git-alt git-brand-icon" style="font-size: 14px; margin-right: 4px;"></i> 06 &middot; Seeing what changed
+            </h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-play text-accent"></i> 2 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-bolt text-accent"></i> 2 tasks</span>
+              <span class="meta-item"><i class="fa-regular fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 35 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon" title="Pro subscription required">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- Topic 7: Ignoring files with .gitignore -->
+        <div class="topic-step-card pro-locked-card reveal-element" data-topic-id="7" data-topic-title="Ignoring files with .gitignore">
+          <div class="step-indicator-wrapper">
+            <div class="step-idle-dot"></div>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 7</span>
+            </div>
+            <h3 class="step-title">
+              <i class="fa-brands fa-git-alt git-brand-icon" style="font-size: 14px; margin-right: 4px;"></i> 07 &middot; Ignoring files with .gitignore
+            </h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-play text-accent"></i> 2 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-bolt text-accent"></i> 2 tasks</span>
+              <span class="meta-item"><i class="fa-regular fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 35 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon" title="Pro subscription required">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- Topic 8: Branches -->
+        <div class="topic-step-card pro-locked-card reveal-element" data-topic-id="8" data-topic-title="Branches">
+          <div class="step-indicator-wrapper">
+            <div class="step-idle-dot"></div>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 8</span>
+            </div>
+            <h3 class="step-title">
+              <i class="fa-brands fa-git-alt git-brand-icon" style="font-size: 14px; margin-right: 4px;"></i> 08 &middot; Branches
+            </h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-play text-accent"></i> 3 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-bolt text-accent"></i> 3 tasks</span>
+              <span class="meta-item"><i class="fa-regular fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 50 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon" title="Pro subscription required">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- Topic 9: Merging branches -->
+        <div class="topic-step-card pro-locked-card reveal-element" data-topic-id="9" data-topic-title="Merging branches">
+          <div class="step-indicator-wrapper">
+            <div class="step-idle-dot"></div>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 9</span>
+            </div>
+            <h3 class="step-title">
+              <i class="fa-brands fa-git-alt git-brand-icon" style="font-size: 14px; margin-right: 4px;"></i> 09 &middot; Merging branches
+            </h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-play text-accent"></i> 3 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-bolt text-accent"></i> 1 task</span>
+              <span class="meta-item"><i class="fa-regular fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 45 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon" title="Pro subscription required">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- Topic 10: Merge conflicts -->
+        <div class="topic-step-card pro-locked-card reveal-element" data-topic-id="10" data-topic-title="Merge conflicts">
+          <div class="step-indicator-wrapper">
+            <div class="step-idle-dot"></div>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 10</span>
+            </div>
+            <h3 class="step-title">
+              <i class="fa-brands fa-git-alt git-brand-icon" style="font-size: 14px; margin-right: 4px;"></i> 10 &middot; Merge conflicts
+            </h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-play text-accent"></i> 3 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-bolt text-accent"></i> 2 tasks</span>
+              <span class="meta-item"><i class="fa-regular fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 45 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon" title="Pro subscription required">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- Topic 11: Undoing changes -->
+        <div class="topic-step-card pro-locked-card reveal-element" data-topic-id="11" data-topic-title="Undoing changes">
+          <div class="step-indicator-wrapper">
+            <div class="step-idle-dot"></div>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 11</span>
+            </div>
+            <h3 class="step-title">
+              <i class="fa-brands fa-git-alt git-brand-icon" style="font-size: 14px; margin-right: 4px;"></i> 11 &middot; Undoing changes
+            </h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-play text-accent"></i> 3 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-bolt text-accent"></i> 2 tasks</span>
+              <span class="meta-item"><i class="fa-regular fa-circle-question"></i> 2 quizzes</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 60 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon" title="Pro subscription required">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- Topic 12: Stash and tags -->
+        <div class="topic-step-card pro-locked-card reveal-element" data-topic-id="12" data-topic-title="Stash and tags">
+          <div class="step-indicator-wrapper">
+            <div class="step-idle-dot"></div>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 12</span>
+            </div>
+            <h3 class="step-title">
+              <i class="fa-brands fa-git-alt git-brand-icon" style="font-size: 14px; margin-right: 4px;"></i> 12 &middot; Stash and tags
+            </h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-play text-accent"></i> 2 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-bolt text-accent"></i> 2 tasks</span>
+              <span class="meta-item"><i class="fa-regular fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 35 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon" title="Pro subscription required">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- Topic 13: Rebase and cherry-pick -->
+        <div class="topic-step-card pro-locked-card reveal-element" data-topic-id="13" data-topic-title="Rebase and cherry-pick">
+          <div class="step-indicator-wrapper">
+            <div class="step-idle-dot"></div>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 13</span>
+            </div>
+            <h3 class="step-title">
+              <i class="fa-brands fa-git-alt git-brand-icon" style="font-size: 14px; margin-right: 4px;"></i> 13 &middot; Rebase and cherry-pick
+            </h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-play text-accent"></i> 4 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-bolt text-accent"></i> 3 tasks</span>
+              <span class="meta-item"><i class="fa-regular fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 65 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon" title="Pro subscription required">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- Topic 14: Connecting to GitHub -->
+        <div class="topic-step-card pro-locked-card reveal-element" data-topic-id="14" data-topic-title="Connecting to GitHub">
+          <div class="step-indicator-wrapper">
+            <div class="step-idle-dot"></div>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 14</span>
+            </div>
+            <h3 class="step-title">
+              <i class="fa-brands fa-git-alt git-brand-icon" style="font-size: 14px; margin-right: 4px;"></i> 14 &middot; Connecting to GitHub
+            </h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-play text-accent"></i> 3 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-bolt text-accent"></i> 2 tasks</span>
+              <span class="meta-item"><i class="fa-regular fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 35 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon" title="Pro subscription required">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- Topic 15: Remotes and cloning -->
+        <div class="topic-step-card pro-locked-card reveal-element" data-topic-id="15" data-topic-title="Remotes and cloning">
+          <div class="step-indicator-wrapper">
+            <div class="step-idle-dot"></div>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 15</span>
+            </div>
+            <h3 class="step-title">
+              <i class="fa-brands fa-git-alt git-brand-icon" style="font-size: 14px; margin-right: 4px;"></i> 15 &middot; Remotes and cloning
+            </h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-play text-accent"></i> 2 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-bolt text-accent"></i> 2 tasks</span>
+              <span class="meta-item"><i class="fa-regular fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 40 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon" title="Pro subscription required">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- Topic 16: Pushing to GitHub -->
+        <div class="topic-step-card pro-locked-card reveal-element" data-topic-id="16" data-topic-title="Pushing to GitHub">
+          <div class="step-indicator-wrapper">
+            <div class="step-idle-dot"></div>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 16</span>
+            </div>
+            <h3 class="step-title">
+              <i class="fa-brands fa-git-alt git-brand-icon" style="font-size: 14px; margin-right: 4px;"></i> 16 &middot; Pushing to GitHub
+            </h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-play text-accent"></i> 2 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-bolt text-accent"></i> 2 tasks</span>
+              <span class="meta-item"><i class="fa-regular fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 40 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon" title="Pro subscription required">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- Topic 17: Fetch and pull -->
+        <div class="topic-step-card pro-locked-card reveal-element" data-topic-id="17" data-topic-title="Fetch and pull">
+          <div class="step-indicator-wrapper">
+            <div class="step-idle-dot"></div>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 17</span>
+            </div>
+            <h3 class="step-title">
+              <i class="fa-brands fa-git-alt git-brand-icon" style="font-size: 14px; margin-right: 4px;"></i> 17 &middot; Fetch and pull
+            </h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-play text-accent"></i> 3 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-bolt text-accent"></i> 3 tasks</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 50 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon" title="Pro subscription required">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- Topic 18: Branches on GitHub -->
+        <div class="topic-step-card pro-locked-card reveal-element" data-topic-id="18" data-topic-title="Branches on GitHub">
+          <div class="step-indicator-wrapper">
+            <div class="step-idle-dot"></div>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 18</span>
+            </div>
+            <h3 class="step-title">
+              <i class="fa-brands fa-git-alt git-brand-icon" style="font-size: 14px; margin-right: 4px;"></i> 18 &middot; Branches on GitHub
+            </h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-play text-accent"></i> 3 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-bolt text-accent"></i> 3 tasks</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 50 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon" title="Pro subscription required">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- Topic 19: Pull requests -->
+        <div class="topic-step-card pro-locked-card reveal-element" data-topic-id="19" data-topic-title="Pull requests">
+          <div class="step-indicator-wrapper">
+            <div class="step-idle-dot"></div>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 19</span>
+            </div>
+            <h3 class="step-title">
+              <i class="fa-brands fa-git-alt git-brand-icon" style="font-size: 14px; margin-right: 4px;"></i> 19 &middot; Pull requests
+            </h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-play text-accent"></i> 3 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-bolt text-accent"></i> 2 tasks</span>
+              <span class="meta-item"><i class="fa-regular fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 55 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon" title="Pro subscription required">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- Topic 20: Team conflicts -->
+        <div class="topic-step-card pro-locked-card reveal-element" data-topic-id="20" data-topic-title="Team conflicts">
+          <div class="step-indicator-wrapper">
+            <div class="step-idle-dot"></div>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 20</span>
+            </div>
+            <h3 class="step-title">
+              <i class="fa-brands fa-git-alt git-brand-icon" style="font-size: 14px; margin-right: 4px;"></i> 20 &middot; Team conflicts
+            </h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-play text-accent"></i> 2 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-bolt text-accent"></i> 1 task</span>
+              <span class="meta-item"><i class="fa-solid fa-trophy text-amber"></i> 1 challenge</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 50 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon" title="Pro subscription required">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- Topic 21: Commit messages and workflow habits -->
+        <div class="topic-step-card pro-locked-card reveal-element" data-topic-id="21" data-topic-title="Commit messages and workflow habits">
+          <div class="step-indicator-wrapper">
+            <div class="step-idle-dot"></div>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 21</span>
+            </div>
+            <h3 class="step-title">
+              <i class="fa-brands fa-git-alt git-brand-icon" style="font-size: 14px; margin-right: 4px;"></i> 21 &middot; Commit messages and workflow habits
+            </h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-play text-accent"></i> 3 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-bolt text-accent"></i> 1 task</span>
+              <span class="meta-item"><i class="fa-regular fa-circle-question"></i> 2 quizzes</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 40 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon" title="Pro subscription required">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- Topic 22: Project 1: rescue a messy repository -->
+        <div class="topic-step-card pro-locked-card reveal-element" data-topic-id="22" data-topic-title="Project 1: rescue a messy repository">
+          <div class="step-indicator-wrapper">
+            <div class="step-idle-dot"></div>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 22</span>
+              <span class="badge-project">PROJECT</span>
+            </div>
+            <h3 class="step-title">
+              <i class="fa-brands fa-git-alt git-brand-icon" style="font-size: 14px; margin-right: 4px;"></i> 22 &middot; Project 1: rescue a messy repository
+            </h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-trophy text-amber"></i> 1 challenge</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 60 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon" title="Pro subscription required">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- Topic 23: Project 2: feature branch release -->
+        <div class="topic-step-card pro-locked-card reveal-element" data-topic-id="23" data-topic-title="Project 2: feature branch release">
+          <div class="step-indicator-wrapper">
+            <div class="step-idle-dot"></div>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 23</span>
+              <span class="badge-project">PROJECT</span>
+            </div>
+            <h3 class="step-title">
+              <i class="fa-brands fa-git-alt git-brand-icon" style="font-size: 14px; margin-right: 4px;"></i> 23 &middot; Project 2: feature branch release
+            </h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-trophy text-amber"></i> 1 challenge</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 60 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon" title="Pro subscription required">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- Topic 24: Project 3: ship a project on GitHub -->
+        <div class="topic-step-card pro-locked-card reveal-element" data-topic-id="24" data-topic-title="Project 3: ship a project on GitHub">
+          <div class="step-indicator-wrapper">
+            <div class="step-idle-dot"></div>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 24</span>
+              <span class="badge-project">PROJECT</span>
+            </div>
+            <h3 class="step-title">
+              <i class="fa-brands fa-git-alt git-brand-icon" style="font-size: 14px; margin-right: 4px;"></i> 24 &middot; Project 3: ship a project on GitHub
+            </h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-trophy text-amber"></i> 1 challenge</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 60 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon" title="Pro subscription required">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Upgrade Pro Banner matching reference screenshot -->
+      <div class="pro-upgrade-banner reveal-element">
+        <div class="upgrade-banner-content">
+          <div class="banner-icon font-mono">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+          <div class="banner-text">
+            <h4 class="banner-title">Any paid plan opens all 24 topics</h4>
+            <p class="banner-subtitle text-secondary">
+              Get unlimited sandbox access, auto-graded repositories, all quizzes, challenge reviews, and full verified certification.
+            </p>
+          </div>
+        </div>
+        <div class="upgrade-banner-action">
+          <button class="btn-upgrade-plan font-mono" id="btn-open-plans">
+            <span>See plans</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Pro Subscription Modal -->
+  <div class="pro-modal-backdrop" id="pro-modal" style="display: none;">
+    <div class="pro-modal-window">
+      <div class="modal-close-btn" id="pro-modal-close"><i class="fa-solid fa-xmark"></i></div>
+      <div class="modal-header">
+        <div class="modal-badge font-mono"><i class="fa-solid fa-bolt"></i> PRO ACCESS</div>
+        <h3 class="modal-title">Unlock Full Git Track</h3>
+        <p class="modal-subtitle text-secondary">Get instant access to all 24 Git topics, 48 tasks, interactive branch diagrams, and verified certification.</p>
+      </div>
+
+      <div class="pricing-cards-grid">
+        <div class="pricing-card">
+          <div class="plan-name font-mono">Monthly</div>
+          <div class="plan-price"><span class="currency">$</span><span class="amount">19</span><span class="period">/mo</span></div>
+          <p class="plan-desc text-secondary">All topics, unlimited sandbox hours, cancel anytime.</p>
+          <button class="btn-plan-select font-mono" onclick="alert('Proceeding to monthly checkout...');">Choose Monthly</button>
+        </div>
+        <div class="pricing-card popular">
+          <div class="popular-ribbon font-mono">POPULAR</div>
+          <div class="plan-name font-mono">Annual</div>
+          <div class="plan-price"><span class="currency">$</span><span class="amount">149</span><span class="period">/yr</span></div>
+          <p class="plan-desc text-secondary">Save 35%, includes all roadmap tracks + certificate badges.</p>
+          <button class="btn-plan-select font-mono primary" onclick="alert('Proceeding to annual checkout with 35% discount...');">Choose Annual</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Certificate Claim Preview Modal -->
+  <div class="cert-modal-backdrop" id="cert-modal" style="display: none;">
+    <div class="cert-modal-window">
+      <div class="modal-close-btn" id="cert-modal-close"><i class="fa-solid fa-xmark"></i></div>
+      <div class="cert-preview-card">
+        <div class="cert-watermark"><i class="fa-brands fa-git-alt"></i></div>
+        <div class="cert-header font-mono">
+          <span class="cert-org">SHAIKH SIR DEVOPS ACADEMY</span>
+          <span class="cert-id">CERT-GIT-89241</span>
+        </div>
+        <div class="cert-body">
+          <h2 class="cert-title">Certificate of Competency</h2>
+          <p class="cert-subtitle">This certifies that</p>
+          <h3 class="cert-recipient font-mono">DevOps Engineer Student</h3>
+          <p class="cert-desc">Has successfully completed the hands-on curriculum, terminal tasks, and repo challenges for</p>
+          <h4 class="cert-skill-name font-mono">Git &amp; Distributed Version Control</h4>
+        </div>
+        <div class="cert-footer font-mono">
+          <div class="cert-issuer">Verified by Shaikh Sir System</div>
+          <div class="cert-date">Date: Issued upon completion</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Global Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="footer-logo">
+            <div class="logo-icon">&gt;_</div>
+            <span class="logo-text">Shaikh Sir</span>
+          </a>
+          <p class="footer-tagline text-secondary">
+            Hands-on labs on real Linux machines. Learn DevOps, Linux, Docker, Kubernetes, Terraform, Git, and Cloud.
+          </p>
+        </div>
+
+        <div class="footer-links-col">
+          <h4 class="footer-heading font-mono">PRODUCT</h4>
+          <ul class="footer-list">
+            <li><a href="index.html#skills">Catalog</a></li>
+            <li><a href="roadmap-devops.html">Roadmaps</a></li>
+            <li><a href="index.html#skills">Skills</a></li>
+            <li><a href="#">Docs</a></li>
+            <li><a href="#">Leaderboard</a></li>
+            <li><a href="#">Tutorials</a></li>
+            <li><a href="#">Pricing</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-col">
+          <h4 class="footer-heading font-mono">COMPANY</h4>
+          <ul class="footer-list">
+            <li><a href="#">About</a></li>
+            <li><a href="#">Partners</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Terms</a></li>
+            <li><a href="#">Privacy</a></li>
+            <li><a href="#">Cancellation &amp; Refunds</a></li>
+            <li><a href="#">Shipping Policy</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-col">
+          <h4 class="footer-heading font-mono">SOCIAL</h4>
+          <ul class="footer-list">
+            <li><a href="https://github.com" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> GitHub</a></li>
+            <li><a href="https://discord.com" target="_blank" rel="noopener"><i class="fa-brands fa-discord"></i> Discord</a></li>
+            <li><a href="https://youtube.com" target="_blank" rel="noopener"><i class="fa-brands fa-youtube"></i> YouTube</a></li>
+            <li><a href="https://udemy.com" target="_blank" rel="noopener"><i class="fa-solid fa-graduation-cap"></i> Udemy</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="copyright text-muted font-mono">&copy; 2026 Shaikh Sir. Built for hands-on mastery.</p>
+        <p class="footer-meta text-muted font-mono">Runs on real machines</p>
+      </div>
+    </div>
+  </footer>
+
+  <div id="toast-container" class="toast-container"></div>
+
+</body>
+
+</html>

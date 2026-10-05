@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Networking Skill — Shaikh Sir</title>
+  <meta name="description"
+    content="Learn computer networking from scratch — from how packets move across wires to configuring DNS, IP addresses, subnets, CIDR, TCP, UDP, HTTP, HTTPS, TLS, routing, NAT, firewalls, reverse proxies, load balancers, and debugging tools. Everything a DevOps engineer needs to know.">
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    rel="stylesheet">
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+
+  <!-- Sticky Navigation Bar -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <div class="logo-icon">&gt;_</div>
+        <span class="logo-text">Shaikh Sir</span>
+      </a>
+
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html#skills" class="nav-link active">Skills</a></li>
+        <li><a href="roadmap-devops.html" class="nav-link">Roadmaps</a></li>
+        <li><a href="#" class="nav-link" id="nav-cert-btn">Certifications</a></li>
+        <li>
+          <a href="#" class="nav-link leaderboard-link">
+            Leaderboard <span class="badge-dot"></span>
+          </a>
+        </li>
+        <li><a href="#" class="nav-link">My Sessions</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <div class="search-container">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input type="text" class="search-input" placeholder="Search labs, topics...">
+        </div>
+
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle visual theme">
+          <i class="fa-solid fa-moon theme-icon-dark"></i>
+          <i class="fa-solid fa-sun theme-icon-light" style="display: none;"></i>
+        </button>
+
+        <a href="#" class="btn-signin">Sign in</a>
+
+        <button class="hamburger-menu" id="hamburger-menu" aria-label="Toggle menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Dropdown Menu -->
+  <div class="mobile-menu" id="mobile-menu">
+    <div class="mobile-search">
+      <i class="fa-solid fa-magnifying-glass search-icon"></i>
+      <input type="text" class="search-input" placeholder="Search labs, topics...">
+    </div>
+    <ul class="mobile-links">
+      <li><a href="index.html#skills" class="mobile-link">Skills</a></li>
+      <li><a href="roadmap-devops.html" class="mobile-link">Roadmaps</a></li>
+      <li><a href="#" class="mobile-link">Certifications</a></li>
+      <li><a href="#" class="mobile-link">Leaderboard <span class="badge-dot"></span></a></li>
+      <li><a href="#" class="mobile-link">My Sessions</a></li>
+    </ul>
+    <div class="mobile-actions">
+      <a href="#" class="btn-signin-mobile">Sign in</a>
+    </div>
+  </div>
+
+  <!-- Skill Page Header Section -->
+  <div class="skill-page-header">
+    <div class="starfield" id="starfield"></div>
+    <div class="container relative z-10">
+      <!-- Breadcrumbs -->
+      <nav class="breadcrumb font-mono">
+        <a href="roadmap-devops.html">Path</a>
+        <i class="fa-solid fa-chevron-right separator"></i>
+        <span class="current">Networking</span>
+      </nav>
+
+      <!-- Skill Title & Description -->
+      <div class="skill-title-block">
+        <h1 class="skill-hero-title">🌐 Networking</h1>
+        <p class="skill-hero-description text-secondary">
+          Learn computer networking from scratch — from how packets move across wires to configuring DNS, IP addresses, subnets, CIDR, TCP, UDP, HTTP, HTTPS, TLS, routing, NAT, firewalls, reverse proxies, load balancers, and debugging tools. Everything a DevOps engineer needs to know.
+        </p>
+
+        <!-- Stats Pills -->
+        <div class="skill-header-pills font-mono">
+          <span class="skill-stat-pill"><i class="fa-regular fa-clock"></i> 40 hours</span>
+          <span class="skill-stat-pill"><i class="fa-solid fa-terminal"></i> 32 practical lessons</span>
+          <span class="skill-stat-pill"><i class="fa-solid fa-signal"></i> Beginner - Intermediate</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Topics Area -->
+  <main class="skill-content-area">
+    <div class="container">
+
+      <!-- Certificate Requirements Bar -->
+      <div class="certificate-req-bar reveal-element" id="cert-req-box">
+        <div class="cert-req-left font-mono">
+          <i class="fa-solid fa-graduation-cap cert-req-icon"></i>
+          <span class="cert-req-title">Certificate requirements</span>
+        </div>
+        <div class="cert-req-right font-mono">
+          <span class="cert-req-status text-secondary">In progress...</span>
+          <i class="fa-solid fa-chevron-right cert-req-arrow"></i>
+        </div>
+      </div>
+
+      <!-- Certificate Requirements Dropdown Details -->
+      <div class="certificate-details-panel" id="cert-details-panel" style="display: none;">
+        <div class="cert-details-grid font-mono">
+          <div class="cert-req-item">
+            <i class="fa-solid fa-circle-check text-accent"></i>
+            <span>Complete 32 networking curriculum steps</span>
+          </div>
+          <div class="cert-req-item">
+            <i class="fa-regular fa-circle text-muted"></i>
+            <span>Pass all 32 hands-on terminal tasks</span>
+          </div>
+          <div class="cert-req-item">
+            <i class="fa-regular fa-circle text-muted"></i>
+            <span>Score 80%+ on all concept quizzes</span>
+          </div>
+          <div class="cert-req-item">
+            <i class="fa-regular fa-circle text-muted"></i>
+            <span>Submit 3 DevOps Capstone projects</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Progress & View Switcher Bar -->
+      <div class="topics-control-bar reveal-element">
+        <div class="progress-info font-mono">
+          <div class="mini-progress-ring">
+            <svg class="ring-svg" viewBox="0 0 36 36">
+              <path class="ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+              <path class="ring-stroke" id="net-progress-ring" stroke-dasharray="3.12, 100"
+                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+            </svg>
+            <span class="ring-inner-dot"></span>
+          </div>
+          <span class="progress-text-label">
+            <strong class="text-accent" id="net-topics-done-text">0/32</strong> topics done &middot; <span class="text-secondary" id="net-steps-done-text">1 of 85 steps</span>
+          </span>
+        </div>
+
+        <div class="topic-view-switcher font-mono">
+          <button class="topic-view-btn active" id="view-toggle-list" data-view="list" title="List View"
+            aria-label="List View">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          <button class="topic-view-btn" id="view-toggle-grid" data-view="grid" title="Grid View"
+            aria-label="Grid View">
+            <i class="fa-solid fa-table-cells-large"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Topics Container (Supports List and Grid view toggles) -->
+      <div class="topics-wrapper topics-list-view reveal-element" id="topics-container">
+
+        <!-- STEP 01: Active / Free -->
+        <div class="topic-step-card active-step" data-topic-id="1" data-status="active"
+          onclick="location.href='lesson-networking.html'">
+          <div class="step-indicator-wrapper">
+            <span class="step-active-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 01</span>
+              <span class="badge-free">FREE</span>
+            </div>
+            <h3 class="step-title font-mono">🌐 01 - What is a network</h3>
+            <div class="step-meta-row font-mono">
+              <span class="step-progress-chip text-accent">IN PROGRESS</span>
+              <span class="meta-item"><i class="fa-solid fa-book-open"></i> 4 lessons</span>
+              <span class="meta-item"><i class="fa-solid fa-terminal"></i> 1 task</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 25 min</span>
+            </div>
+          </div>
+          <div class="step-action">
+            <button class="btn-step-action btn-continue-lab font-mono">
+              <i class="fa-solid fa-play"></i> Continue
+            </button>
+          </div>
+        </div>
+
+        <!-- STEP 02: IP addresses -->
+        <div class="topic-step-card" data-topic-id="2" data-status="locked"
+          onclick="openProModal('02 - IP addresses')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 02</span>
+            </div>
+            <h3 class="step-title font-mono">🌐 02 - IP addresses</h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-book-open"></i> 4 lessons</span>
+              <span class="meta-item"><i class="fa-solid fa-terminal"></i> 2 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 30 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 03: Interfaces -->
+        <div class="topic-step-card" data-topic-id="3" data-status="locked"
+          onclick="openProModal('03 - Interfaces')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 03</span>
+            </div>
+            <h3 class="step-title font-mono">🌐 03 - Interfaces</h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-book-open"></i> 3 lessons</span>
+              <span class="meta-item"><i class="fa-solid fa-terminal"></i> 2 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 25 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 04: Subnets and CIDR -->
+        <div class="topic-step-card" data-topic-id="4" data-status="locked"
+          onclick="openProModal('04 - Subnets and CIDR')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 04</span>
+            </div>
+            <h3 class="step-title font-mono">🌐 04 - Subnets and CIDR</h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-book-open"></i> 4 lessons</span>
+              <span class="meta-item"><i class="fa-solid fa-terminal"></i> 2 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 35 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 05: MAC addresses and ARP -->
+        <div class="topic-step-card" data-topic-id="5" data-status="locked"
+          onclick="openProModal('05 - MAC addresses and ARP')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 05</span>
+            </div>
+            <h3 class="step-title font-mono">🌐 05 - MAC addresses and ARP</h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-book-open"></i> 3 lessons</span>
+              <span class="meta-item"><i class="fa-solid fa-terminal"></i> 2 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 25 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 06: The layers model -->
+        <div class="topic-step-card" data-topic-id="6" data-status="locked"
+          onclick="openProModal('06 - The layers model')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 06</span>
+            </div>
+            <h3 class="step-title font-mono">🌐 06 - The layers model</h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-book-open"></i> 4 lessons</span>
+              <span class="meta-item"><i class="fa-solid fa-terminal"></i> 1 task</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 30 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 07: Ports and sockets -->
+        <div class="topic-step-card" data-topic-id="7" data-status="locked"
+          onclick="openProModal('07 - Ports and sockets')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 07</span>
+            </div>
+            <h3 class="step-title font-mono">🌐 07 - Ports and sockets</h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-book-open"></i> 4 lessons</span>
+              <span class="meta-item"><i class="fa-solid fa-terminal"></i> 2 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 30 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 08: TCP -->
+        <div class="topic-step-card" data-topic-id="8" data-status="locked"
+          onclick="openProModal('08 - TCP')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 08</span>
+            </div>
+            <h3 class="step-title font-mono">🌐 08 - TCP</h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-book-open"></i> 4 lessons</span>
+              <span class="meta-item"><i class="fa-solid fa-terminal"></i> 2 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 35 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 09: UDP -->
+        <div class="topic-step-card" data-topic-id="9" data-status="locked"
+          onclick="openProModal('09 - UDP')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 09</span>
+            </div>
+            <h3 class="step-title font-mono">🌐 09 - UDP</h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-book-open"></i> 3 lessons</span>
+              <span class="meta-item"><i class="fa-solid fa-terminal"></i> 2 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 25 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 10: Netcat -->
+        <div class="topic-step-card" data-topic-id="10" data-status="locked"
+          onclick="openProModal('10 - Netcat')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 10</span>
+            </div>
+            <h3 class="step-title font-mono">🌐 10 - Netcat</h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-book-open"></i> 4 lessons</span>
+              <span class="meta-item"><i class="fa-solid fa-terminal"></i> 2 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 30 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 11: DNS basics -->
+        <div class="topic-step-card" data-topic-id="11" data-status="locked"
+          onclick="openProModal('11 - DNS basics')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 11</span>
+            </div>
+            <h3 class="step-title font-mono">🌐 11 - DNS basics</h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-book-open"></i> 4 lessons</span>
+              <span class="meta-item"><i class="fa-solid fa-terminal"></i> 2 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 35 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 12: DNS record types -->
+        <div class="topic-step-card" data-topic-id="12" data-status="locked"
+          onclick="openProModal('12 - DNS record types')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 12</span>
+            </div>
+            <h3 class="step-title font-mono">🌐 12 - DNS record types</h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-book-open"></i> 4 lessons</span>
+              <span class="meta-item"><i class="fa-solid fa-terminal"></i> 2 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 30 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 13: Run your own DNS -->
+        <div class="topic-step-card" data-topic-id="13" data-status="locked"
+          onclick="openProModal('13 - Run your own DNS')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 13</span>
+            </div>
+            <h3 class="step-title font-mono">🌐 13 - Run your own DNS</h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-book-open"></i> 4 lessons</span>
+              <span class="meta-item"><i class="fa-solid fa-terminal"></i> 3 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 45 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 14: HTTP -->
+        <div class="topic-step-card" data-topic-id="14" data-status="locked"
+          onclick="openProModal('14 - HTTP')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 14</span>
+            </div>
+            <h3 class="step-title font-mono">🌐 14 - HTTP</h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-book-open"></i> 4 lessons</span>
+              <span class="meta-item"><i class="fa-solid fa-terminal"></i> 2 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 35 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 15: HTTP headers, redirects, MIME -->
+        <div class="topic-step-card" data-topic-id="15" data-status="locked"
+          onclick="openProModal('15 - HTTP headers, redirects, MIME')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 15</span>
+            </div>
+            <h3 class="step-title font-mono">🌐 15 - HTTP headers, redirects, MIME</h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-book-open"></i> 4 lessons</span>
+              <span class="meta-item"><i class="fa-solid fa-terminal"></i> 2 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 35 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 16: Serve a website with nginx -->
+        <div class="topic-step-card" data-topic-id="16" data-status="locked"
+          onclick="openProModal('16 - Serve a website with nginx')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 16</span>
+            </div>
+            <h3 class="step-title font-mono">🌐 16 - Serve a website with nginx</h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-book-open"></i> 4 lessons</span>
+              <span class="meta-item"><i class="fa-solid fa-terminal"></i> 3 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 45 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 17: TLS and HTTPS -->
+        <div class="topic-step-card" data-topic-id="17" data-status="locked"
+          onclick="openProModal('17 - TLS and HTTPS')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 17</span>
+            </div>
+            <h3 class="step-title font-mono">🌐 17 - TLS and HTTPS</h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-book-open"></i> 4 lessons</span>
+              <span class="meta-item"><i class="fa-solid fa-terminal"></i> 2 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 40 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 18: Make your own certificates -->
+        <div class="topic-step-card" data-topic-id="18" data-status="locked"
+          onclick="openProModal('18 - Make your own certificates')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 18</span>
+            </div>
+            <h3 class="step-title font-mono">🌐 18 - Make your own certificates</h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-book-open"></i> 4 lessons</span>
+              <span class="meta-item"><i class="fa-solid fa-terminal"></i> 3 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 45 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 19: Routing and gateways -->
+        <div class="topic-step-card" data-topic-id="19" data-status="locked"
+          onclick="openProModal('19 - Routing and gateways')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 19</span>
+            </div>
+            <h3 class="step-title font-mono">🌐 19 - Routing and gateways</h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-book-open"></i> 4 lessons</span>
+              <span class="meta-item"><i class="fa-solid fa-terminal"></i> 2 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 35 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 20: NAT -->
+        <div class="topic-step-card" data-topic-id="20" data-status="locked"
+          onclick="openProModal('20 - NAT')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 20</span>
+            </div>
+            <h3 class="step-title font-mono">🌐 20 - NAT</h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-book-open"></i> 3 lessons</span>
+              <span class="meta-item"><i class="fa-solid fa-terminal"></i> 2 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 30 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 21: DHCP -->
+        <div class="topic-step-card" data-topic-id="21" data-status="locked"
+          onclick="openProModal('21 - DHCP')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 21</span>
+            </div>
+            <h3 class="step-title font-mono">🌐 21 - DHCP</h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-book-open"></i> 3 lessons</span>
+              <span class="meta-item"><i class="fa-solid fa-terminal"></i> 2 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 25 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 22: Firewall basics -->
+        <div class="topic-step-card" data-topic-id="22" data-status="locked"
+          onclick="openProModal('22 - Firewall basics')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 22</span>
+            </div>
+            <h3 class="step-title font-mono">🌐 22 - Firewall basics</h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-book-open"></i> 4 lessons</span>
+              <span class="meta-item"><i class="fa-solid fa-terminal"></i> 2 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 35 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 23: Firewall practice -->
+        <div class="topic-step-card" data-topic-id="23" data-status="locked"
+          onclick="openProModal('23 - Firewall practice')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 23</span>
+            </div>
+            <h3 class="step-title font-mono">🌐 23 - Firewall practice</h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-book-open"></i> 4 lessons</span>
+              <span class="meta-item"><i class="fa-solid fa-terminal"></i> 3 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 45 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 24: tcpdump -->
+        <div class="topic-step-card" data-topic-id="24" data-status="locked"
+          onclick="openProModal('24 - tcpdump')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 24</span>
+            </div>
+            <h3 class="step-title font-mono">🌐 24 - tcpdump</h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-book-open"></i> 4 lessons</span>
+              <span class="meta-item"><i class="fa-solid fa-terminal"></i> 3 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 45 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 25: SSH and tunnels -->
+        <div class="topic-step-card" data-topic-id="25" data-status="locked"
+          onclick="openProModal('25 - SSH and tunnels')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 25</span>
+            </div>
+            <h3 class="step-title font-mono">🌐 25 - SSH and tunnels</h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-book-open"></i> 4 lessons</span>
+              <span class="meta-item"><i class="fa-solid fa-terminal"></i> 2 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 40 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 26: Reverse proxy and load balancing -->
+        <div class="topic-step-card" data-topic-id="26" data-status="locked"
+          onclick="openProModal('26 - Reverse proxy and load balancing')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 26</span>
+            </div>
+            <h3 class="step-title font-mono">🌐 26 - Reverse proxy and load balancing</h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-book-open"></i> 4 lessons</span>
+              <span class="meta-item"><i class="fa-solid fa-terminal"></i> 3 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 50 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 27: Scanning with nmap -->
+        <div class="topic-step-card" data-topic-id="27" data-status="locked"
+          onclick="openProModal('27 - Scanning with nmap')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 27</span>
+            </div>
+            <h3 class="step-title font-mono">🌐 27 - Scanning with nmap</h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-book-open"></i> 4 lessons</span>
+              <span class="meta-item"><i class="fa-solid fa-terminal"></i> 2 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 35 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 28: The debugging playbook -->
+        <div class="topic-step-card" data-topic-id="28" data-status="locked"
+          onclick="openProModal('28 - The debugging playbook')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 28</span>
+            </div>
+            <h3 class="step-title font-mono">🌐 28 - The debugging playbook</h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-book-open"></i> 4 lessons</span>
+              <span class="meta-item"><i class="fa-solid fa-terminal"></i> 2 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 40 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 29: Latency and bandwidth -->
+        <div class="topic-step-card" data-topic-id="29" data-status="locked"
+          onclick="openProModal('29 - Latency and bandwidth')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 29</span>
+            </div>
+            <h3 class="step-title font-mono">🌐 29 - Latency and bandwidth</h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-book-open"></i> 3 lessons</span>
+              <span class="meta-item"><i class="fa-solid fa-terminal"></i> 2 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 30 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 30: Project: Fix the broken server -->
+        <div class="topic-step-card" data-topic-id="30" data-status="locked"
+          onclick="openProModal('30 - Project: Fix the broken server')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 30</span>
+              <span class="badge-project font-mono">PROJECT</span>
+            </div>
+            <h3 class="step-title font-mono">🛠️ 30 - Project: Fix the broken server</h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-laptop-code"></i> DevOps Troubleshooting Capstone</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 1.0 hr</span>
+            </div>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 31: Project: Build a small web stack -->
+        <div class="topic-step-card" data-topic-id="31" data-status="locked"
+          onclick="openProModal('31 - Project: Build a small web stack')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 31</span>
+              <span class="badge-project font-mono">PROJECT</span>
+            </div>
+            <h3 class="step-title font-mono">🛠️ 31 - Project: Build a small web stack</h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-laptop-code"></i> Production Nginx Reverse Proxy Architecture</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 1.5 hrs</span>
+            </div>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 32: Project: Diagnose traffic with tcpdump -->
+        <div class="topic-step-card" data-topic-id="32" data-status="locked"
+          onclick="openProModal('32 - Project: Diagnose traffic with tcpdump')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 32</span>
+              <span class="badge-project font-mono">PROJECT</span>
+            </div>
+            <h3 class="step-title font-mono">🛠️ 32 - Project: Diagnose traffic with tcpdump</h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-laptop-code"></i> Deep Packet Inspection & Security Auditing</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 1.5 hrs</span>
+            </div>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Pro Upgrade CTA Banner (Matches Reference UI) -->
+      <div class="pro-upgrade-banner reveal-element">
+        <div class="pro-banner-left">
+          <div class="pro-banner-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+          <div>
+            <h4 class="pro-banner-title">Any paid plan opens all 32 tasks</h4>
+            <p class="pro-banner-desc text-secondary">
+              Master OSI layers, subnets, packet routing, firewalls, TLS certificates, and live tcpdump packet captures in our interactive cloud containers.
+            </p>
+          </div>
+        </div>
+        <button class="btn btn-primary btn-pro-upgrade font-mono" id="btn-upgrade-banner" onclick="openProModal('Networking Full Track')">
+          Try a free &gt;
+        </button>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Pro Membership Modal Popup -->
+  <div class="pro-modal-backdrop" id="pro-modal-backdrop" style="display: none;">
+    <div class="pro-modal-window">
+      <div class="pro-modal-header">
+        <div class="pro-badge font-mono"><i class="fa-solid fa-crown"></i> PRO ACCESS</div>
+        <button class="btn-modal-close" id="btn-close-pro-modal" aria-label="Close modal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="pro-modal-body">
+        <h2 class="pro-modal-title">Unlock Full DevOps Networking Track</h2>
+        <p class="pro-modal-subtitle text-secondary">
+          Get complete, unrestricted hands-on terminal access to all 32 modules, packet analysis sandboxes, and production project environments.
+        </p>
+
+        <div class="pro-features-list font-mono">
+          <div class="pro-feature-item">
+            <i class="fa-solid fa-check text-accent"></i>
+            <span>All 32 Comprehensive DevOps Networking Modules</span>
+          </div>
+          <div class="pro-feature-item">
+            <i class="fa-solid fa-check text-accent"></i>
+            <span>85 Hands-On Cloud Terminal Packet Inspection Labs</span>
+          </div>
+          <div class="pro-feature-item">
+            <i class="fa-solid fa-check text-accent"></i>
+            <span>3 Capstone DevOps Projects (Nginx, tcpdump, Debugging)</span>
+          </div>
+          <div class="pro-feature-item">
+            <i class="fa-solid fa-check text-accent"></i>
+            <span>AI Voice Tutor & Real-Time Protocol Explainer</span>
+          </div>
+          <div class="pro-feature-item">
+            <i class="fa-solid fa-check text-accent"></i>
+            <span>Verified Networking for DevOps Engineer Certificate</span>
+          </div>
+        </div>
+
+        <div class="pro-pricing-box">
+          <div class="pro-price font-mono">
+            <span class="currency">$</span><span class="amount">19</span><span class="period">/month</span>
+          </div>
+          <p class="pro-guarantee text-secondary font-mono">Cancel anytime &middot; 7-day money-back guarantee</p>
+        </div>
+
+        <div class="pro-modal-actions">
+          <button class="btn btn-primary btn-unlock-full" id="btn-unlock-pro-confirm">
+            <i class="fa-solid fa-bolt"></i> Upgrade to Pro Now
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Section (Matches Reference Image Branding) -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-info">
+        <a href="index.html" class="nav-logo footer-logo">
+          <div class="logo-icon">&gt;_</div>
+          <span class="logo-text">bash</span>
+        </a>
+        <p class="footer-tagline text-secondary">
+          Hands-on labs on real Linux machines.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-title font-mono">PRODUCT</h4>
+        <ul>
+          <li><a href="index.html#skills">Catalog</a></li>
+          <li><a href="roadmap-devops.html">Roadmaps</a></li>
+          <li><a href="skill-networking.html">Skills</a></li>
+          <li><a href="#">Docs</a></li>
+          <li><a href="#">Leaderboard</a></li>
+          <li><a href="#">Tutorials</a></li>
+          <li><a href="#">Pricing</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-title font-mono">COMPANY</h4>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Terms</a></li>
+          <li><a href="#">Privacy</a></li>
+          <li><a href="#">Cancellation & Refunds</a></li>
+          <li><a href="#">Shipping Policy</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-title font-mono">SOCIAL</h4>
+        <ul>
+          <li><a href="https://github.com" target="_blank" rel="noopener"><i
+                class="fa-brands fa-github social-icon"></i> GitHub</a></li>
+          <li><a href="https://discord.com" target="_blank" rel="noopener"><i
+                class="fa-brands fa-discord social-icon"></i> Discord</a></li>
+          <li><a href="https://youtube.com" target="_blank" rel="noopener"><i
+                class="fa-brands fa-youtube social-icon"></i> YouTube</a></li>
+          <li><a href="https://udemy.com" target="_blank" rel="noopener"><i
+                class="fa-solid fa-graduation-cap social-icon"></i> Udemy</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom container">
+      <div class="footer-copy font-mono">
+        &copy; 2026 eacbash
+      </div>
+      <div class="footer-credit font-mono">
+        runs on real machines
+      </div>
+    </div>
+  </footer>
+
+  <div id="toast-container" class="toast-container"></div>
+
+</body>
+
+</html>

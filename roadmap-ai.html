@@ -1,22 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI/ML Roadmap — Shaikh Sir</title>
-  <meta name="description" content="Learn AI & ML hands-on. Follow our step-by-step visual path through AI fundamentals, LLM APIs, Claude Code, and RAG architectures.">
-  
+  <meta name="description"
+    content="Learn AI & ML hands-on. Follow our step-by-step visual path through AI fundamentals, LLM APIs, Claude Code, and RAG architectures.">
+
   <!-- Google Fonts: Inter & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-  
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    rel="stylesheet">
+
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
+
   <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
 </head>
+
 <body>
 
   <!-- Sticky Navigation Bar -->
@@ -26,7 +31,7 @@
         <div class="logo-icon">&gt;_</div>
         <span class="logo-text">Shaikh Sir</span>
       </a>
-      
+
       <ul class="nav-links" id="nav-links">
         <li><a href="index.html#skills" class="nav-link">Skills</a></li>
         <li><a href="index.html#paths" class="nav-link">Roadmaps</a></li>
@@ -38,20 +43,20 @@
         </li>
         <li><a href="#" class="nav-link">My Sessions</a></li>
       </ul>
-      
+
       <div class="nav-actions">
         <div class="search-container">
           <i class="fa-solid fa-magnifying-glass search-icon"></i>
           <input type="text" class="search-input" placeholder="Search labs, topics...">
         </div>
-        
+
         <button class="theme-toggle" id="theme-toggle" aria-label="Toggle visual theme">
           <i class="fa-solid fa-moon theme-icon-dark"></i>
           <i class="fa-solid fa-sun theme-icon-light" style="display: none;"></i>
         </button>
-        
+
         <a href="#" class="btn-signin">Sign in</a>
-        
+
         <button class="hamburger-menu" id="hamburger-menu" aria-label="Toggle menu">
           <i class="fa-solid fa-bars"></i>
         </button>
@@ -87,13 +92,14 @@
         <i class="fa-solid fa-chevron-right separator"></i>
         <span class="current">AI/ML Engineer</span>
       </nav>
-      
+
       <!-- Title & Toggle Row -->
       <div class="roadmap-header-row">
         <div class="header-left">
           <h1 class="roadmap-title">🤖 AI/ML Engineer</h1>
           <p class="roadmap-description text-secondary">
-            Work with real LLM APIs from a live machine — raw HTTP, official SDKs, model comparison, and key hygiene, graded when you submit.
+            Work with real LLM APIs from a live machine — raw HTTP, official SDKs, model comparison, and key hygiene,
+            graded when you submit.
           </p>
         </div>
         <div class="header-right">
@@ -113,14 +119,17 @@
   <!-- Main Roadmap Content Area -->
   <main class="roadmap-content-area">
     <div class="container">
-      
+
       <!-- 1. "TRACK" VIEW: Winding visual timeline -->
       <div class="roadmap-view-container active" id="track-view-container">
         <div class="roadmap-track-wrapper" style="height: 1100px;">
           <!-- SVG Connecting Curve (Desktop Zigzag for 4 checkpoints) -->
-          <svg class="roadmap-svg-path" viewBox="0 0 1000 1100" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-            <path class="path-bg" d="M 500 50 C 500 135, 250 135, 250 220 C 250 330, 750 330, 750 440 C 750 550, 250 550, 250 660 C 250 770, 750 770, 750 880 C 750 950, 500 950, 500 1020" />
-            <path class="path-flow" d="M 500 50 C 500 135, 250 135, 250 220 C 250 330, 750 330, 750 440 C 750 550, 250 550, 250 660 C 250 770, 750 770, 750 880 C 750 950, 500 950, 500 1020" />
+          <svg class="roadmap-svg-path" viewBox="0 0 1000 1100" fill="none" xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="none">
+            <path class="path-bg"
+              d="M 500 50 C 500 135, 250 135, 250 220 C 250 330, 750 330, 750 440 C 750 550, 250 550, 250 660 C 250 770, 750 770, 750 880 C 750 950, 500 950, 500 1020" />
+            <path class="path-flow"
+              d="M 500 50 C 500 135, 250 135, 250 220 C 250 330, 750 330, 750 440 C 750 550, 250 550, 250 660 C 250 770, 750 770, 750 880 C 750 950, 500 950, 500 1020" />
           </svg>
 
           <!-- START Badge -->
@@ -175,25 +184,27 @@
       <!-- 2. "STEPS" VIEW: Clean list checklist -->
       <div class="roadmap-view-container" id="steps-view-container">
         <div class="steps-list-wrapper">
-          
+
           <!-- Item 1 -->
           <div class="steps-card">
             <div class="steps-number font-mono">1</div>
             <div class="steps-icon">🧠</div>
             <div class="steps-content">
               <h3 class="steps-title">AI Fundamentals</h3>
-              <p class="steps-desc text-secondary">Understand linear algebra basics, gradient descent routines, neural architectures, tokenizers, and embeddings representation mechanisms.</p>
+              <p class="steps-desc text-secondary">Understand linear algebra basics, gradient descent routines, neural
+                architectures, tokenizers, and embeddings representation mechanisms.</p>
             </div>
             <div class="steps-stats font-mono">29 topics</div>
           </div>
-          
+
           <!-- Item 2 -->
           <div class="steps-card">
             <div class="steps-number font-mono">2</div>
             <div class="steps-icon">📜</div>
             <div class="steps-content">
               <h3 class="steps-title">Certification Exam Prep</h3>
-              <p class="steps-desc text-secondary">Practice exam question sets, review cloud-AI platform certifications limits, models cost metrics, and infrastructure constraints.</p>
+              <p class="steps-desc text-secondary">Practice exam question sets, review cloud-AI platform certifications
+                limits, models cost metrics, and infrastructure constraints.</p>
             </div>
             <div class="steps-stats font-mono">8 topics</div>
           </div>
@@ -204,7 +215,8 @@
             <div class="steps-icon">🌐</div>
             <div class="steps-content">
               <h3 class="steps-title">Claude Code Fundamentals</h3>
-              <p class="steps-desc text-secondary">Master Claude Code agent interfaces, prompt contexts formatting rules, system constraints, token efficiency, and terminal integration setups.</p>
+              <p class="steps-desc text-secondary">Master Claude Code agent interfaces, prompt contexts formatting
+                rules, system constraints, token efficiency, and terminal integration setups.</p>
             </div>
             <div class="steps-stats font-mono">20 topics</div>
           </div>
@@ -215,7 +227,8 @@
             <div class="steps-icon">🔍</div>
             <div class="steps-content">
               <h3 class="steps-title">RAG</h3>
-              <p class="steps-desc text-secondary">Build Retrieval-Augmented Generation workflows. Configure vector index engines, code embeddings queries, metadata filters, and chat context retention pipelines.</p>
+              <p class="steps-desc text-secondary">Build Retrieval-Augmented Generation workflows. Configure vector
+                index engines, code embeddings queries, metadata filters, and chat context retention pipelines.</p>
             </div>
             <div class="steps-stats font-mono">16 topics</div>
           </div>
@@ -265,10 +278,14 @@
       <div class="footer-col">
         <h4 class="footer-title font-mono">SOCIAL</h4>
         <ul>
-          <li><a href="https://github.com" target="_blank" rel="noopener"><i class="fa-brands fa-github social-icon"></i> GitHub</a></li>
-          <li><a href="https://discord.com" target="_blank" rel="noopener"><i class="fa-brands fa-discord social-icon"></i> Discord</a></li>
-          <li><a href="https://youtube.com" target="_blank" rel="noopener"><i class="fa-brands fa-youtube social-icon"></i> YouTube</a></li>
-          <li><a href="https://linkedin.com" target="_blank" rel="noopener"><i class="fa-brands fa-linkedin social-icon"></i> LinkedIn</a></li>
+          <li><a href="https://github.com" target="_blank" rel="noopener"><i
+                class="fa-brands fa-github social-icon"></i> GitHub</a></li>
+          <li><a href="https://discord.com" target="_blank" rel="noopener"><i
+                class="fa-brands fa-discord social-icon"></i> Discord</a></li>
+          <li><a href="https://youtube.com" target="_blank" rel="noopener"><i
+                class="fa-brands fa-youtube social-icon"></i> YouTube</a></li>
+          <li><a href="https://linkedin.com" target="_blank" rel="noopener"><i
+                class="fa-brands fa-linkedin social-icon"></i> LinkedIn</a></li>
         </ul>
       </div>
     </div>
@@ -286,4 +303,5 @@
   <div id="toast-container" class="toast-container"></div>
 
 </body>
+
 </html>

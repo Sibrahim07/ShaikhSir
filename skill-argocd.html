@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Argo CD Track — Learn GitOps from Zero — Shaikh Sir</title>
+  <meta name="description"
+    content="Learn Argo CD from zero. Install it on a real cluster, connect it to your own GitHub fork, and deploy your first Application. Work through automated sync, drift, Helm and Kustomize sources, sync hooks and waves.">
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+
+  <!-- Sticky Top Navigation Bar -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <div class="logo-icon">&gt;_</div>
+        <span class="logo-text">Shaikh Sir</span>
+      </a>
+
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html#skills" class="nav-link active">Skills</a></li>
+        <li><a href="index.html#paths" class="nav-link">Roadmaps</a></li>
+        <li><a href="#" class="nav-link">Certifications</a></li>
+        <li>
+          <a href="#" class="nav-link leaderboard-link">
+            Leaderboard <span class="badge-dot"></span>
+          </a>
+        </li>
+        <li><a href="#" class="nav-link">Pricing</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <div class="search-container">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input type="text" class="search-input" placeholder="Search labs, topics, playgrounds...">
+        </div>
+
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+          <i class="fa-solid fa-moon theme-icon-dark"></i>
+          <i class="fa-solid fa-sun theme-icon-light" style="display: none;"></i>
+        </button>
+
+        <a href="#" class="btn-signin">Sign in</a>
+
+        <button class="hamburger-menu" id="hamburger-menu" aria-label="Toggle menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Skill Header Page Area -->
+  <header class="skill-page-header">
+    <div class="starfield" id="starfield"></div>
+    <div class="container relative z-10">
+
+      <!-- Breadcrumbs -->
+      <nav class="breadcrumb font-mono">
+        <a href="index.html#skills">Skills</a>
+        <i class="fa-solid fa-chevron-right separator"></i>
+        <span class="current">Argo CD</span>
+      </nav>
+
+      <!-- Skill Title & Branding -->
+      <div class="skill-title-row">
+        <div class="skill-main-badge-icon" style="background: rgba(239, 107, 74, 0.15); border: 1px solid rgba(239, 107, 74, 0.35);">
+          <span style="font-size: 26px;">🐙</span>
+        </div>
+        <h1 class="skill-hero-heading">Argo CD</h1>
+      </div>
+
+      <!-- Skill Description -->
+      <p class="skill-hero-desc text-secondary">
+        Learn Argo CD from zero. Install it on a real cluster, connect it to your own GitHub fork, and deploy your first Application. Then work through automated sync, drift, Helm and Kustomize sources, sync hooks and waves, rollback, projects and RBAC, ApplicationSets and production operations — the way a DevOps engineer runs GitOps every day.
+      </p>
+
+      <!-- Meta Chips -->
+      <div class="skill-facts-row font-mono">
+        <span class="skill-fact-chip"><i class="fa-solid fa-layer-group text-accent"></i> 11 topics</span>
+        <span class="skill-fact-chip"><i class="fa-solid fa-terminal text-accent"></i> 47 hands-on tasks</span>
+        <span class="skill-fact-chip"><i class="fa-solid fa-circle-question text-accent"></i> 23 quizzes</span>
+        <span class="skill-fact-chip"><i class="fa-solid fa-flag text-accent"></i> 4 challenges</span>
+        <span class="skill-fact-chip"><i class="fa-regular fa-clock text-accent"></i> ~925 min</span>
+      </div>
+
+      <!-- Course Rating Bar -->
+      <div class="skill-rating-container font-mono">
+        <span class="rating-label">RATE THIS COURSE</span>
+        <div class="star-rating-box" id="argocd-star-rating-box">
+          <i class="fa-solid fa-star star active" data-rating="1"></i>
+          <i class="fa-solid fa-star star active" data-rating="2"></i>
+          <i class="fa-solid fa-star star active" data-rating="3"></i>
+          <i class="fa-solid fa-star star active" data-rating="4"></i>
+          <i class="fa-solid fa-star star active" data-rating="5"></i>
+        </div>
+      </div>
+
+      <!-- Certificate Requirements Accordion -->
+      <div class="cert-requirements-card">
+        <button class="cert-toggle-btn" id="cert-toggle-btn" aria-expanded="false">
+          <div class="cert-title-left font-mono">
+            <i class="fa-solid fa-asterisk text-accent"></i>
+            <span>Certificate requirements</span>
+          </div>
+          <div class="cert-status-right font-mono">
+            <span class="status-tag">In progress</span>
+            <i class="fa-solid fa-chevron-down toggle-arrow"></i>
+          </div>
+        </button>
+
+        <div class="cert-content-body" id="cert-content-body" style="display: none;">
+          <div class="cert-requirements-grid font-mono">
+            <div class="cert-req-item">
+              <i class="fa-solid fa-circle-check text-accent"></i>
+              <span>Complete all 11 Argo CD & GitOps topics</span>
+            </div>
+            <div class="cert-req-item">
+              <i class="fa-solid fa-circle-check text-accent"></i>
+              <span>Complete 47 hands-on Kubernetes tasks</span>
+            </div>
+            <div class="cert-req-item">
+              <i class="fa-solid fa-circle-check text-accent"></i>
+              <span>Pass 23 concept checks & sync quizzes</span>
+            </div>
+            <div class="cert-req-item">
+              <i class="fa-solid fa-circle-check text-accent"></i>
+              <span>Complete 4 production GitOps challenges (Project 11)</span>
+            </div>
+          </div>
+          <div class="cert-claim-row">
+            <button class="btn-cert-preview font-mono" id="btn-preview-argocd-cert">
+              <i class="fa-solid fa-award"></i> Preview Argo CD Certificate
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Skill Curriculum Topics Section -->
+  <main class="skill-content-area">
+    <div class="container">
+
+      <!-- Topics Section Header & View Toggles -->
+      <div class="topics-section-header">
+        <div class="topics-count-heading font-mono">
+          <span>11 TOPICS</span>
+          <span class="text-muted text-xs">&middot; Complete in sequence or jump to topics</span>
+        </div>
+
+        <div class="topics-view-controls topic-view-switcher font-mono">
+          <button class="topic-view-btn active" id="view-toggle-list" data-view="list" title="List View" aria-label="List View">
+            <i class="fa-solid fa-list"></i>
+          </button>
+          <button class="topic-view-btn" id="view-toggle-grid" data-view="grid" title="Grid View" aria-label="Grid View">
+            <i class="fa-solid fa-table-cells-large"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Topics Container (List View by Default) -->
+      <div class="topics-wrapper topics-list-view" id="topics-container">
+
+        <!-- Topic 1: Introduction to GitOps (Active / Free) -->
+        <div class="topic-step-card active-step reveal-element">
+          <div class="step-indicator-wrapper">
+            <div class="step-active-dot"></div>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 1</span>
+              <span class="badge-free">FREE</span>
+            </div>
+            <h3 class="step-title">
+              <span style="margin-right: 4px;">🐙</span> 01 &middot; Introduction to GitOps
+            </h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-play text-accent"></i> 5 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-bolt text-accent"></i> 1 task</span>
+              <span class="meta-item"><i class="fa-regular fa-circle-question"></i> 3 quizzes</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 45 min</span>
+            </div>
+          </div>
+          <div class="step-card-action">
+            <a href="lesson-argocd.html" class="btn-step-action btn-continue-lab">
+              <span>Start Lab</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Topic 2: Introduction to Argo CD -->
+        <div class="topic-step-card pro-locked-card reveal-element" data-topic-id="2" data-topic-title="Introduction to Argo CD">
+          <div class="step-indicator-wrapper">
+            <div class="step-idle-dot"></div>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 2</span>
+            </div>
+            <h3 class="step-title">
+              <span style="margin-right: 4px;">🐙</span> 02 &middot; Introduction to Argo CD
+            </h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-play text-accent"></i> 8 concepts</span>
+              <span class="meta-item"><i class="fa-regular fa-circle-question"></i> 2 quizzes</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 70 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon" title="Pro subscription required">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- Topic 3: Your first Application -->
+        <div class="topic-step-card pro-locked-card reveal-element" data-topic-id="3" data-topic-title="Your first Application">
+          <div class="step-indicator-wrapper">
+            <div class="step-idle-dot"></div>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 3</span>
+            </div>
+            <h3 class="step-title">
+              <span style="margin-right: 4px;">🐙</span> 03 &middot; Your first Application
+            </h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-play text-accent"></i> 4 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-bolt text-accent"></i> 6 tasks</span>
+              <span class="meta-item"><i class="fa-regular fa-circle-question"></i> 3 quizzes</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 90 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon" title="Pro subscription required">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- Topic 4: Automated sync, prune and self-heal -->
+        <div class="topic-step-card pro-locked-card reveal-element" data-topic-id="4" data-topic-title="Automated sync, prune and self-heal">
+          <div class="step-indicator-wrapper">
+            <div class="step-idle-dot"></div>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 4</span>
+            </div>
+            <h3 class="step-title">
+              <span style="margin-right: 4px;">🐙</span> 04 &middot; Automated sync, prune and self-heal
+            </h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-play text-accent"></i> 4 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-bolt text-accent"></i> 6 tasks</span>
+              <span class="meta-item"><i class="fa-regular fa-circle-question"></i> 2 quizzes</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 80 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon" title="Pro subscription required">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- Topic 5: Sources: plain YAML, Helm and Kustomize -->
+        <div class="topic-step-card pro-locked-card reveal-element" data-topic-id="5" data-topic-title="Sources: plain YAML, Helm and Kustomize">
+          <div class="step-indicator-wrapper">
+            <div class="step-idle-dot"></div>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 5</span>
+            </div>
+            <h3 class="step-title">
+              <span style="margin-right: 4px;">🐙</span> 05 &middot; Sources: plain YAML, Helm and Kustomize
+            </h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-play text-accent"></i> 4 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-bolt text-accent"></i> 5 tasks</span>
+              <span class="meta-item"><i class="fa-regular fa-circle-question"></i> 2 quizzes</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 90 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon" title="Pro subscription required">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- Topic 6: Sync hooks, waves and options -->
+        <div class="topic-step-card pro-locked-card reveal-element" data-topic-id="6" data-topic-title="Sync hooks, waves and options">
+          <div class="step-indicator-wrapper">
+            <div class="step-idle-dot"></div>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 6</span>
+            </div>
+            <h3 class="step-title">
+              <span style="margin-right: 4px;">🐙</span> 06 &middot; Sync hooks, waves and options
+            </h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-play text-accent"></i> 4 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-bolt text-accent"></i> 6 tasks</span>
+              <span class="meta-item"><i class="fa-regular fa-circle-question"></i> 2 quizzes</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 85 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon" title="Pro subscription required">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- Topic 7: History, rollback and deletion -->
+        <div class="topic-step-card pro-locked-card reveal-element" data-topic-id="7" data-topic-title="History, rollback and deletion">
+          <div class="step-indicator-wrapper">
+            <div class="step-idle-dot"></div>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 7</span>
+            </div>
+            <h3 class="step-title">
+              <span style="margin-right: 4px;">🐙</span> 07 &middot; History, rollback and deletion
+            </h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-play text-accent"></i> 4 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-bolt text-accent"></i> 5 tasks</span>
+              <span class="meta-item"><i class="fa-regular fa-circle-question"></i> 2 quizzes</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 75 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon" title="Pro subscription required">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- Topic 8: Projects, accounts and RBAC -->
+        <div class="topic-step-card pro-locked-card reveal-element" data-topic-id="8" data-topic-title="Projects, accounts and RBAC">
+          <div class="step-indicator-wrapper">
+            <div class="step-idle-dot"></div>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 8</span>
+            </div>
+            <h3 class="step-title">
+              <span style="margin-right: 4px;">🐙</span> 08 &middot; Projects, accounts and RBAC
+            </h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-play text-accent"></i> 2 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-bolt text-accent"></i> 5 tasks</span>
+              <span class="meta-item"><i class="fa-regular fa-circle-question"></i> 3 quizzes</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 80 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon" title="Pro subscription required">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- Topic 9: App of Apps and ApplicationSets -->
+        <div class="topic-step-card pro-locked-card reveal-element" data-topic-id="9" data-topic-title="App of Apps and ApplicationSets">
+          <div class="step-indicator-wrapper">
+            <div class="step-idle-dot"></div>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 9</span>
+            </div>
+            <h3 class="step-title">
+              <span style="margin-right: 4px;">🐙</span> 09 &middot; App of Apps and ApplicationSets
+            </h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-play text-accent"></i> 3 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-bolt text-accent"></i> 6 tasks</span>
+              <span class="meta-item"><i class="fa-regular fa-circle-question"></i> 2 quizzes</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 90 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon" title="Pro subscription required">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- Topic 10: Running Argo CD in production -->
+        <div class="topic-step-card pro-locked-card reveal-element" data-topic-id="10" data-topic-title="Running Argo CD in production">
+          <div class="step-indicator-wrapper">
+            <div class="step-idle-dot"></div>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 10</span>
+            </div>
+            <h3 class="step-title">
+              <span style="margin-right: 4px;">🐙</span> 10 &middot; Running Argo CD in production
+            </h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-play text-accent"></i> 6 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-bolt text-accent"></i> 7 tasks</span>
+              <span class="meta-item"><i class="fa-regular fa-circle-question"></i> 2 quizzes</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 100 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon" title="Pro subscription required">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- Topic 11: Projects (Capstone Challenge) -->
+        <div class="topic-step-card pro-locked-card reveal-element" data-topic-id="11" data-topic-title="Projects (Capstone Challenge)">
+          <div class="step-indicator-wrapper">
+            <div class="step-idle-dot"></div>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 11</span>
+              <span class="badge-project">CAPSTONE</span>
+            </div>
+            <h3 class="step-title">
+              <span style="margin-right: 4px;">🐙</span> 11 &middot; Projects
+            </h3>
+            <div class="step-meta-row font-mono">
+              <span class="meta-item"><i class="fa-solid fa-play text-accent"></i> 4 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-flag text-accent"></i> 4 challenges</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 120 min</span>
+            </div>
+          </div>
+          <div class="step-lock-icon" title="Pro subscription required">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Pro Upgrade Banner -->
+      <section class="pro-upgrade-banner reveal-element">
+        <div class="pro-banner-left">
+          <div class="pro-banner-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+          <div class="pro-banner-text">
+            <h3 class="pro-banner-title">Any paid plan opens all 11 topics</h3>
+            <p class="pro-banner-desc text-secondary">
+              Get unlimited access to hands-on Kubernetes GitOps sandboxes, automated sync checks, challenges, and Argo CD certificate.
+            </p>
+          </div>
+        </div>
+        <div class="pro-banner-action">
+          <button class="btn-see-plans font-mono" id="btn-upgrade-pro">
+            See plans &rarr;
+          </button>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Pro Modal Dialog -->
+  <div class="modal-backdrop" id="pro-modal-backdrop" style="display: none;">
+    <div class="pro-modal-box">
+      <button class="modal-close-icon" id="btn-close-pro-modal">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <div class="pro-modal-icon">
+        <i class="fa-solid fa-lock text-accent"></i>
+      </div>
+      <h3 class="pro-modal-title" id="pro-modal-title">Unlock Argo CD Pro Topics</h3>
+      <p class="pro-modal-desc text-secondary" id="pro-modal-desc">
+        Subscribe to unlock all 11 topics, 47 tasks, 23 quizzes, sync hooks, ApplicationSets, and certificate of completion.
+      </p>
+      <div class="pro-modal-features font-mono">
+        <div class="feature-item"><i class="fa-solid fa-check text-accent"></i> 11 Complete GitOps & Argo CD modules</div>
+        <div class="feature-item"><i class="fa-solid fa-check text-accent"></i> Live multi-cluster Kubernetes GitOps sandbox</div>
+        <div class="feature-item"><i class="fa-solid fa-check text-accent"></i> Automated self-heal, drift & rollback evaluation</div>
+        <div class="feature-item"><i class="fa-solid fa-check text-accent"></i> Verified Argo CD Engineer Certificate</div>
+      </div>
+      <div class="pro-modal-actions">
+        <button class="btn-primary font-mono" style="width: 100%; justify-content: center;" onclick="location.href='index.html#pricing'">
+          View All Pricing Plans
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Certificate Preview Modal -->
+  <div class="modal-backdrop" id="cert-modal" style="display: none;">
+    <div class="cert-modal-box">
+      <button class="modal-close-icon" id="btn-close-cert-modal">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <div class="cert-preview-frame">
+        <div class="cert-border">
+          <div class="cert-watermark">&gt;_</div>
+          <div class="cert-header">
+            <span class="cert-badge font-mono">VERIFIED DEVOPS CERTIFICATE</span>
+            <h2 class="cert-name">Shaikh Sir Engineering Academy</h2>
+          </div>
+          <p class="cert-certifies font-mono">This is to certify that</p>
+          <h1 class="cert-recipient font-mono">GITOPS ENGINEER</h1>
+          <p class="cert-body">
+            has successfully completed all 11 topics, 47 hands-on tasks, and 4 production GitOps challenges in the
+          </p>
+          <h3 class="cert-course-name font-mono" style="color: #ef6b4a;">🐙 Argo CD Continuous Delivery & GitOps Track</h3>
+          <div class="cert-footer font-mono">
+            <div class="cert-id">CERT ID: SHAIKH-ARGO-2026-8834</div>
+            <div class="cert-stamp"><i class="fa-solid fa-award"></i> VERIFIED</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Section -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-info">
+        <a href="index.html" class="nav-logo footer-logo">
+          <div class="logo-icon">&gt;_</div>
+          <span class="logo-text">Shaikh Sir</span>
+        </a>
+        <p class="footer-tagline text-secondary">
+          Hands-on learning, real results. Practice GitOps, Kubernetes, and Cloud infrastructure directly in your browser.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-title font-mono">PRODUCT</h4>
+        <ul>
+          <li><a href="index.html#skills">Catalog</a></li>
+          <li><a href="roadmap-devops.html">Roadmaps</a></li>
+          <li><a href="index.html#skills">Skills</a></li>
+          <li><a href="#">Docs</a></li>
+          <li><a href="#">Leaderboard</a></li>
+          <li><a href="#">Tutorials</a></li>
+          <li><a href="#">Pricing</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-title font-mono">COMPANY</h4>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Terms</a></li>
+          <li><a href="#">Privacy</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-title font-mono">SOCIAL</h4>
+        <ul>
+          <li><a href="https://github.com" target="_blank" rel="noopener"><i class="fa-brands fa-github social-icon"></i> GitHub</a></li>
+          <li><a href="https://discord.com" target="_blank" rel="noopener"><i class="fa-brands fa-discord social-icon"></i> Discord</a></li>
+          <li><a href="https://youtube.com" target="_blank" rel="noopener"><i class="fa-brands fa-youtube social-icon"></i> YouTube</a></li>
+          <li><a href="https://linkedin.com" target="_blank" rel="noopener"><i class="fa-brands fa-linkedin social-icon"></i> LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom container">
+      <div class="footer-copy font-mono">
+        &copy; 2026 Shaikh Sir
+      </div>
+      <div class="footer-credit font-mono">
+        Built for learners, by learners
+      </div>
+    </div>
+  </footer>
+
+  <div id="toast-container" class="toast-container"></div>
+
+</body>
+
+</html>

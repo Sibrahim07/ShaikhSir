@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>01 - Introduction to Helm — Shaikh Sir</title>
+  <meta name="description"
+    content="What Helm is and why plain Kubernetes YAML becomes painful at scale. Interactive 4-column workspace with live Helm sandbox terminal.">
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    rel="stylesheet">
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+
+<body class="lesson-page-body">
+
+  <!-- 4-Column Workspace: Left Sidebar | Main Content | Terminal Workspace | Right Tool Strip -->
+  <div class="lesson-workspace-container" id="lesson-workspace">
+
+    <!-- =========================================================================
+         1. LEFT SIDEBAR: TRACK RECORD & 4-STEP TIMELINE
+         ========================================================================= -->
+    <aside class="lesson-sidebar">
+
+      <!-- Top Topic Breadcrumb Header -->
+      <div class="sidebar-top-header">
+        <a href="skill-helm.html" class="btn-sidebar-back font-mono" title="Back to Helm Topics">
+          <i class="fa-solid fa-chevron-left"></i>
+        </a>
+        <div class="topic-tag-badge font-mono">
+          <span class="esc-pill">esc</span>
+          <span class="bash-pill">bash</span>
+          <span class="topic-title-text">01 - Introduction t...</span>
+        </div>
+      </div>
+
+      <!-- Radial Progress Circle -->
+      <div class="sidebar-progress-section">
+        <div class="progress-radial-wrapper">
+          <svg class="progress-radial-svg" viewBox="0 0 100 100">
+            <circle class="progress-radial-bg" cx="50" cy="50" r="42" />
+            <circle class="progress-radial-bar" id="helm-lesson-progress-arc" cx="50" cy="50" r="42"
+              stroke-dasharray="264" stroke-dashoffset="264" />
+          </svg>
+          <div class="progress-percentage-label font-mono" id="helm-lesson-progress-percent">0%</div>
+        </div>
+
+        <!-- 3 Track Record Stat Counters -->
+        <div class="track-record-grid font-mono">
+          <div class="track-stat-box" id="stat-box-done">
+            <span class="stat-num" id="helm-stat-done-count">0</span>
+            <span class="stat-label">DONE</span>
+          </div>
+          <div class="track-stat-box" id="stat-box-quizzes">
+            <span class="stat-num" id="helm-stat-quizzes-count">0/0</span>
+            <span class="stat-label">QUIZZES</span>
+          </div>
+          <div class="track-stat-box" id="stat-box-tasks">
+            <span class="stat-num" id="helm-stat-tasks-count">0/1</span>
+            <span class="stat-label">TASKS</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vertical Lesson Stepper Navigation (4 Steps matching screenshot) -->
+      <div class="sidebar-stepper-list" id="helm-sidebar-stepper-list">
+
+        <!-- Step 1 (Active) -->
+        <div class="stepper-item active" data-helm-step="1" data-type="lesson">
+          <div class="stepper-node">
+            <span class="node-ring"></span>
+          </div>
+          <div class="stepper-content font-mono">
+            <span class="stepper-badge lesson-badge">LESSON</span>
+            <span class="stepper-title">The problem with plain Kub...</span>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="stepper-item" data-helm-step="2" data-type="lesson">
+          <div class="stepper-node">
+            <span class="node-ring"></span>
+          </div>
+          <div class="stepper-content font-mono">
+            <span class="stepper-badge lesson-badge">LESSON</span>
+            <span class="stepper-title">What Helm is</span>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="stepper-item" data-helm-step="3" data-type="lesson">
+          <div class="stepper-node">
+            <span class="node-ring"></span>
+          </div>
+          <div class="stepper-content font-mono">
+            <span class="stepper-badge lesson-badge">LESSON</span>
+            <span class="stepper-title">Charts, releases, and repos...</span>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="stepper-item" data-helm-step="4" data-type="task">
+          <div class="stepper-node">
+            <span class="node-ring"></span>
+          </div>
+          <div class="stepper-content font-mono">
+            <span class="stepper-badge task-badge">TASK</span>
+            <span class="stepper-title">Check your Helm setup</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Toolbar Controls matching screenshot -->
+      <div class="sidebar-bottom-toolbar">
+        <button class="btn-toolbar-icon" id="btn-collapse-sidebar" title="Collapse sidebar">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        <button class="btn-toolbar-icon" id="btn-helm-lesson-theme-toggle" title="Toggle theme">
+          <i class="fa-regular fa-eye"></i>
+        </button>
+        <div class="toolbar-layout-group">
+          <button class="btn-toolbar-icon" title="Single pane"><i class="fa-regular fa-square"></i></button>
+          <button class="btn-toolbar-icon active" title="Split pane"><i class="fa-solid fa-table-columns"></i></button>
+          <button class="btn-toolbar-icon" title="Triple pane"><i class="fa-solid fa-bars-progress"></i></button>
+        </div>
+      </div>
+    </aside>
+
+
+    <!-- =========================================================================
+         2. CENTER PANEL: LESSON CONTENT, AI NARRATOR & HELM DIAGRAM
+         ========================================================================= -->
+    <main class="lesson-content-panel">
+
+      <!-- Top Action Bar (Header with Narrator Pill & Language) -->
+      <header class="lesson-top-bar font-mono">
+        <div class="lesson-step-counter-tag" id="helm-lesson-step-counter">
+          LESSON &middot; 1 OF 4
+        </div>
+
+        <!-- Green AI Narrator Pill Button matching screenshot -->
+        <button class="btn-narrator-pill font-mono" id="helm-btn-voice-play">
+          <i class="fa-solid fa-play" id="helm-voice-icon"></i>
+          <span id="helm-voice-status-text">Explain this lesson</span>
+          <span class="narrator-timer" id="helm-voice-timer">&middot; 3:51</span>
+        </button>
+
+        <!-- Subtitle note beside narrator -->
+        <div class="narrator-subnote">
+          The narrator demonstrates commands in a strip above your terminal; your terminal stays yours.
+        </div>
+
+        <!-- Language Pill Dropdown -->
+        <div class="language-selector-pill font-mono">
+          <span>English</span>
+          <i class="fa-solid fa-chevron-down" style="font-size: 9px;"></i>
+        </div>
+      </header>
+
+      <!-- Scrollable Lesson Article Body -->
+      <div class="lesson-article-container">
+
+        <!-- Step Heading -->
+        <h1 class="lesson-heading-title" id="helm-lesson-heading">The problem with plain Kubernetes YAML</h1>
+
+        <!-- Step Type Pill -->
+        <div class="lesson-type-badge font-mono" id="helm-lesson-type-pill">Lesson</div>
+
+        <!-- Dynamic Lesson Body -->
+        <div class="lesson-body-text" id="helm-lesson-body-content">
+          <p>
+            In this lesson you will learn the three problems that plain Kubernetes YAML creates as your apps grow. These three problems are the reason Helm exists.
+          </p>
+          <p>
+            You already know how to deploy with kubectl. Write a Deployment manifest, apply it, done. So why does another tool exist on top of that? Watch what happens when the app gets real.
+          </p>
+
+          <h3 class="lesson-section-subtitle text-accent" style="color: var(--accent-green); font-size: 16px; font-weight: 700; margin: 24px 0 12px 0;">Problem 1: many files, no unit</h3>
+
+          <p>
+            A real app is not one manifest. A web frontend, an API, a worker, and Redis. Each piece needs a Deployment and a Service. Add a ConfigMap, a Secret, an Ingress. Count the files: ten, maybe fifteen.
+          </p>
+          <p>
+            Now ask the cluster a simple question: what is "the app" here? It cannot answer. Kubernetes sees fifteen separate objects and nothing that groups them. Installing means applying every file. Removing means remembering every file and deleting each object yourself. Forget one, and it quietly keeps running.
+          </p>
+          <p>
+            Here is the shape of the problem:
+          </p>
+
+          <div class="docker-arch-diagram font-mono">
+            <div class="arch-box client" style="border-color: rgba(39, 122, 159, 0.4);">
+              <div class="arch-title" style="color: #277a9f;"><i class="fa-solid fa-file-code"></i> Plain YAML Manifests</div>
+              <div class="arch-desc">15+ separate disjointed files: Deployment.yaml, Service.yaml, Ingress.yaml, ConfigMap.yaml. No single app identity.</div>
+            </div>
+            <div class="arch-arrow">➜ VS ➜</div>
+            <div class="arch-box daemon" style="border-color: rgba(34, 229, 132, 0.4);">
+              <div class="arch-title" style="color: var(--accent-green);"><i class="fa-solid fa-dharmachakra"></i> 1 Helm Chart</div>
+              <div class="arch-desc">Single release unit: <code>helm install my-app ./chart</code> and <code>helm uninstall my-app</code>. Full lifecycle management.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quiz Container (For Quiz steps) -->
+        <div class="lesson-quiz-wrapper" id="helm-lesson-quiz-container" style="display: none;">
+          <div class="quiz-badge font-mono"><i class="fa-solid fa-circle-question"></i> CONCEPT CHECK</div>
+          <h3 class="quiz-question-title" id="helm-quiz-question-text">Quiz Question</h3>
+          <div class="quiz-options-list font-mono" id="helm-quiz-options-list">
+            <!-- Options dynamically rendered -->
+          </div>
+          <div class="quiz-feedback-box" id="helm-quiz-feedback-box" style="display: none;"></div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Step Navigation Footer -->
+      <footer class="lesson-bottom-bar font-mono">
+        <button class="btn-lesson-nav-prev" id="helm-btn-lesson-prev" disabled>
+          &larr; Previous
+        </button>
+        <button class="btn-lesson-nav-next" id="helm-btn-lesson-next">
+          Next &rarr;
+        </button>
+      </footer>
+    </main>
+
+
+    <!-- =========================================================================
+         3. RIGHT TERMINAL PANEL: STANDBY OVERLAY & LIVE LINUX K8S SANDBOX
+         ========================================================================= -->
+    <section class="lesson-terminal-workspace">
+
+      <!-- Terminal Workspace Tab Bar -->
+      <div class="terminal-workspace-tabs font-mono">
+        <button class="workspace-tab-btn active" id="helm-tab-terminal-btn">Terminal 1</button>
+        <button class="workspace-tab-add" id="helm-tab-add-btn" title="Open new terminal tab"><i class="fa-solid fa-plus"></i></button>
+      </div>
+
+      <!-- Main Terminal Card -->
+      <div class="terminal-container-card">
+
+        <!-- Standby State / Boot Screen matching screenshot -->
+        <div class="terminal-standby-screen" id="helm-terminal-standby-view">
+          <div class="standby-prompt-icon font-mono">&gt;_</div>
+          <div class="standby-main-text">
+            Spin up a fresh environment and practice live.
+          </div>
+          <div class="standby-sub-text font-mono">
+            kind-single &middot; fresh machine &middot; ready in under a minute
+          </div>
+          <button class="btn-start-lab-mint font-mono" id="helm-btn-start-live-lab">
+            &gt;_ Start Lab
+          </button>
+        </div>
+
+        <!-- Active Running Terminal Sandbox -->
+        <div class="terminal-active-screen font-mono" id="helm-terminal-active-view" style="display: none;">
+          <div class="terminal-screen-viewport" id="helm-terminal-viewport">
+            <div class="term-line text-muted">Spinning up isolated Linux sandbox container...</div>
+            <div class="term-line text-accent">kind single-node cluster: connected.</div>
+            <div class="term-line text-green-glow">Helm v3.14.0 client ready.</div>
+            <div class="term-line text-muted">Type 'help' or 'helm version' to check your setup.</div>
+          </div>
+          <div class="terminal-cli-input-row">
+            <span class="cli-prompt-label text-accent font-bold">shaikh@helm-lab:~$</span>
+            <input type="text" class="cli-input font-mono" id="helm-terminal-cli-input"
+              placeholder="helm version" autofocus autocomplete="off" spellcheck="false">
+            <button class="btn-cli-execute" id="helm-btn-cli-submit" title="Execute command">
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =========================================================================
+         4. FAR-RIGHT VERTICAL TOOLS STRIP (Editor & Your Notes)
+         ========================================================================= -->
+    <aside class="lesson-vertical-tools-strip font-mono">
+      <button class="vertical-tool-btn" id="helm-btn-toggle-editor" title="Open Code Editor">
+        <i class="fa-solid fa-code"></i>
+        <span>Editor</span>
+      </button>
+      <button class="vertical-tool-btn" id="helm-btn-toggle-notes" title="Open Your Notes">
+        <i class="fa-regular fa-note-sticky"></i>
+        <span>Your notes</span>
+      </button>
+    </aside>
+
+  </div>
+
+  <!-- Slide-out Tools Drawer (Editor & Notes) -->
+  <div class="tools-drawer-backdrop" id="helm-tools-drawer" style="display: none;">
+    <div class="tools-drawer-window font-mono">
+      <div class="drawer-header">
+        <span class="drawer-title" id="helm-drawer-title"><i class="fa-regular fa-note-sticky"></i> Your Notes</span>
+        <button class="btn-drawer-close" id="helm-btn-close-drawer">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="drawer-body">
+        <textarea class="notes-textarea" id="helm-notes-content"
+          placeholder="# Helm Topic 01 Notes&#10;&#10;- Problem 1: Many files, no single unit&#10;- Problem 2: No environment configuration&#10;- Problem 3: No rollback or history&#10;- Helm turns YAML manifests into versioned Charts"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-container" class="toast-container"></div>
+
+</body>
+
+</html>
