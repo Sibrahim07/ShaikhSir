@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AWS Fundamentals — Shaikh Sir</title>
+  <meta name="description"
+    content="AWS for DevOps engineers, from zero - accounts and the CLI, IAM, EC2 with user data, VPC, S3, DynamoDB, RDS, SQS, SNS, EventBridge, Lambda, Step Functions, Fargate, CloudWatch, and real cloud projects.">
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    rel="stylesheet">
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+
+  <!-- Sticky Navigation Bar -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <div class="logo-icon">&gt;_</div>
+        <span class="logo-text">Shaikh Sir</span>
+      </a>
+
+      <!-- Nav links -->
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html#skills" class="nav-link active">Skills</a></li>
+        <li><a href="index.html#paths" class="nav-link">Roadmaps</a></li>
+        <li><a href="#" class="nav-link">Certifications</a></li>
+        <li>
+          <a href="#" class="nav-link leaderboard-link">
+            Leaderboard <span class="badge-dot"></span>
+          </a>
+        </li>
+        <li><a href="#" class="nav-link">My Sessions</a></li>
+      </ul>
+
+      <!-- Navbar Actions (Search, Theme, CTAs) -->
+      <div class="nav-actions">
+        <div class="search-container">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input type="text" class="search-input" placeholder="Search labs, topics...">
+        </div>
+
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle visual theme">
+          <i class="fa-solid fa-moon theme-icon-dark"></i>
+          <i class="fa-solid fa-sun theme-icon-light" style="display: none;"></i>
+        </button>
+
+        <a href="#" class="btn-signin">Sign in</a>
+
+        <button class="hamburger-menu" id="hamburger-menu" aria-label="Toggle menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Dropdown Menu -->
+  <div class="mobile-menu" id="mobile-menu">
+    <div class="mobile-search">
+      <i class="fa-solid fa-magnifying-glass search-icon"></i>
+      <input type="text" class="search-input" placeholder="Search labs, topics...">
+    </div>
+    <ul class="mobile-links">
+      <li><a href="index.html#skills" class="mobile-link">Skills</a></li>
+      <li><a href="index.html#paths" class="mobile-link">Roadmaps</a></li>
+      <li><a href="#" class="mobile-link">Certifications</a></li>
+      <li><a href="#" class="mobile-link">Leaderboard <span class="badge-dot"></span></a></li>
+      <li><a href="#" class="mobile-link">My Sessions</a></li>
+    </ul>
+    <div class="mobile-actions">
+      <a href="#" class="btn-signin-mobile">Sign in</a>
+    </div>
+  </div>
+
+  <!-- Skill Page Header Section -->
+  <div class="skill-page-header">
+    <div class="starfield" id="starfield"></div>
+    <div class="container relative z-10">
+      <!-- Breadcrumbs -->
+      <nav class="breadcrumb font-mono">
+        <a href="index.html#skills">Skills</a>
+        <i class="fa-solid fa-chevron-right separator"></i>
+        <span class="current">AWS Fundamentals</span>
+      </nav>
+
+      <!-- Skill Title & Description -->
+      <div class="skill-title-block">
+        <h1 class="skill-hero-title">☁️ AWS Fundamentals</h1>
+        <p class="skill-hero-description text-secondary">
+          AWS for DevOps engineers, from zero - accounts and the CLI, IAM, EC2 with user data, VPC, S3 and artifact flows, databases, queues and events, serverless, containers, observability, incident response, security, cost, and HA design, all hands-on in a real constrained AWS account.
+        </p>
+
+        <!-- Stats Pills (Matching escbash reference) -->
+        <div class="skill-header-pills font-mono">
+          <span class="skill-stat-pill"><i class="fa-solid fa-layer-group text-accent"></i> 26 topics</span>
+          <span class="skill-stat-pill"><i class="fa-solid fa-terminal"></i> 75 hands-on tasks</span>
+          <span class="skill-stat-pill"><i class="fa-solid fa-circle-question"></i> 59 quizzes</span>
+          <span class="skill-stat-pill"><i class="fa-solid fa-flag text-warning" style="color: #f59e0b;"></i> 13 challenges</span>
+          <span class="skill-stat-pill"><i class="fa-regular fa-clock"></i> &approx;1170 min (~20h)</span>
+          <span class="skill-stat-pill"><i class="fa-solid fa-star" style="color: #fbbf24;"></i> 4.8 (412 ratings)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Topics Area -->
+  <main class="skill-content-area">
+    <div class="container">
+
+      <!-- Progress & View Switcher Bar -->
+      <div class="topics-control-bar reveal-element">
+        <div class="progress-info font-mono">
+          <div class="mini-progress-ring">
+            <svg class="ring-svg" viewBox="0 0 36 36">
+              <path class="ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+              <path class="ring-stroke" id="aws-progress-ring" stroke-dasharray="3.85, 100"
+                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+            </svg>
+            <span class="ring-inner-dot"></span>
+          </div>
+          <span class="progress-text-label">
+            <strong class="text-accent" id="aws-topics-done-text">0/26</strong> topics done &middot; <span class="text-secondary" id="aws-steps-done-text">1 of 75 steps</span>
+          </span>
+        </div>
+
+        <div class="topic-view-switcher font-mono">
+          <button class="topic-view-btn active" id="view-toggle-list" data-view="list" title="List View"
+            aria-label="List View">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          <button class="topic-view-btn" id="view-toggle-grid" data-view="grid" title="Grid View"
+            aria-label="Grid View">
+            <i class="fa-solid fa-table-cells-large"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Topics Container (List & Grid view) -->
+      <div class="topics-wrapper topics-list-view reveal-element" id="topics-container">
+
+        <!-- STEP 1: What Cloud and AWS Are (Free) -->
+        <div class="topic-step-card active-step" data-topic-id="1" data-status="active"
+          onclick="location.href='lesson-aws.html'">
+          <div class="step-indicator-wrapper">
+            <span class="step-active-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 1</span>
+              <span class="badge-free">FREE</span>
+            </div>
+            <h3 class="step-title font-mono">☁️ 01 - What Cloud and AWS Are</h3>
+            <div class="step-meta-row font-mono text-secondary">
+              <span class="meta-item"><i class="fa-solid fa-play text-accent"></i> 4 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 2 quizzes</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 25 min</span>
+            </div>
+            <p class="step-desc text-secondary" style="font-size: 12px; margin-top: 6px;">
+              What cloud computing is, what AWS offers, and how DevOps engineers use it every day.
+            </p>
+          </div>
+          <div class="step-action">
+            <a href="lesson-aws.html" class="btn-step-action btn-continue-lab">Continue Lesson &amp; Lab <i
+                class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <!-- STEP 2: Your Account, Credentials, and the CLI -->
+        <div class="topic-step-card locked-step" data-topic-id="2" data-status="locked"
+          onclick="openProModal('02 - Your Account, Credentials, and the CLI')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 2</span>
+            </div>
+            <h3 class="step-title font-mono">🧭 02 - Your Account, Credentials, and the CLI</h3>
+            <div class="step-meta-row font-mono text-secondary">
+              <span class="meta-item"><i class="fa-solid fa-play"></i> 3 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-terminal"></i> 3 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 1 quiz</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 35 min</span>
+            </div>
+            <p class="step-desc text-secondary" style="font-size: 12px; margin-top: 6px;">
+              AWS accounts, temporary credentials, and working with the CLI and the console as the same identity.
+            </p>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 3: IAM: Identities, Policies, and Access Control -->
+        <div class="topic-step-card locked-step" data-topic-id="3" data-status="locked"
+          onclick="openProModal('03 - IAM: Identities, Policies, and Access Control')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 3</span>
+            </div>
+            <h3 class="step-title font-mono">🛡️ 03 - IAM: Identities, Policies, and Access Control</h3>
+            <div class="step-meta-row font-mono text-secondary">
+              <span class="meta-item"><i class="fa-solid fa-play"></i> 14 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-terminal"></i> 7 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 4 quizzes</span>
+              <span class="meta-item"><i class="fa-solid fa-flag text-warning" style="color:#f59e0b;"></i> 1 challenge</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 60 min</span>
+            </div>
+            <p class="step-desc text-secondary" style="font-size: 12px; margin-top: 6px;">
+              Users, groups, roles, and the policy language, taught hands-on in a real AWS account - write policies, simulate them, attach them, debug denials, and finish with a least-privilege build.
+            </p>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 4: EC2: Virtual Servers From Launch to Terminate -->
+        <div class="topic-step-card locked-step" data-topic-id="4" data-status="locked"
+          onclick="openProModal('04 - EC2: Virtual Servers From Launch to Terminate')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 4</span>
+            </div>
+            <h3 class="step-title font-mono">🖥️ 04 - EC2: Virtual Servers From Launch to Terminate</h3>
+            <div class="step-meta-row font-mono text-secondary">
+              <span class="meta-item"><i class="fa-solid fa-play"></i> 13 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-terminal"></i> 10 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 2 quizzes</span>
+              <span class="meta-item"><i class="fa-solid fa-flag text-warning" style="color:#f59e0b;"></i> 1 challenge</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 60 min</span>
+            </div>
+            <p class="step-desc text-secondary" style="font-size: 12px; margin-top: 6px;">
+              Rent a real Linux server - pick its image, size, network, and firewall, launch it, watch its lifecycle and storage, and finish with a from-scratch build and a clean termination.
+            </p>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 5: VPC: Your Own Network in AWS -->
+        <div class="topic-step-card locked-step" data-topic-id="5" data-status="locked"
+          onclick="openProModal('05 - VPC: Your Own Network in AWS')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 5</span>
+            </div>
+            <h3 class="step-title font-mono">🌐 05 - VPC: Your Own Network in AWS</h3>
+            <div class="step-meta-row font-mono text-secondary">
+              <span class="meta-item"><i class="fa-solid fa-play"></i> 8 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-terminal"></i> 5 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 5 quizzes</span>
+              <span class="meta-item"><i class="fa-solid fa-flag text-warning" style="color:#f59e0b;"></i> 2 challenges</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 60 min</span>
+            </div>
+            <p class="step-desc text-secondary" style="font-size: 12px; margin-top: 6px;">
+              The network your instances live in, taught hands-on in a real AWS account - explore the default VPC, build your own with subnets, an internet gateway, and routes, then launch an instance into it.
+            </p>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 6: S3: Objects, Buckets, and Versioning -->
+        <div class="topic-step-card locked-step" data-topic-id="6" data-status="locked"
+          onclick="openProModal('06 - S3: Objects, Buckets, and Versioning')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 6</span>
+            </div>
+            <h3 class="step-title font-mono">🪣 06 - S3: Objects, Buckets, and Versioning</h3>
+            <div class="step-meta-row font-mono text-secondary">
+              <span class="meta-item"><i class="fa-solid fa-play"></i> 11 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-terminal"></i> 6 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 2 quizzes</span>
+              <span class="meta-item"><i class="fa-solid fa-flag text-warning" style="color:#f59e0b;"></i> 1 challenge</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 50 min</span>
+            </div>
+            <p class="step-desc text-secondary" style="font-size: 12px; margin-top: 6px;">
+              Store real data in real buckets - master keys and prefixes, run upload-download roundtrips, protect objects with versioning, and finish with a from-scratch versioned archive.
+            </p>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 7: EC2 + S3: Ship an Artifact -->
+        <div class="topic-step-card locked-step" data-topic-id="7" data-status="locked"
+          onclick="openProModal('07 - EC2 + S3: Ship an Artifact')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 7</span>
+            </div>
+            <h3 class="step-title font-mono">📦 07 - EC2 + S3: Ship an Artifact</h3>
+            <div class="step-meta-row font-mono text-secondary">
+              <span class="meta-item"><i class="fa-solid fa-play"></i> 2 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-terminal"></i> 2 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 2 quizzes</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 45 min</span>
+            </div>
+            <p class="step-desc text-secondary" style="font-size: 12px; margin-top: 6px;">
+              Build, store, deploy: push a release artifact to S3 and deploy it onto an instance with a user data script.
+            </p>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 8: DynamoDB: Items, Queries, and Conditions -->
+        <div class="topic-step-card locked-step" data-topic-id="8" data-status="locked"
+          onclick="openProModal('08 - DynamoDB: Items, Queries, and Conditions')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 8</span>
+            </div>
+            <h3 class="step-title font-mono">⚡ 08 - DynamoDB: Items, Queries, and Conditions</h3>
+            <div class="step-meta-row font-mono text-secondary">
+              <span class="meta-item"><i class="fa-solid fa-play"></i> 8 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-terminal"></i> 5 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 2 quizzes</span>
+              <span class="meta-item"><i class="fa-solid fa-flag text-warning" style="color:#f59e0b;"></i> 1 challenge</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 50 min</span>
+            </div>
+            <p class="step-desc text-secondary" style="font-size: 12px; margin-top: 6px;">
+              Work a real NoSQL table - typed items, surgical updates, query-vs-scan economics, and conditional writes that make race conditions impossible, ending in an inventory ledger build.
+            </p>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 9: RDS: Designing a Database Deployment -->
+        <div class="topic-step-card locked-step" data-topic-id="9" data-status="locked"
+          onclick="openProModal('09 - RDS: Designing a Database Deployment')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 9</span>
+            </div>
+            <h3 class="step-title font-mono">🗄️ 09 - RDS: Designing a Database Deployment</h3>
+            <div class="step-meta-row font-mono text-secondary">
+              <span class="meta-item"><i class="fa-solid fa-play"></i> 5 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-terminal"></i> 2 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 3 quizzes</span>
+              <span class="meta-item"><i class="fa-solid fa-flag text-warning" style="color:#f59e0b;"></i> 1 challenge</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 40 min</span>
+            </div>
+            <p class="step-desc text-secondary" style="font-size: 12px; margin-top: 6px;">
+              Design a production PostgreSQL deployment the way senior engineers do - pin versions and hardware from the live catalog, separate failover and backups, secure the network path, and ship a defensible specification.
+            </p>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 10: SQS: Queues, Messages, and the Lease -->
+        <div class="topic-step-card locked-step" data-topic-id="10" data-status="locked"
+          onclick="openProModal('10 - SQS: Queues, Messages, and the Lease')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 10</span>
+            </div>
+            <h3 class="step-title font-mono">📬 10 - SQS: Queues, Messages, and the Lease</h3>
+            <div class="step-meta-row font-mono text-secondary">
+              <span class="meta-item"><i class="fa-solid fa-play"></i> 6 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-terminal"></i> 5 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 2 quizzes</span>
+              <span class="meta-item"><i class="fa-solid fa-flag text-warning" style="color:#f59e0b;"></i> 1 challenge</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 45 min</span>
+            </div>
+            <p class="step-desc text-secondary" style="font-size: 12px; margin-top: 6px;">
+              Decouple producers from consumers with a real queue - send and receive messages, master the visibility timeout by watching a message return, and drain a backlog like a production worker.
+            </p>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 11: SNS: Topics, Publishing, and Fan-Out -->
+        <div class="topic-step-card locked-step" data-topic-id="11" data-status="locked"
+          onclick="openProModal('11 - SNS: Topics, Publishing, and Fan-Out')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 11</span>
+            </div>
+            <h3 class="step-title font-mono">📢 11 - SNS: Topics, Publishing, and Fan-Out</h3>
+            <div class="step-meta-row font-mono text-secondary">
+              <span class="meta-item"><i class="fa-solid fa-play"></i> 4 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-terminal"></i> 2 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 2 quizzes</span>
+              <span class="meta-item"><i class="fa-solid fa-flag text-warning" style="color:#f59e0b;"></i> 1 challenge</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 35 min</span>
+            </div>
+            <p class="step-desc text-secondary" style="font-size: 12px; margin-top: 6px;">
+              Broadcast events the pub-sub way - create topics, publish structured alerts with severity attributes, and learn the SNS-to-SQS fan-out pattern that powers real event architectures.
+            </p>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 12: EventBridge: Buses, Rules, and Patterns -->
+        <div class="topic-step-card locked-step" data-topic-id="12" data-status="locked"
+          onclick="openProModal('12 - EventBridge: Buses, Rules, and Patterns')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 12</span>
+            </div>
+            <h3 class="step-title font-mono">🔀 12 - EventBridge: Buses, Rules, and Patterns</h3>
+            <div class="step-meta-row font-mono text-secondary">
+              <span class="meta-item"><i class="fa-solid fa-play"></i> 6 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-terminal"></i> 3 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 3 quizzes</span>
+              <span class="meta-item"><i class="fa-solid fa-flag text-warning" style="color:#f59e0b;"></i> 1 challenge</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 45 min</span>
+            </div>
+            <p class="step-desc text-secondary" style="font-size: 12px; margin-top: 6px;">
+              Route events by content - build a custom bus, publish structured events, write patterns from broad catch-alls to numeric detail matching, and wire a failure-only alerting rule.
+            </p>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 13: Lambda: Functions and Invocations -->
+        <div class="topic-step-card locked-step" data-topic-id="13" data-status="locked"
+          onclick="openProModal('13 - Lambda: Functions and Invocations')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 13</span>
+            </div>
+            <h3 class="step-title font-mono">λ 13 - Lambda: Functions and Invocations</h3>
+            <div class="step-meta-row font-mono text-secondary">
+              <span class="meta-item"><i class="fa-solid fa-play"></i> 7 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-terminal"></i> 2 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 2 quizzes</span>
+              <span class="meta-item"><i class="fa-solid fa-flag text-warning" style="color:#f59e0b;"></i> 1 challenge</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 40 min</span>
+            </div>
+            <p class="step-desc text-secondary" style="font-size: 12px; margin-top: 6px;">
+              Run code with no server - read a function's configuration, master the two-layer invocation contract against a live target, understand cold starts and pricing, and smoke-test within a strict budget.
+            </p>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 14: Step Functions: Authoring Workflows -->
+        <div class="topic-step-card locked-step" data-topic-id="14" data-status="locked"
+          onclick="openProModal('14 - Step Functions: Authoring Workflows')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 14</span>
+            </div>
+            <h3 class="step-title font-mono">🪜 14 - Step Functions: Authoring Workflows</h3>
+            <div class="step-meta-row font-mono text-secondary">
+              <span class="meta-item"><i class="fa-solid fa-play"></i> 5 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-terminal"></i> 3 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 3 quizzes</span>
+              <span class="meta-item"><i class="fa-solid fa-flag text-warning" style="color:#f59e0b;"></i> 1 challenge</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 45 min</span>
+            </div>
+            <p class="step-desc text-secondary" style="font-size: 12px; margin-top: 6px;">
+              Write real Amazon States Language - sequences, branches, retry-and-catch armor, and parallel fan-out - validating every machine against the live service, up to a complete order workflow.
+            </p>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 15: Serverless Architectures -->
+        <div class="topic-step-card locked-step" data-topic-id="15" data-status="locked"
+          onclick="openProModal('15 - Serverless Architectures')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 15</span>
+            </div>
+            <h3 class="step-title font-mono">🧩 15 - Serverless Architectures</h3>
+            <div class="step-meta-row font-mono text-secondary">
+              <span class="meta-item"><i class="fa-solid fa-play"></i> 2 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-terminal"></i> 1 task</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 3 quizzes</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 35 min</span>
+            </div>
+            <p class="step-desc text-secondary" style="font-size: 12px; margin-top: 6px;">
+              Composing SQS, Lambda, DynamoDB, and EventBridge into designs that survive failures.
+            </p>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 16: ECS on Fargate -->
+        <div class="topic-step-card locked-step" data-topic-id="16" data-status="locked"
+          onclick="openProModal('16 - ECS on Fargate')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 16</span>
+            </div>
+            <h3 class="step-title font-mono">🐳 16 - ECS on Fargate</h3>
+            <div class="step-meta-row font-mono text-secondary">
+              <span class="meta-item"><i class="fa-solid fa-play"></i> 2 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-terminal"></i> 2 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 2 quizzes</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 40 min</span>
+            </div>
+            <p class="step-desc text-secondary" style="font-size: 12px; margin-top: 6px;">
+              Run containers without servers: task definitions, services, and one real Fargate task.
+            </p>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 17: CloudWatch Logs: Groups, Streams, and Structure -->
+        <div class="topic-step-card locked-step" data-topic-id="17" data-status="locked"
+          onclick="openProModal('17 - CloudWatch Logs: Groups, Streams, and Structure')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 17</span>
+            </div>
+            <h3 class="step-title font-mono">📜 17 - CloudWatch Logs: Groups, Streams, and Structure</h3>
+            <div class="step-meta-row font-mono text-secondary">
+              <span class="meta-item"><i class="fa-solid fa-play"></i> 5 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-terminal"></i> 3 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 2 quizzes</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 40 min</span>
+            </div>
+            <p class="step-desc text-secondary" style="font-size: 12px; margin-top: 6px;">
+              Centralize logs like production does - build a retention-bounded group and stream, ship batched and structured events, and answer debugging questions with filtered reads.
+            </p>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 18: CloudWatch: Metrics and Alarms -->
+        <div class="topic-step-card locked-step" data-topic-id="18" data-status="locked"
+          onclick="openProModal('18 - CloudWatch: Metrics and Alarms')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 18</span>
+            </div>
+            <h3 class="step-title font-mono">📈 18 - CloudWatch: Metrics and Alarms</h3>
+            <div class="step-meta-row font-mono text-secondary">
+              <span class="meta-item"><i class="fa-solid fa-play"></i> 6 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-terminal"></i> 3 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 2 quizzes</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 40 min</span>
+            </div>
+            <p class="step-desc text-secondary" style="font-size: 12px; margin-top: 6px;">
+              Turn measurements into monitoring - explore the metric catalog, translate an alerting sentence into a real alarm on a live function, master missing-data and flap damping, and clean up with evidence.
+            </p>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 19: CloudTrail: Reading the Audit Record -->
+        <div class="topic-step-card locked-step" data-topic-id="19" data-status="locked"
+          onclick="openProModal('19 - CloudTrail: Reading the Audit Record')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 19</span>
+            </div>
+            <h3 class="step-title font-mono">🔍 19 - CloudTrail: Reading the Audit Record</h3>
+            <div class="step-meta-row font-mono text-secondary">
+              <span class="meta-item"><i class="fa-solid fa-play"></i> 4 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-terminal"></i> 2 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 2 quizzes</span>
+              <span class="meta-item"><i class="fa-solid fa-flag text-warning" style="color:#f59e0b;"></i> 1 challenge</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 35 min</span>
+            </div>
+            <p class="step-desc text-secondary" style="font-size: 12px; margin-top: 6px;">
+              Learn who-did-what auditing - discover the organization trail watching the account, inspect live delivery and event coverage, identify audit gaps, and compile a real audit readiness report.
+            </p>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 20: Incident Response on AWS -->
+        <div class="topic-step-card locked-step" data-topic-id="20" data-status="locked"
+          onclick="openProModal('20 - Incident Response on AWS')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 20</span>
+            </div>
+            <h3 class="step-title font-mono">🚨 20 - Incident Response on AWS</h3>
+            <div class="step-meta-row font-mono text-secondary">
+              <span class="meta-item"><i class="fa-solid fa-play"></i> 1 concept</span>
+              <span class="meta-item"><i class="fa-solid fa-terminal"></i> 1 task</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 3 quizzes</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 40 min</span>
+            </div>
+            <p class="step-desc text-secondary" style="font-size: 12px; margin-top: 6px;">
+              The debugging order - alarm, metric, log, trail - practiced on a seeded incident.
+            </p>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 21: KMS: Keys, Envelopes, and Control -->
+        <div class="topic-step-card locked-step" data-topic-id="21" data-status="locked"
+          onclick="openProModal('21 - KMS: Keys, Envelopes, and Control')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 21</span>
+            </div>
+            <h3 class="step-title font-mono">🔐 21 - KMS: Keys, Envelopes, and Control</h3>
+            <div class="step-meta-row font-mono text-secondary">
+              <span class="meta-item"><i class="fa-solid fa-play"></i> 5 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-terminal"></i> 2 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 2 quizzes</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 35 min</span>
+            </div>
+            <p class="step-desc text-secondary" style="font-size: 12px; margin-top: 6px;">
+              Understand the keys behind cloud encryption - survey real service keys, read key policies with IAM eyes, master envelope encryption and rotation, and reason through revocation and blast radius.
+            </p>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 22: Security in Practice -->
+        <div class="topic-step-card locked-step" data-topic-id="22" data-status="locked"
+          onclick="openProModal('22 - Security in Practice')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 22</span>
+            </div>
+            <h3 class="step-title font-mono">🛡️ 22 - Security in Practice</h3>
+            <div class="step-meta-row font-mono text-secondary">
+              <span class="meta-item"><i class="fa-solid fa-play"></i> 2 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-terminal"></i> 1 task</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 3 quizzes</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 35 min</span>
+            </div>
+            <p class="step-desc text-secondary" style="font-size: 12px; margin-top: 6px;">
+              Permission layers, credential hygiene, and answering real audit questions.
+            </p>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 23: Cost Awareness -->
+        <div class="topic-step-card locked-step" data-topic-id="23" data-status="locked"
+          onclick="openProModal('23 - Cost Awareness')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 23</span>
+            </div>
+            <h3 class="step-title font-mono">💰 23 - Cost Awareness</h3>
+            <div class="step-meta-row font-mono text-secondary">
+              <span class="meta-item"><i class="fa-solid fa-play"></i> 3 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-terminal"></i> 2 tasks</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 2 quizzes</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 35 min</span>
+            </div>
+            <p class="step-desc text-secondary" style="font-size: 12px; margin-top: 6px;">
+              What AWS charges for, where waste hides, and how to cut a bill.
+            </p>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 24: Well-Architected: HA and DR -->
+        <div class="topic-step-card locked-step" data-topic-id="24" data-status="locked"
+          onclick="openProModal('24 - Well-Architected: HA and DR')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 24</span>
+            </div>
+            <h3 class="step-title font-mono">🏛️ 24 - Well-Architected: HA and DR</h3>
+            <div class="step-meta-row font-mono text-secondary">
+              <span class="meta-item"><i class="fa-solid fa-play"></i> 2 concepts</span>
+              <span class="meta-item"><i class="fa-solid fa-terminal"></i> 1 task</span>
+              <span class="meta-item"><i class="fa-solid fa-circle-question"></i> 3 quizzes</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 35 min</span>
+            </div>
+            <p class="step-desc text-secondary" style="font-size: 12px; margin-top: 6px;">
+              Failure domains, RTO and RPO, and designing for the failures that matter.
+            </p>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 25: Project: Deploy the Brightcart Web Tier -->
+        <div class="topic-step-card locked-step project-step" data-topic-id="25" data-status="locked"
+          onclick="openProModal('25 - Project: Deploy the Brightcart Web Tier')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 25 &middot; CAPSTONE PROJECT 1</span>
+            </div>
+            <h3 class="step-title font-mono">🛒 25 - Project: Deploy the Brightcart Web Tier</h3>
+            <div class="step-meta-row font-mono text-secondary">
+              <span class="meta-item"><i class="fa-solid fa-terminal"></i> 1 major hands-on task</span>
+              <span class="meta-item"><i class="fa-solid fa-diagram-project text-accent"></i> Architecture Build</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 75 min</span>
+            </div>
+            <p class="step-desc text-secondary" style="font-size: 12px; margin-top: 6px;">
+              Capstone. Versioned artifacts in S3, a user data bootstrap, a real deploy, and a rollback drill.
+            </p>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <!-- STEP 26: Project: Build the Order Pipeline -->
+        <div class="topic-step-card locked-step project-step" data-topic-id="26" data-status="locked"
+          onclick="openProModal('26 - Project: Build the Order Pipeline')">
+          <div class="step-indicator-wrapper">
+            <span class="step-idle-dot"></span>
+          </div>
+          <div class="step-card-main">
+            <div class="step-header-meta font-mono">
+              <span class="step-number-tag">STEP 26 &middot; CAPSTONE PROJECT 2</span>
+            </div>
+            <h3 class="step-title font-mono">🧾 26 - Project: Build the Order Pipeline</h3>
+            <div class="step-meta-row font-mono text-secondary">
+              <span class="meta-item"><i class="fa-solid fa-terminal"></i> 1 major hands-on task</span>
+              <span class="meta-item"><i class="fa-solid fa-diagram-project text-accent"></i> Serverless Pipeline</span>
+              <span class="meta-item"><i class="fa-regular fa-clock"></i> 90 min</span>
+            </div>
+            <p class="step-desc text-secondary" style="font-size: 12px; margin-top: 6px;">
+              Capstone. SNS fan-out, SQS with a dead-letter queue, a Lambda consumer, and an alarm on failures.
+            </p>
+          </div>
+          <div class="step-lock-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Certificate Requirement Accordion Bar -->
+      <div class="certificate-req-bar reveal-element" id="cert-req-toggle">
+        <div class="cert-bar-left">
+          <div class="cert-icon-seal">
+            <i class="fa-solid fa-award"></i>
+          </div>
+          <div class="cert-text">
+            <span class="cert-title font-mono">AWS Certified Cloud Practitioner &amp; DevOps Fundamentals</span>
+            <span class="cert-req-summary text-secondary">Requires completion of all 26 topics &amp; 2 Capstones</span>
+          </div>
+        </div>
+        <div class="cert-bar-right font-mono">
+          <span class="cert-status-badge">0 / 26 COMPLETE</span>
+          <i class="fa-solid fa-chevron-down cert-arrow"></i>
+        </div>
+      </div>
+
+      <!-- Pro Membership Upgrade Banner -->
+      <div class="pro-upgrade-card reveal-element">
+        <div class="pro-card-content">
+          <div class="pro-badge-pill font-mono">
+            <i class="fa-solid fa-bolt text-accent"></i> PRO &amp; CLOUD ACCESS
+          </div>
+          <h2 class="pro-card-title">Unlock all 26 AWS Fundamentals topics &amp; sandbox labs</h2>
+          <p class="pro-card-description text-secondary">
+            Get unlimited cloud playground time, instant verification on all 75 tasks, 13 architecture challenges, and 2 production capstone projects.
+          </p>
+          <div class="pro-card-actions">
+            <a href="javascript:void(0)" onclick="openProModal('Pro Membership')" class="btn btn-primary btn-pro-upgrade">See plans &rarr;</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Pro Modal Backdrop -->
+  <div class="pro-modal-backdrop" id="pro-modal-backdrop">
+    <div class="pro-modal-dialog">
+      <div class="pro-modal-header">
+        <div class="pro-badge-tag font-mono">
+          <i class="fa-solid fa-crown text-warning"></i> PRO MEMBERSHIP
+        </div>
+        <button class="btn-close-modal" id="btn-close-pro-modal" aria-label="Close dialog">&times;</button>
+      </div>
+
+      <div class="pro-modal-body">
+        <h3 class="pro-modal-title" id="pro-modal-item-title">Unlock AWS Fundamentals</h3>
+        <p class="pro-modal-desc text-secondary">
+          Step 2 through 26 require Pro or Cloud tier access. Upgrade now to get instant browser access to our AWS CLI emulator and interactive cloud sandboxes.
+        </p>
+
+        <div class="pro-features-list">
+          <div class="pro-feature-item">
+            <i class="fa-solid fa-check text-accent"></i>
+            <span>All 26 AWS Topics, 75 Tasks &amp; 13 Challenges</span>
+          </div>
+          <div class="pro-feature-item">
+            <i class="fa-solid fa-check text-accent"></i>
+            <span>2 Real-World Production Projects (Brightcart Web &amp; Order Pipeline)</span>
+          </div>
+          <div class="pro-feature-item">
+            <i class="fa-solid fa-check text-accent"></i>
+            <span>Constrained Sandbox Environment &amp; Real-time Verification</span>
+          </div>
+          <div class="pro-feature-item">
+            <i class="fa-solid fa-check text-accent"></i>
+            <span>Verified Certificate of Completion</span>
+          </div>
+        </div>
+
+        <div class="pro-pricing-box">
+          <div class="pro-price font-mono">
+            <span class="currency">$</span><span class="amount">19</span><span class="period">/month</span>
+          </div>
+          <p class="pro-guarantee text-secondary font-mono">Cancel anytime &middot; 7-day money-back guarantee</p>
+        </div>
+
+        <div class="pro-modal-actions">
+          <button class="btn btn-primary btn-unlock-full" id="btn-unlock-pro-confirm">
+            <i class="fa-solid fa-bolt"></i> Upgrade to Pro Now
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Section -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-info">
+        <a href="index.html" class="nav-logo footer-logo">
+          <div class="logo-icon">&gt;_</div>
+          <span class="logo-text">Shaikh Sir</span>
+        </a>
+        <p class="footer-tagline text-secondary">
+          Hands-on labs on real Linux &amp; cloud machines.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-title font-mono">PRODUCT</h4>
+        <ul>
+          <li><a href="index.html#skills">Catalog</a></li>
+          <li><a href="index.html#paths">Roadmaps</a></li>
+          <li><a href="skill-aws.html">AWS Fundamentals</a></li>
+          <li><a href="#">Docs</a></li>
+          <li><a href="#">Leaderboard</a></li>
+          <li><a href="#">Tutorials</a></li>
+          <li><a href="#">Pricing</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-title font-mono">COMPANY</h4>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Terms</a></li>
+          <li><a href="#">Privacy</a></li>
+          <li><a href="#">Cancellation &amp; Refunds</a></li>
+          <li><a href="#">Shipping Policy</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-title font-mono">SOCIAL</h4>
+        <ul>
+          <li><a href="https://github.com" target="_blank" rel="noopener"><i
+                class="fa-brands fa-github social-icon"></i> GitHub</a></li>
+          <li><a href="https://discord.com" target="_blank" rel="noopener"><i
+                class="fa-brands fa-discord social-icon"></i> Discord</a></li>
+          <li><a href="https://youtube.com" target="_blank" rel="noopener"><i
+                class="fa-brands fa-youtube social-icon"></i> YouTube</a></li>
+          <li><a href="https://linkedin.com" target="_blank" rel="noopener"><i
+                class="fa-brands fa-linkedin social-icon"></i> LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom container">
+      <div class="footer-copy font-mono">
+        &copy; 2026 Shaikh Sir
+      </div>
+      <div class="footer-credit font-mono">
+        runs on real machines
+      </div>
+    </div>
+  </footer>
+
+  <div id="toast-container" class="toast-container"></div>
+
+</body>
+
+</html>

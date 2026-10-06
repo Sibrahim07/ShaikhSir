@@ -170,6 +170,408 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================================================================
+     5B. ADMIN AUTHENTICATION & GLOBAL COURSE UNLOCK CONTROLLER
+     ========================================================================== */
+  const ADMIN_AUTH_KEY = 'shaikh_auth_user';
+  const VALID_ADMIN_IDS = ['admin', 'admin@shaikhsir.com', 'shaikh', 'shaikh@shaikhsir.com'];
+  const VALID_ADMIN_PASSWORDS = ['admin123', 'admin', 'shaikh123'];
+
+  // Global helper functions
+  window.isAdminLoggedIn = function () {
+    try {
+      const data = JSON.parse(localStorage.getItem(ADMIN_AUTH_KEY));
+      return !!(data && (data.role === 'admin' || data.isAdmin));
+    } catch (e) {
+      return false;
+    }
+  };
+
+  window.getLoggedInAdmin = function () {
+    try {
+      return JSON.parse(localStorage.getItem(ADMIN_AUTH_KEY));
+    } catch (e) {
+      return null;
+    }
+  };
+
+  window.logoutAdmin = function () {
+    localStorage.removeItem(ADMIN_AUTH_KEY);
+    showToast("🔒 Logged out. Locked courses protected.");
+    setTimeout(() => {
+      window.location.reload();
+    }, 400);
+  };
+
+  window.getLessonHrefForCurrentPage = function () {
+    const path = window.location.pathname.toLowerCase();
+    if (path.includes('terraform')) return 'lesson-terraform.html';
+    if (path.includes('networking')) return 'lesson-networking.html';
+    if (path.includes('kubernetes')) return 'lesson-kubernetes.html';
+    if (path.includes('linux')) return 'lesson-linux.html';
+    if (path.includes('docker')) return 'lesson-docker.html';
+    if (path.includes('git')) return 'lesson-git.html';
+    if (path.includes('helm')) return 'lesson-helm.html';
+    if (path.includes('argocd')) return 'lesson-argocd.html';
+    if (path.includes('aws')) return 'lesson-aws.html';
+    if (path.includes('devops-fundamentals')) return 'lesson-devops-fundamentals.html';
+    
+    // Look for any lesson link on the page
+    const existing = document.querySelector('a[href^="lesson-"]');
+    if (existing) return existing.getAttribute('href');
+    return 'lesson-devops-fundamentals.html';
+  };
+
+  // Ensure Auth Modal Backdrop exists in DOM
+  function initAuthModalDOM() {
+    if (document.getElementById('auth-modal-backdrop')) return;
+
+    const modalBackdrop = document.createElement('div');
+    modalBackdrop.id = 'auth-modal-backdrop';
+    modalBackdrop.className = 'auth-modal-backdrop';
+    modalBackdrop.innerHTML = `
+      <div class="auth-modal" role="dialog" aria-modal="true" aria-labelledby="auth-modal-title">
+        <div class="auth-modal-header">
+          <div class="auth-brand">
+            <div class="auth-brand-icon font-mono">&gt;_</div>
+            <div class="auth-brand-text">Shaikh Sir Access Portal</div>
+            <span class="auth-badge-tag font-mono">SECURE</span>
+          </div>
+          <button class="btn-close-auth-modal" id="btn-close-auth-modal" aria-label="Close Modal">&times;</button>
+        </div>
+        <div class="auth-modal-body">
+          <h2 class="auth-modal-title" id="auth-modal-title">Sign In to Shaikh Sir</h2>
+          <p class="auth-modal-subtitle">Sign in as Admin to access all locked courses, interactive cloud labs, and hands-on tracks.</p>
+
+          <div class="auth-error-box" id="auth-error-box">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <span id="auth-error-text">Invalid ID or Password</span>
+          </div>
+
+          <form class="auth-form" id="auth-login-form">
+            <div class="auth-field">
+              <label class="auth-label" for="auth-input-id">
+                <span>User ID / Username / Email</span>
+                <span class="font-mono text-accent" style="font-size:10px;">REQUIRED</span>
+              </label>
+              <div class="auth-input-wrapper">
+                <i class="fa-solid fa-user auth-input-icon"></i>
+                <input type="text" id="auth-input-id" class="auth-input font-mono" placeholder="e.g. admin" required autocomplete="username" />
+              </div>
+            </div>
+
+            <div class="auth-field">
+              <label class="auth-label" for="auth-input-pass">
+                <span>Password</span>
+                <span class="font-mono text-accent" style="font-size:10px;">REQUIRED</span>
+              </label>
+              <div class="auth-input-wrapper">
+                <i class="fa-solid fa-lock auth-input-icon"></i>
+                <input type="password" id="auth-input-pass" class="auth-input font-mono" placeholder="Enter password" required autocomplete="current-password" />
+                <button type="button" class="btn-toggle-password" id="btn-toggle-password" aria-label="Toggle password visibility">
+                  <i class="fa-regular fa-eye"></i>
+                </button>
+              </div>
+            </div>
+
+            <button type="submit" class="btn-auth-submit" id="btn-auth-submit">
+              <i class="fa-solid fa-shield-halved"></i>
+              <span>Sign In &amp; Unlock All Courses</span>
+            </button>
+          </form>
+
+          <div class="auth-credentials-hint-card">
+            <div class="auth-hint-header">
+              <span><i class="fa-solid fa-key"></i> DEFAULT ADMIN CREDENTIALS</span>
+              <span class="font-mono">FULL ACCESS</span>
+            </div>
+            <div class="auth-hint-rows font-mono">
+              <div class="auth-hint-item">
+                <span class="auth-hint-key">Admin ID:</span>
+                <code class="auth-hint-val">admin</code>
+              </div>
+              <div class="auth-hint-item">
+                <span class="auth-hint-key">Password:</span>
+                <code class="auth-hint-val">admin123</code>
+              </div>
+            </div>
+            <button type="button" class="btn-auth-autofill" id="btn-auth-autofill">
+              <i class="fa-solid fa-bolt"></i>
+              <span>Auto-fill Admin Credentials &amp; Sign In</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modalBackdrop);
+
+    // Event listeners inside modal
+    const btnClose = modalBackdrop.querySelector('#btn-close-auth-modal');
+    if (btnClose) {
+      btnClose.addEventListener('click', closeAuthModal);
+    }
+
+    modalBackdrop.addEventListener('click', (e) => {
+      if (e.target === modalBackdrop) closeAuthModal();
+    });
+
+    const btnTogglePass = modalBackdrop.querySelector('#btn-toggle-password');
+    const inputPass = modalBackdrop.querySelector('#auth-input-pass');
+    if (btnTogglePass && inputPass) {
+      btnTogglePass.addEventListener('click', () => {
+        const isPass = inputPass.getAttribute('type') === 'password';
+        inputPass.setAttribute('type', isPass ? 'text' : 'password');
+        btnTogglePass.innerHTML = isPass ? '<i class="fa-regular fa-eye-slash"></i>' : '<i class="fa-regular fa-eye"></i>';
+      });
+    }
+
+    const btnAutofill = modalBackdrop.querySelector('#btn-auth-autofill');
+    const inputId = modalBackdrop.querySelector('#auth-input-id');
+    if (btnAutofill && inputId && inputPass) {
+      btnAutofill.addEventListener('click', () => {
+        inputId.value = 'admin';
+        inputPass.value = 'admin123';
+        handleAuthSubmit();
+      });
+    }
+
+    const form = modalBackdrop.querySelector('#auth-login-form');
+    if (form) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        handleAuthSubmit();
+      });
+    }
+  }
+
+  // Ensure Floating Admin Status Widget exists in DOM
+  function initAdminFloatingStatusDOM() {
+    if (document.getElementById('admin-floating-status')) return;
+    const floating = document.createElement('div');
+    floating.id = 'admin-floating-status';
+    floating.className = 'admin-floating-status';
+    floating.innerHTML = `
+      <div class="admin-floating-pulse"></div>
+      <div class="admin-floating-text font-mono">
+        <i class="fa-solid fa-shield-halved text-accent"></i>
+        <span>ADMIN: ALL COURSES UNLOCKED</span>
+        <span class="admin-floating-badge">FULL ACCESS</span>
+      </div>
+      <button class="btn-admin-logout" id="btn-floating-logout" title="Log Out Admin">
+        <i class="fa-solid fa-right-from-bracket"></i>
+      </button>
+    `;
+    document.body.appendChild(floating);
+
+    const btnLogout = floating.querySelector('#btn-floating-logout');
+    if (btnLogout) {
+      btnLogout.addEventListener('click', window.logoutAdmin);
+    }
+  }
+
+  function openAuthModal() {
+    initAuthModalDOM();
+    const modal = document.getElementById('auth-modal-backdrop');
+    const errorBox = document.getElementById('auth-error-box');
+    if (errorBox) errorBox.style.display = 'none';
+    if (modal) {
+      modal.style.display = 'flex';
+      const inputId = document.getElementById('auth-input-id');
+      if (inputId) setTimeout(() => inputId.focus(), 50);
+    }
+  }
+
+  function closeAuthModal() {
+    const modal = document.getElementById('auth-modal-backdrop');
+    if (modal) modal.style.display = 'none';
+  }
+
+  window.openAuthModal = openAuthModal;
+  window.closeAuthModal = closeAuthModal;
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeAuthModal();
+  });
+
+  function handleAuthSubmit() {
+    const inputId = document.getElementById('auth-input-id');
+    const inputPass = document.getElementById('auth-input-pass');
+    const errorBox = document.getElementById('auth-error-box');
+    const errorText = document.getElementById('auth-error-text');
+
+    const idVal = inputId ? inputId.value.trim().toLowerCase() : '';
+    const passVal = inputPass ? inputPass.value.trim() : '';
+
+    if (!idVal || !passVal) {
+      if (errorBox && errorText) {
+        errorText.textContent = "Please enter both User ID and Password.";
+        errorBox.style.display = 'flex';
+      }
+      return;
+    }
+
+    const isIdOk = VALID_ADMIN_IDS.includes(idVal);
+    const isPassOk = VALID_ADMIN_PASSWORDS.includes(passVal);
+
+    if (isIdOk && isPassOk) {
+      const user = {
+        username: idVal.includes('@') ? idVal.split('@')[0] : idVal,
+        email: idVal.includes('@') ? idVal : `${idVal}@shaikhsir.com`,
+        role: 'admin',
+        isAdmin: true,
+        name: 'Shaikh Admin',
+        loggedInAt: new Date().toISOString()
+      };
+      localStorage.setItem(ADMIN_AUTH_KEY, JSON.stringify(user));
+      closeAuthModal();
+      showToast("🎉 Admin access verified! All locked courses and labs unlocked.");
+      applyAdminPrivileges();
+    } else {
+      if (errorBox && errorText) {
+        errorText.textContent = "Invalid credentials. Use Admin ID: admin and Password: admin123";
+        errorBox.style.display = 'flex';
+      }
+    }
+  }
+
+  // Master Unlocking Engine
+  function applyAdminPrivileges() {
+    if (!window.isAdminLoggedIn()) return;
+
+    // 1. Update all navbar sign-in buttons to Admin Profile Pill
+    const signinButtons = document.querySelectorAll('.btn-signin, .btn-signin-mobile');
+    signinButtons.forEach(btn => {
+      const pill = document.createElement('div');
+      pill.className = 'admin-user-pill';
+      pill.innerHTML = `
+        <i class="fa-solid fa-shield-halved admin-shield-icon"></i>
+        <span class="admin-name-tag font-mono">admin</span>
+        <button class="btn-admin-logout" title="Sign Out Admin" aria-label="Sign Out">
+          <i class="fa-solid fa-right-from-bracket"></i>
+        </button>
+      `;
+      const logoutBtn = pill.querySelector('.btn-admin-logout');
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          window.logoutAdmin();
+        });
+      }
+      btn.replaceWith(pill);
+    });
+
+    // 2. Display Floating Admin Status Widget
+    initAdminFloatingStatusDOM();
+    const floating = document.getElementById('admin-floating-status');
+    if (floating) floating.style.display = 'flex';
+
+    // 3. Unlock all course & skill cards
+    const targetLesson = window.getLessonHrefForCurrentPage();
+    const lockedCards = document.querySelectorAll('.topic-step-card.locked-step, .topic-step-card.pro-locked-card, .topic-step-card[data-status="locked"]');
+    
+    lockedCards.forEach(card => {
+      card.classList.remove('locked-step');
+      card.classList.remove('pro-locked-card');
+      card.classList.add('admin-unlocked-card');
+      card.setAttribute('data-status', 'unlocked');
+
+      // Clear any inline openProModal onclick
+      const currentClick = card.getAttribute('onclick') || '';
+      if (currentClick.includes('openProModal')) {
+        card.removeAttribute('onclick');
+      }
+
+      // Update Lock Icon to Unlocked Badge
+      const lockIcon = card.querySelector('.step-lock-icon');
+      if (lockIcon) {
+        lockIcon.innerHTML = '<span class="step-unlocked-badge font-mono"><i class="fa-solid fa-lock-open"></i> UNLOCKED</span>';
+        lockIcon.setAttribute('title', 'Unlocked by Admin');
+      }
+
+      // Click handler to open lesson or lab
+      card.style.cursor = 'pointer';
+      card.onclick = function (e) {
+        if (e.target.closest('button') || e.target.closest('a')) return;
+        const topicId = card.getAttribute('data-topic-id');
+        if (window.location.pathname.toLowerCase().includes('linux') && window.startLinuxLab && topicId) {
+          window.startLinuxLab(topicId);
+        } else if (targetLesson) {
+          window.location.href = targetLesson;
+        }
+      };
+
+      // Ensure Action Button exists
+      let actionBox = card.querySelector('.step-action, .step-card-action');
+      if (!actionBox) {
+        actionBox = document.createElement('div');
+        actionBox.className = 'step-action';
+        card.appendChild(actionBox);
+      }
+      if (!actionBox.querySelector('a, button')) {
+        const topicId = card.getAttribute('data-topic-id');
+        const actionBtn = document.createElement('a');
+        actionBtn.className = 'btn-step-action btn-continue-lab font-mono';
+        actionBtn.href = targetLesson;
+        actionBtn.innerHTML = '<span>Start Lesson &amp; Lab</span> <i class="fa-solid fa-arrow-right"></i>';
+        if (window.location.pathname.toLowerCase().includes('linux') && topicId) {
+          actionBtn.href = 'javascript:void(0)';
+          actionBtn.onclick = () => window.startLinuxLab(topicId);
+        }
+        actionBox.appendChild(actionBtn);
+      }
+    });
+
+    // 4. Unlock Roadmap nodes
+    document.querySelectorAll('.checkpoint-node').forEach(node => {
+      const stats = node.querySelector('.node-stats');
+      if (stats && stats.textContent.includes('Locked')) {
+        stats.innerHTML = stats.innerHTML.replace('Locked', '<span class="text-accent font-bold"><i class="fa-solid fa-lock-open"></i> Unlocked (Admin)</span>');
+        node.classList.add('admin-unlocked-node');
+        if (node.tagName !== 'A') {
+          node.style.cursor = 'pointer';
+          node.addEventListener('click', () => {
+            showToast("⚡ Admin Access: Navigating to skill checkpoint...");
+            window.location.href = 'index.html#skills';
+          });
+        }
+      }
+    });
+
+    // 5. Unlock Homepage hero IDE mockup items
+    document.querySelectorAll('.lesson-item').forEach(item => {
+      const lockIcon = item.querySelector('.fa-lock');
+      if (lockIcon) {
+        lockIcon.className = 'fa-solid fa-circle-check text-accent lesson-icon';
+        item.setAttribute('title', 'Admin Access: Unlocked');
+      }
+    });
+
+    // 6. Close proModalBackdrop if it was open
+    const proBackdrop = document.getElementById('pro-modal-backdrop');
+    if (proBackdrop) proBackdrop.style.display = 'none';
+  }
+
+  window.applyAdminPrivileges = applyAdminPrivileges;
+
+  // Bind all Sign In triggers across the page
+  function bindSignInTriggers() {
+    const signinButtons = document.querySelectorAll('.btn-signin, .btn-signin-mobile, [data-action="open-signin"]');
+    signinButtons.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        openAuthModal();
+      });
+    });
+  }
+
+  bindSignInTriggers();
+
+  // If already logged in on page load, apply admin mode immediately
+  if (window.isAdminLoggedIn()) {
+    applyAdminPrivileges();
+  }
+
+  /* ==========================================================================
      6. CODE SNIPPET COPY TO CLIPBOARD
      ========================================================================== */
   const copyButtons = document.querySelectorAll('.btn-copy');
@@ -519,8 +921,12 @@ document.addEventListener('DOMContentLoaded', () => {
       const topicId = card.getAttribute('data-topic-id');
 
       if (status === 'locked') {
-        showToast("🔒 Topic locked. Pro or AI membership required to access this lab.");
-      } else if (status === 'active' || status === 'free') {
+        if (window.isAdminLoggedIn && window.isAdminLoggedIn()) {
+          window.startLinuxLab(topicId);
+        } else {
+          showToast("🔒 Topic locked. Pro or AI membership required to access this lab.");
+        }
+      } else if (status === 'active' || status === 'free' || status === 'unlocked') {
         window.startLinuxLab(topicId);
       }
     });
@@ -1341,6 +1747,14 @@ hostname   # Displays the system host identifier</code></pre>
   const btnUnlockProConfirm = document.getElementById('btn-unlock-pro-confirm');
 
   window.openProModal = function (title) {
+    if (window.isAdminLoggedIn && window.isAdminLoggedIn()) {
+      showToast(`🔓 Admin: Accessing "${title || 'Topic'}"...`);
+      const target = window.getLessonHrefForCurrentPage ? window.getLessonHrefForCurrentPage() : null;
+      if (target) {
+        setTimeout(() => { window.location.href = target; }, 350);
+      }
+      return;
+    }
     if (proModalBackdrop) {
       if (proModalItemTitle && title) {
         proModalItemTitle.textContent = `Unlock ${title}`;
@@ -6482,7 +6896,503 @@ npm test</code></pre>
     renderArgoLesson(1);
   }
 
+  /* ==========================================================================
+     32. AWS FUNDAMENTALS LESSON CONTROLLER & SANDBOX WORKSPACE
+     ========================================================================== */
+  const awsLessonWorkspace = document.getElementById('aws-lesson-scroll-body');
+  if (awsLessonWorkspace) {
+    const awsStepperItems = document.querySelectorAll('.stepper-item[data-aws-step]');
+    const awsProgressArc = document.getElementById('aws-lesson-progress-arc');
+    const awsProgressPercent = document.getElementById('aws-lesson-progress-percent');
+    const awsStatDoneCount = document.getElementById('aws-stat-done-count');
+    const awsStatQuizzesCount = document.getElementById('aws-stat-quizzes-count');
+    const awsStatTasksCount = document.getElementById('aws-stat-tasks-count');
+
+    const awsLessonStepCounter = document.getElementById('aws-lesson-step-counter');
+    const awsLessonHeading = document.getElementById('aws-lesson-heading');
+    const awsLessonTypePill = document.getElementById('aws-lesson-type-pill');
+    const awsLessonBodyContent = document.getElementById('aws-lesson-body-content');
+    const awsLessonQuizContainer = document.getElementById('aws-lesson-quiz-container');
+    const awsQuizQuestionText = document.getElementById('aws-quiz-question-text');
+    const awsQuizOptionsList = document.getElementById('aws-quiz-options-list');
+    const awsQuizFeedbackBox = document.getElementById('aws-quiz-feedback-box');
+
+    const btnAwsPrevStep = document.getElementById('aws-btn-lesson-prev');
+    const btnAwsNextStep = document.getElementById('aws-btn-lesson-next');
+
+    const btnAwsVoicePlay = document.getElementById('aws-btn-voice-play');
+    const awsVoiceIcon = document.getElementById('aws-voice-icon');
+    const awsVoiceStatusText = document.getElementById('aws-voice-status-text');
+    const awsVoiceTimer = document.getElementById('aws-voice-timer');
+
+    // Terminal Elements
+    const awsTerminalStandbyView = document.getElementById('aws-terminal-standby-view');
+    const awsTerminalActiveView = document.getElementById('aws-terminal-active-view');
+    const awsBtnStartLiveLab = document.getElementById('aws-btn-start-live-lab');
+    const awsTerminalViewport = document.getElementById('aws-terminal-viewport');
+    const awsTerminalCliInput = document.getElementById('aws-terminal-cli-input');
+    const btnAwsCliSubmit = document.getElementById('aws-btn-cli-submit');
+
+    // Tool Strip & Drawer
+    const btnToggleEditor = document.getElementById('btn-toggle-editor');
+    const btnToggleNotes = document.getElementById('btn-toggle-notes');
+    const toolsDrawer = document.getElementById('tools-drawer');
+    const btnCloseDrawer = document.getElementById('btn-close-drawer');
+    const drawerTitle = document.getElementById('drawer-title');
+    const userScratchpadNotes = document.getElementById('user-scratchpad-notes');
+    const btnCollapseSidebar = document.getElementById('btn-collapse-sidebar');
+    const btnAwsLessonThemeToggle = document.getElementById('btn-aws-lesson-theme-toggle');
+
+    let awsCurrentStep = 1;
+    let awsVoicePlaying = false;
+    let awsVoiceInterval = null;
+    let awsCurrentVoiceSeconds = 182; // 3:02
+    let awsQuizzesPassed = 0;
+
+    const awsLessonsData = {
+      1: {
+        stepNum: 1,
+        type: 'Lesson',
+        title: 'What cloud computing is',
+        duration: '· 3:02',
+        seconds: 182,
+        voiceText: 'In this lesson you will learn what cloud computing is, and why companies rent servers instead of buying them. Picture a small company that runs an online shop. Ten years ago the only way to get servers was to buy them up front. Cloud computing allows you to rent computing resources on demand and only pay for what you use.',
+        bodyHtml: `
+          <p>
+            In this lesson you will learn what cloud computing is, and why companies rent servers instead of buying them.
+          </p>
+          <p>
+            Picture a small company that runs an online shop. To put the shop on the internet, they need servers - real computers that run all day and answer requests from customers. Ten years ago the only way to get servers was to buy them. You paid a lot of money up front, waited weeks for delivery, found a room with power and cooling, and hired someone to fix them when a disk died.
+          </p>
+          <p>
+            Then the holiday season arrives. Traffic triples for two weeks. The servers they bought cannot handle it, so the site slows down. They buy more servers. In January traffic drops back to normal, and the extra servers sit there doing nothing - but they were already paid for.
+          </p>
+          <h3 class="lesson-subheading-underline font-mono">Renting instead of buying</h3>
+          <p>
+            Cloud computing solves this. A cloud provider builds huge buildings full of servers, called <strong>data centers</strong>. You never see these buildings. You rent a slice of their computing power over the internet, use it for as long as you need, and stop paying the moment you are done. The provider handles electricity, cooling, hardware failures, and security guards at the door.
+          </p>
+        `
+      },
+      2: {
+        stepNum: 2,
+        type: 'Lesson',
+        title: 'What AWS is - regions, services, and the console',
+        duration: '· 3:15',
+        seconds: 195,
+        voiceText: 'Amazon Web Services, or AWS, is the world’s most comprehensive cloud platform. It offers compute, storage, databases, and networking across dozens of geographical regions around the globe.',
+        bodyHtml: `
+          <p>
+            <strong>Amazon Web Services (AWS)</strong> launched in 2006 with simple storage and compute services. Today it powers millions of businesses worldwide, from early-stage startups to multinational enterprises and government agencies.
+          </p>
+          <p>
+            AWS is structured across physical <strong>Regions</strong> (e.g. <code>us-east-1</code> in N. Virginia, <code>eu-west-1</code> in Ireland, <code>ap-south-1</code> in Mumbai). Inside every Region are multiple isolated <strong>Availability Zones (AZs)</strong> connected by ultra-low-latency fiber.
+          </p>
+          <h3 class="lesson-subheading-underline font-mono">Three Ways to Control AWS</h3>
+          <ul class="lesson-bullet-list" style="margin-left: 20px; line-height: 1.8; color: #d1d5db;">
+            <li><strong>AWS Management Console:</strong> A clean web UI for clicking, monitoring, and configuring services visually.</li>
+            <li><strong>AWS Command Line Interface (CLI):</strong> Automate tasks directly from your shell with tools like <code>aws s3 ls</code> or <code>aws ec2 describe-instances</code>.</li>
+            <li><strong>Software Development Kits (SDKs) & APIs:</strong> Programmatic access in Python (boto3), Go, Node.js, and Java.</li>
+          </ul>
+        `
+      },
+      3: {
+        stepNum: 3,
+        type: 'Quiz',
+        title: 'Choosing what to migrate',
+        duration: '· 1:30',
+        seconds: 90,
+        quiz: {
+          q: 'When an online store migrates their physical datacenter servers to AWS, what is the primary economic benefit during seasonal holiday spikes?',
+          options: [
+            { text: 'They pay high upfront capital expenditures for servers that sit idle in January.', correct: false, note: 'That is the flaw of on-premise hardware.' },
+            { text: 'They scale up server instances on demand during high traffic and turn them off immediately after, only paying for hours used.', correct: true, note: 'Elasticity converts fixed capital expense into flexible variable operating expense.' },
+            { text: 'AWS gifts all compute and bandwidth instances completely free of charge.', correct: false, note: 'AWS operates on a pay-as-you-go commercial model.' },
+            { text: 'Physical servers must still be delivered and racked manually in the company office.', correct: false, note: 'AWS manages 100% of the physical hardware in their data centers.' }
+          ]
+        }
+      },
+      4: {
+        stepNum: 4,
+        type: 'Lesson',
+        title: 'How DevOps engineers use AWS',
+        duration: '· 2:45',
+        seconds: 165,
+        voiceText: 'DevOps engineers bridge the gap between application software and cloud infrastructure. On AWS, DevOps engineers use managed container services, automated pipelines, and cloud monitoring.',
+        bodyHtml: `
+          <p>
+            For DevOps and Platform engineers, AWS is not merely a place to host virtual machines—it is an automated software factory.
+          </p>
+          <p>
+            DevOps teams leverage AWS building blocks including <strong>Amazon EC2</strong> (elastic compute), <strong>Amazon ECS & EKS</strong> (container orchestration), <strong>AWS Lambda</strong> (event-driven serverless), and <strong>Amazon S3</strong> (durable object storage).
+          </p>
+          <h3 class="lesson-subheading-underline font-mono">Key DevOps Responsibilities on AWS</h3>
+          <ul class="lesson-bullet-list" style="margin-left: 20px; line-height: 1.8; color: #d1d5db;">
+            <li><strong>Infrastructure Automation:</strong> Replace manual console clicks with reusable code.</li>
+            <li><strong>Observability:</strong> Monitor CPU, memory, and application latency with Amazon CloudWatch metrics and alarms.</li>
+            <li><strong>High Availability:</strong> Spread workloads across multiple Availability Zones with Auto Scaling and Elastic Load Balancing.</li>
+          </ul>
+        `
+      },
+      5: {
+        stepNum: 5,
+        type: 'Lesson',
+        title: 'Where IaC and CI/CD fit',
+        duration: '· 2:50',
+        seconds: 170,
+        voiceText: 'Infrastructure as Code allows teams to define AWS environments in code files like Terraform. CI/CD pipelines automate testing and deployment every time code is merged.',
+        bodyHtml: `
+          <p>
+            Modern cloud engineering relies on two foundational pillars: <strong>Infrastructure as Code (IaC)</strong> and <strong>CI/CD pipelines</strong>.
+          </p>
+          <p>
+            Instead of manually creating VPCs and databases in the AWS Console, you define your infrastructure in declarative files using tools like <strong>Terraform</strong> or <strong>AWS CloudFormation</strong>. Your infrastructure is version-controlled with Git, peer-reviewed in pull requests, and auditable.
+          </p>
+          <h3 class="lesson-subheading-underline font-mono">Automated CI/CD Delivery</h3>
+          <p>
+            When a developer commits code, automated pipelines (like GitHub Actions, GitLab CI, or AWS CodePipeline) run unit tests, build Docker images, and deploy new revisions to AWS without human downtime.
+          </p>
+        `
+      },
+      6: {
+        stepNum: 6,
+        type: 'Quiz',
+        title: 'Knowledge check',
+        duration: '· 1:45',
+        seconds: 105,
+        quiz: {
+          q: 'Which practice describes defining cloud infrastructure declaratively in version-controlled configuration files like Terraform?',
+          options: [
+            { text: 'Manual Console Clicking', correct: false, note: 'Manual clicking is error-prone and cannot be peer-reviewed in Git.' },
+            { text: 'Infrastructure as Code (IaC)', correct: true, note: 'IaC ensures repeatable, idempotent, version-controlled cloud environments.' },
+            { text: 'On-premises Bare Metal Racking', correct: false, note: 'Bare metal racking refers to physical datacenter hardware installation.' },
+            { text: 'Air-gapped Network Isolation', correct: false, note: 'Air-gapping is a specialized physical security technique.' }
+          ]
+        }
+      }
+    };
+
+    function stopAwsVoiceAudio() {
+      awsVoicePlaying = false;
+      if (awsVoiceInterval) clearInterval(awsVoiceInterval);
+      if (awsVoiceIcon) awsVoiceIcon.className = 'fa-solid fa-play';
+      if (btnAwsVoicePlay) btnAwsVoicePlay.classList.remove('playing');
+      if (awsVoiceStatusText) awsVoiceStatusText.textContent = "Explain this lesson";
+      if (window.speechSynthesis) window.speechSynthesis.cancel();
+    }
+
+    function updateAwsProgress() {
+      // 6 steps total: at step 1 = 0%, at step 2 = 20%, ..., at step 6 = 100%
+      const percent = Math.round(((awsCurrentStep - 1) / 5) * 100);
+      if (awsProgressPercent) awsProgressPercent.textContent = `${percent}%`;
+      if (awsProgressArc) {
+        const offset = Math.round(264 - (264 * percent) / 100);
+        awsProgressArc.setAttribute('stroke-dashoffset', offset);
+      }
+      if (awsStatDoneCount) awsStatDoneCount.textContent = (awsCurrentStep - 1);
+
+      awsStepperItems.forEach(item => {
+        const stepNum = parseInt(item.getAttribute('data-aws-step'), 10);
+        item.classList.remove('active');
+        if (stepNum === awsCurrentStep) {
+          item.classList.add('active');
+        }
+        if (stepNum < awsCurrentStep) {
+          item.classList.add('done');
+        } else {
+          item.classList.remove('done');
+        }
+      });
+    }
+
+    function renderAwsLesson(stepIndex) {
+      awsCurrentStep = stepIndex;
+      const lesson = awsLessonsData[awsCurrentStep] || awsLessonsData[1];
+
+      if (awsLessonStepCounter) awsLessonStepCounter.textContent = `${lesson.type.toUpperCase()} · ${lesson.stepNum} OF 6`;
+      if (awsLessonHeading) awsLessonHeading.textContent = lesson.title;
+      if (awsLessonTypePill) {
+        awsLessonTypePill.textContent = lesson.type;
+        awsLessonTypePill.className = `lesson-type-badge font-mono ${lesson.type.toLowerCase()}-badge`;
+      }
+
+      stopAwsVoiceAudio();
+      awsCurrentVoiceSeconds = lesson.seconds;
+      if (awsVoiceTimer) awsVoiceTimer.textContent = lesson.duration;
+
+      if (lesson.type === 'Quiz' && lesson.quiz) {
+        if (awsLessonBodyContent) awsLessonBodyContent.style.display = 'none';
+        if (awsLessonQuizContainer) {
+          awsLessonQuizContainer.style.display = 'block';
+          if (awsQuizQuestionText) awsQuizQuestionText.textContent = lesson.quiz.q;
+          if (awsQuizOptionsList) {
+            awsQuizOptionsList.innerHTML = '';
+            lesson.quiz.options.forEach((opt, idx) => {
+              const btn = document.createElement('button');
+              btn.className = 'quiz-option-btn font-mono';
+              btn.style.cssText = 'width: 100%; text-align: left; padding: 12px 16px; margin-bottom: 10px; background: #141416; border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; color: #ffffff; cursor: pointer; display: flex; gap: 10px; align-items: flex-start; font-size: 13px; line-height: 1.5; transition: all 0.2s;';
+              btn.innerHTML = `<span style="font-weight: 700; color: var(--accent-green); min-width: 20px;">${String.fromCharCode(65 + idx)}.</span> <span>${opt.text}</span>`;
+              
+              btn.addEventListener('mouseenter', () => {
+                if (!btn.disabled) btn.style.borderColor = 'var(--accent-green)';
+              });
+              btn.addEventListener('mouseleave', () => {
+                if (!btn.disabled) btn.style.borderColor = 'rgba(255,255,255,0.08)';
+              });
+
+              btn.addEventListener('click', () => {
+                const allBtns = awsQuizOptionsList.querySelectorAll('.quiz-option-btn');
+                allBtns.forEach(b => b.disabled = true);
+
+                if (opt.correct) {
+                  btn.style.background = 'rgba(34, 229, 132, 0.15)';
+                  btn.style.borderColor = 'var(--accent-green)';
+                  if (awsQuizFeedbackBox) {
+                    awsQuizFeedbackBox.style.display = 'block';
+                    awsQuizFeedbackBox.style.cssText = 'display: block; margin-top: 14px; padding: 14px; border-radius: 8px; font-size: 12.5px; background: rgba(34, 229, 132, 0.1); border: 1px solid var(--accent-green); color: #ffffff;';
+                    awsQuizFeedbackBox.innerHTML = `<strong>✓ Correct!</strong> ${opt.note}`;
+                  }
+                  showToast("🎯 Quiz passed! Well done.");
+                  awsQuizzesPassed = Math.min(2, awsQuizzesPassed + 1);
+                  if (awsStatQuizzesCount) awsStatQuizzesCount.textContent = `${awsQuizzesPassed}/2`;
+                } else {
+                  btn.style.background = 'rgba(239, 68, 68, 0.15)';
+                  btn.style.borderColor = '#ef4444';
+                  if (awsQuizFeedbackBox) {
+                    awsQuizFeedbackBox.style.display = 'block';
+                    awsQuizFeedbackBox.style.cssText = 'display: block; margin-top: 14px; padding: 14px; border-radius: 8px; font-size: 12.5px; background: rgba(239, 68, 68, 0.1); border: 1px solid #ef4444; color: #ffffff;';
+                    awsQuizFeedbackBox.innerHTML = `<strong>✗ Incorrect.</strong> ${opt.note}`;
+                  }
+                }
+              });
+              awsQuizOptionsList.appendChild(btn);
+            });
+          }
+          if (awsQuizFeedbackBox) awsQuizFeedbackBox.style.display = 'none';
+        }
+      } else {
+        if (awsLessonQuizContainer) awsLessonQuizContainer.style.display = 'none';
+        if (awsLessonBodyContent) {
+          awsLessonBodyContent.style.display = 'block';
+          awsLessonBodyContent.innerHTML = lesson.bodyHtml;
+        }
+      }
+
+      if (btnAwsPrevStep) btnAwsPrevStep.disabled = (awsCurrentStep === 1);
+      if (btnAwsNextStep) {
+        if (awsCurrentStep === 6) {
+          btnAwsNextStep.innerHTML = 'Complete Module &rarr;';
+        } else {
+          btnAwsNextStep.innerHTML = 'Next &rarr;';
+        }
+      }
+
+      updateAwsProgress();
+    }
+
+    awsStepperItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const step = parseInt(item.getAttribute('data-aws-step'), 10);
+        renderAwsLesson(step);
+      });
+    });
+
+    if (btnAwsPrevStep) {
+      btnAwsPrevStep.addEventListener('click', () => {
+        if (awsCurrentStep > 1) renderAwsLesson(awsCurrentStep - 1);
+      });
+    }
+
+    if (btnAwsNextStep) {
+      btnAwsNextStep.addEventListener('click', () => {
+        if (awsCurrentStep < 6) {
+          renderAwsLesson(awsCurrentStep + 1);
+        } else {
+          showToast("🎉 Congratulations! You completed 01 - What Cloud and AWS Are.");
+          setTimeout(() => {
+            window.location.href = 'skill-aws.html';
+          }, 1200);
+        }
+      });
+    }
+
+    // AI Voice Narrator
+    if (btnAwsVoicePlay) {
+      btnAwsVoicePlay.addEventListener('click', () => {
+        if (awsVoicePlaying) {
+          stopAwsVoiceAudio();
+        } else {
+          awsVoicePlaying = true;
+          if (awsVoiceIcon) awsVoiceIcon.className = 'fa-solid fa-pause';
+          btnAwsVoicePlay.classList.add('playing');
+          if (awsVoiceStatusText) awsVoiceStatusText.textContent = "Explaining...";
+
+          const lesson = awsLessonsData[awsCurrentStep];
+          if (lesson && window.speechSynthesis) {
+            const utter = new SpeechSynthesisUtterance(lesson.voiceText || lesson.title);
+            utter.rate = 1.0;
+            utter.onend = stopAwsVoiceAudio;
+            window.speechSynthesis.speak(utter);
+          }
+
+          awsVoiceInterval = setInterval(() => {
+            if (awsCurrentVoiceSeconds > 0) {
+              awsCurrentVoiceSeconds--;
+              const m = Math.floor(awsCurrentVoiceSeconds / 60);
+              const s = awsCurrentVoiceSeconds % 60;
+              if (awsVoiceTimer) awsVoiceTimer.textContent = `· ${m}:${s < 10 ? '0' : ''}${s}`;
+            } else {
+              stopAwsVoiceAudio();
+            }
+          }, 1000);
+        }
+      });
+    }
+
+    // Start Live Lab button toggles from Standby to Active CLI
+    if (awsBtnStartLiveLab) {
+      awsBtnStartLiveLab.addEventListener('click', () => {
+        if (awsTerminalStandbyView) awsTerminalStandbyView.style.display = 'none';
+        if (awsTerminalActiveView) {
+          awsTerminalActiveView.style.display = 'flex';
+          showToast("⚡ Cloud sandbox booted up! AWS CLI ready.");
+          if (awsTerminalCliInput) awsTerminalCliInput.focus();
+        }
+      });
+    }
+
+    // Interactive Terminal CLI execution
+    function executeAwsCliCommand(cmd) {
+      const rawCmd = (cmd || (awsTerminalCliInput ? awsTerminalCliInput.value : '')).trim();
+      if (!rawCmd) return;
+
+      if (awsTerminalViewport) {
+        const inLine = document.createElement('div');
+        inLine.className = 'term-line input-text';
+        inLine.style.cssText = 'margin: 4px 0; font-size: 11.5px;';
+        inLine.innerHTML = `<span class="text-accent" style="font-weight: 700;">shaikh@aws:~$</span> ${rawCmd}`;
+        awsTerminalViewport.appendChild(inLine);
+
+        const outLine = document.createElement('div');
+        outLine.className = 'term-line output-text';
+        outLine.style.cssText = 'margin: 2px 0 8px 0; font-size: 11.5px; color: #d1d5db; white-space: pre-wrap; font-family: var(--font-mono);';
+
+        const low = rawCmd.toLowerCase();
+        if (low === 'clear') {
+          awsTerminalViewport.innerHTML = '';
+          if (awsTerminalCliInput) awsTerminalCliInput.value = '';
+          return;
+        } else if (low.includes('aws --version')) {
+          outLine.textContent = 'aws-cli/2.15.30 Python/3.11.8 Linux/6.8.0-x86_64 botocore/2.4.30';
+          showToast("✓ AWS CLI version confirmed!");
+        } else if (low.includes('sts get-caller-identity')) {
+          outLine.innerHTML = `{
+  "UserId": "AIDAS4HAIKHSIRDEMOUSER",
+  "Account": "123456789012",
+  "Arn": "arn:aws:iam::123456789012:user/shaikh-cloud-admin"
+}`;
+          showToast("✓ STS caller identity verified!");
+        } else if (low.includes('s3 ls')) {
+          outLine.innerHTML = `2026-10-06 08:14:22  brightcart-assets-prod
+2026-10-06 09:30:15  shaikh-sir-terraform-state-us-east-1
+2026-10-06 11:45:00  app-release-artifacts-v1`;
+          showToast("✓ S3 buckets listed successfully!");
+        } else if (low.includes('describe-regions')) {
+          outLine.innerHTML = `--------------------------------------
+|           DescribeRegions          |
++------------------------------------+
+|  ap-south-1   (Mumbai)             |
+|  eu-west-1    (Ireland)            |
+|  us-east-1    (N. Virginia)        |
+|  us-west-2    (Oregon)             |
++------------------------------------+`;
+        } else if (low.includes('help')) {
+          outLine.textContent = 'Available AWS commands: aws --version, aws sts get-caller-identity, aws s3 ls, aws ec2 describe-regions, clear';
+        } else {
+          outLine.innerHTML = `<span style="color: #71717a;">[cloud sandbox] Executed '${rawCmd}'. Status: 200 OK.</span>`;
+        }
+
+        awsTerminalViewport.appendChild(outLine);
+        awsTerminalViewport.scrollTop = awsTerminalViewport.scrollHeight;
+      }
+
+      if (awsTerminalCliInput) awsTerminalCliInput.value = '';
+    }
+
+    if (btnAwsCliSubmit) {
+      btnAwsCliSubmit.addEventListener('click', () => executeAwsCliCommand());
+    }
+
+    if (awsTerminalCliInput) {
+      awsTerminalCliInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') executeAwsCliCommand();
+      });
+    }
+
+    const termChips = document.querySelectorAll('.term-chip');
+    termChips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        const cmd = chip.getAttribute('data-cmd');
+        if (cmd) executeAwsCliCommand(cmd);
+      });
+    });
+
+    // Vertical Tools Drawer (Editor & Notes)
+    if (btnToggleEditor && toolsDrawer) {
+      btnToggleEditor.addEventListener('click', () => {
+        toolsDrawer.style.display = 'flex';
+        if (drawerTitle) drawerTitle.innerHTML = '<i class="fa-regular fa-file-code"></i> Code Editor';
+        if (userScratchpadNotes) {
+          userScratchpadNotes.placeholder = "// Write Python/Terraform/BASH scratchpad code here...\nprovider \"aws\" {\n  region = \"us-east-1\"\n}";
+        }
+      });
+    }
+
+    if (btnToggleNotes && toolsDrawer) {
+      btnToggleNotes.addEventListener('click', () => {
+        toolsDrawer.style.display = 'flex';
+        if (drawerTitle) drawerTitle.innerHTML = '<i class="fa-regular fa-note-sticky"></i> Your Notes';
+        if (userScratchpadNotes) {
+          userScratchpadNotes.placeholder = "Write your notes or insights for 01 - What Cloud and AWS Are...";
+        }
+      });
+    }
+
+    if (btnCloseDrawer && toolsDrawer) {
+      btnCloseDrawer.addEventListener('click', () => {
+        toolsDrawer.style.display = 'none';
+      });
+    }
+
+    if (toolsDrawer) {
+      toolsDrawer.addEventListener('click', (e) => {
+        if (e.target === toolsDrawer) toolsDrawer.style.display = 'none';
+      });
+    }
+
+    // Sidebar Collapse Toggle
+    if (btnCollapseSidebar) {
+      btnCollapseSidebar.addEventListener('click', () => {
+        const workspace = document.getElementById('lesson-workspace');
+        if (workspace) {
+          workspace.classList.toggle('sidebar-collapsed');
+          showToast("Sidebar toggled");
+        }
+      });
+    }
+
+    // Theme Toggle
+    if (btnAwsLessonThemeToggle) {
+      btnAwsLessonThemeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('light-mode');
+        showToast("Theme switched");
+      });
+    }
+
+    renderAwsLesson(1);
+  }
+
 });
+
 
 
 

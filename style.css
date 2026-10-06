@@ -3881,11 +3881,11 @@ body.light-mode .checkpoint-node {
 }
 
 .btn-sidebar-back {
-  width: 24px;
-  height: 24px;
-  border-radius: 4px;
-  background: transparent;
-  border: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  background: #141416;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   color: #71717a;
   display: flex;
   align-items: center;
@@ -3897,30 +3897,66 @@ body.light-mode .checkpoint-node {
 
 .btn-sidebar-back:hover {
   color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.25);
+  background: #1f1f23;
 }
 
-.esc-pill {
+.topic-tag-badge,
+.topic-tag-pill {
+  background: #141416;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  padding: 3px 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow: hidden;
+  max-width: 185px;
+}
+
+.esc-pill,
+.esc-tag {
   background: #27272a;
   color: var(--accent-green);
   font-size: 10px;
   font-weight: 700;
-  padding: 1px 4px;
+  padding: 1px 5px;
   border-radius: 3px;
+  letter-spacing: -0.2px;
 }
 
-.bash-pill {
+.bash-pill,
+.bash-tag {
   color: var(--accent-green);
   font-weight: 700;
   font-size: 11px;
 }
 
-.topic-title-text {
-  font-size: 11.5px;
+.topic-title-text,
+.topic-header-title {
+  font-size: 11px;
   color: #ffffff;
   font-weight: 600;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.stepper-badge.quiz-badge {
+  color: #71717a;
+}
+
+.stepper-item.active .stepper-badge.quiz-badge {
+  color: var(--accent-green);
+}
+
+.lesson-subheading-underline {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--accent-green);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  margin: 22px 0 14px 0;
 }
 
 /* Sidebar Radial Progress Circle */
@@ -4341,8 +4377,8 @@ body.light-mode .checkpoint-node {
   background-color: var(--accent-green);
   border: none;
   color: #000000;
-  padding: 8px 26px;
-  border-radius: 6px;
+  padding: 8px 24px;
+  border-radius: 9999px;
   cursor: pointer;
   font-size: 12px;
   font-weight: 700;
@@ -4351,6 +4387,7 @@ body.light-mode .checkpoint-node {
 
 .btn-lesson-nav-next:hover {
   background-color: var(--accent-green-hover);
+  box-shadow: 0 0 16px var(--accent-green-glow);
   transform: translateY(-1px);
 }
 
@@ -4850,8 +4887,482 @@ body.light-mode .checkpoint-node {
   border-radius: 3px;
 }
 
+/* ==========================================================================
+   ADMIN AUTHENTICATION & COURSE UNLOCK SYSTEM
+   ========================================================================== */
 
+/* Auth Modal Backdrop */
+.auth-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(5, 5, 8, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 10000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: authFadeIn 0.25s ease-out forwards;
+}
 
+@keyframes authFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
 
+@keyframes authScaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.94) translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
 
+.auth-modal {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  background: #111115;
+  border: 1px solid rgba(34, 229, 132, 0.25);
+  border-radius: var(--border-radius-lg);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 40px rgba(34, 229, 132, 0.12);
+  overflow: hidden;
+  animation: authScaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
 
+body.light-mode .auth-modal {
+  background: #ffffff;
+  border-color: rgba(16, 185, 129, 0.3);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15), 0 0 30px rgba(16, 185, 129, 0.1);
+}
+
+.auth-modal-header {
+  padding: 20px 24px;
+  background: rgba(34, 229, 132, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+body.light-mode .auth-modal-header {
+  border-bottom-color: rgba(0, 0, 0, 0.08);
+}
+
+.auth-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.auth-brand-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(34, 229, 132, 0.15);
+  border: 1px solid rgba(34, 229, 132, 0.4);
+  color: var(--accent-green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 14px;
+}
+
+.auth-brand-text {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.3px;
+}
+
+.auth-badge-tag {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 2px 8px;
+  background: rgba(34, 229, 132, 0.15);
+  color: var(--accent-green);
+  border-radius: 4px;
+  margin-left: 6px;
+}
+
+.btn-close-auth-modal {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 18px;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  transition: var(--transition-fast);
+}
+
+.btn-close-auth-modal:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-primary);
+}
+
+.auth-modal-body {
+  padding: 26px 24px;
+}
+
+.auth-modal-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.auth-modal-subtitle {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.auth-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.auth-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.auth-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.auth-input-icon {
+  position: absolute;
+  left: 14px;
+  color: var(--text-muted);
+  font-size: 14px;
+  pointer-events: none;
+}
+
+.auth-input {
+  width: 100%;
+  padding: 12px 14px 12px 40px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  transition: var(--transition-fast);
+  outline: none;
+}
+
+body.light-mode .auth-input {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+}
+
+.auth-input:focus {
+  border-color: var(--accent-green);
+  box-shadow: 0 0 0 3px rgba(34, 229, 132, 0.15);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.btn-toggle-password {
+  position: absolute;
+  right: 12px;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-toggle-password:hover {
+  color: var(--text-primary);
+}
+
+.auth-error-box {
+  display: none;
+  padding: 10px 14px;
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  border-radius: var(--border-radius-sm);
+  color: #ef4444;
+  font-size: 12px;
+  font-weight: 500;
+  align-items: center;
+  gap: 8px;
+}
+
+.auth-credentials-hint-card {
+  margin-top: 18px;
+  padding: 14px;
+  background: rgba(34, 229, 132, 0.05);
+  border: 1px dashed rgba(34, 229, 132, 0.3);
+  border-radius: var(--border-radius-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.auth-hint-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent-green);
+  letter-spacing: 0.04em;
+}
+
+.auth-hint-rows {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.auth-hint-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.auth-hint-key {
+  font-size: 10px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.auth-hint-val {
+  color: var(--text-primary);
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2px 6px;
+  border-radius: 4px;
+  display: inline-block;
+  width: fit-content;
+}
+
+.btn-auth-autofill {
+  margin-top: 4px;
+  background: rgba(34, 229, 132, 0.12);
+  border: 1px solid rgba(34, 229, 132, 0.3);
+  color: var(--accent-green);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: var(--transition-fast);
+}
+
+.btn-auth-autofill:hover {
+  background: rgba(34, 229, 132, 0.22);
+  border-color: var(--accent-green);
+  color: #ffffff;
+}
+
+.btn-auth-submit {
+  width: 100%;
+  padding: 13px 20px;
+  background: var(--accent-green);
+  color: #0a0a0a;
+  border: none;
+  border-radius: var(--border-radius-sm);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: var(--transition-fast);
+  margin-top: 4px;
+}
+
+.btn-auth-submit:hover {
+  background: var(--accent-green-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(34, 229, 132, 0.3);
+}
+
+/* ==========================================================================
+   LOGGED IN ADMIN NAVBAR USER BADGE
+   ========================================================================== */
+.admin-user-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(34, 229, 132, 0.1);
+  border: 1px solid rgba(34, 229, 132, 0.35);
+  border-radius: var(--border-radius-full);
+  padding: 4px 6px 4px 12px;
+  font-size: 12px;
+  font-family: var(--font-mono);
+  color: var(--text-primary);
+  box-shadow: 0 0 12px rgba(34, 229, 132, 0.1);
+  transition: var(--transition-fast);
+}
+
+.admin-user-pill:hover {
+  border-color: var(--accent-green);
+}
+
+.admin-shield-icon {
+  color: var(--accent-green);
+  font-size: 13px;
+}
+
+.admin-name-tag {
+  font-weight: 700;
+  color: #ffffff;
+}
+
+body.light-mode .admin-name-tag {
+  color: #0f172a;
+}
+
+.btn-admin-logout {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-secondary);
+  border-radius: var(--border-radius-full);
+  padding: 4px 8px;
+  font-size: 11px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: var(--transition-fast);
+}
+
+.btn-admin-logout:hover {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: rgba(239, 68, 68, 0.4);
+  color: #ef4444;
+}
+
+/* ==========================================================================
+   FLOATING ADMIN ACCESS BANNER / WIDGET
+   ========================================================================== */
+.admin-floating-status {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9998;
+  display: none;
+  align-items: center;
+  gap: 10px;
+  background: rgba(14, 18, 16, 0.92);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(34, 229, 132, 0.4);
+  border-radius: var(--border-radius-full);
+  padding: 8px 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(34, 229, 132, 0.2);
+  animation: authScaleIn 0.3s ease-out;
+}
+
+body.light-mode .admin-floating-status {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(16, 185, 129, 0.4);
+}
+
+.admin-floating-pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-green);
+  box-shadow: 0 0 10px var(--accent-green);
+  animation: pulseDot 2s infinite;
+}
+
+@keyframes pulseDot {
+  0% { transform: scale(0.9); opacity: 0.8; }
+  50% { transform: scale(1.3); opacity: 1; }
+  100% { transform: scale(0.9); opacity: 0.8; }
+}
+
+.admin-floating-text {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.admin-floating-badge {
+  background: rgba(34, 229, 132, 0.2);
+  color: var(--accent-green);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 10px;
+}
+
+/* ==========================================================================
+   UNLOCKED STEP & CARD MODIFIERS (ADMIN STATE)
+   ========================================================================== */
+.topic-step-card.admin-unlocked-card {
+  opacity: 1 !important;
+  cursor: pointer !important;
+  border-color: rgba(34, 229, 132, 0.3) !important;
+}
+
+.topic-step-card.admin-unlocked-card:hover {
+  border-color: var(--accent-green) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(34, 229, 132, 0.12);
+}
+
+.step-unlocked-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--accent-green);
+  background: rgba(34, 229, 132, 0.12);
+  border: 1px solid rgba(34, 229, 132, 0.3);
+  padding: 3px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.checkpoint-node.admin-unlocked-node {
+  border-color: var(--accent-green) !important;
+  box-shadow: 0 0 15px rgba(34, 229, 132, 0.15) !important;
+  cursor: pointer !important;
+}

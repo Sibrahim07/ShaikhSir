@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>01 - What Cloud and AWS Are — Shaikh Sir</title>
+  <meta name="description"
+    content="What cloud computing is - Learn AWS fundamentals with live interactive terminal labs, cloud theory, and hands-on practice.">
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    rel="stylesheet">
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+
+<body class="lesson-page-body">
+
+  <!-- 4-Column Workspace: Left Sidebar | Main Content | Terminal Workspace | Right Tool Strip -->
+  <div class="lesson-workspace-container" id="lesson-workspace">
+
+    <!-- =========================================================================
+         1. LEFT SIDEBAR: TRACK RECORD & 6-STEP TIMELINE
+         ========================================================================= -->
+    <aside class="lesson-sidebar">
+      
+      <!-- Top Topic Breadcrumb Header -->
+      <div class="sidebar-top-header">
+        <a href="skill-aws.html" class="btn-sidebar-back font-mono" title="Back to AWS Topics">
+          <i class="fa-solid fa-chevron-left"></i>
+        </a>
+        <div class="topic-tag-badge font-mono">
+          <span class="esc-pill">esc</span>
+          <span class="bash-pill">bash</span>
+          <span class="topic-title-text">01 - What Cloud a...</span>
+        </div>
+      </div>
+
+      <!-- Radial Progress Circle (0% initial matching screenshot) -->
+      <div class="sidebar-progress-section">
+        <div class="progress-radial-wrapper">
+          <svg class="progress-radial-svg" viewBox="0 0 100 100">
+            <circle class="progress-radial-bg" cx="50" cy="50" r="42" />
+            <circle class="progress-radial-bar" id="aws-lesson-progress-arc" cx="50" cy="50" r="42" stroke-dasharray="264" stroke-dashoffset="264" />
+          </svg>
+          <div class="progress-percentage-label font-mono" id="aws-lesson-progress-percent">0%</div>
+        </div>
+
+        <!-- 3 Track Record Stat Counters (0 DONE | 0/2 QUIZZES | 0/0 TASKS) -->
+        <div class="track-record-grid font-mono">
+          <div class="track-stat-box" id="aws-stat-box-done">
+            <span class="stat-num" id="aws-stat-done-count">0</span>
+            <span class="stat-label">DONE</span>
+          </div>
+          <div class="track-stat-box" id="aws-stat-box-quizzes">
+            <span class="stat-num" id="aws-stat-quizzes-count">0/2</span>
+            <span class="stat-label">QUIZZES</span>
+          </div>
+          <div class="track-stat-box" id="aws-stat-box-tasks">
+            <span class="stat-num" id="aws-stat-tasks-count">0/0</span>
+            <span class="stat-label">TASKS</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vertical Lesson Stepper Navigation (6 Steps matching screenshot) -->
+      <div class="sidebar-stepper-list" id="aws-sidebar-stepper-list">
+        
+        <!-- Step 1 (Active) -->
+        <div class="stepper-item active" data-aws-step="1" data-type="lesson">
+          <div class="stepper-node">
+            <span class="node-ring"></span>
+          </div>
+          <div class="stepper-content font-mono">
+            <span class="stepper-badge lesson-badge">LESSON</span>
+            <span class="stepper-title">What cloud computing is</span>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="stepper-item" data-aws-step="2" data-type="lesson">
+          <div class="stepper-node">
+            <span class="node-ring"></span>
+          </div>
+          <div class="stepper-content font-mono">
+            <span class="stepper-badge lesson-badge">LESSON</span>
+            <span class="stepper-title">What AWS is - regions, s...</span>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="stepper-item" data-aws-step="3" data-type="quiz">
+          <div class="stepper-node">
+            <span class="node-ring"></span>
+          </div>
+          <div class="stepper-content font-mono">
+            <span class="stepper-badge quiz-badge">QUIZ</span>
+            <span class="stepper-title">Choosing what to migrat...</span>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="stepper-item" data-aws-step="4" data-type="lesson">
+          <div class="stepper-node">
+            <span class="node-ring"></span>
+          </div>
+          <div class="stepper-content font-mono">
+            <span class="stepper-badge lesson-badge">LESSON</span>
+            <span class="stepper-title">How DevOps engineers ...</span>
+          </div>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="stepper-item" data-aws-step="5" data-type="lesson">
+          <div class="stepper-node">
+            <span class="node-ring"></span>
+          </div>
+          <div class="stepper-content font-mono">
+            <span class="stepper-badge lesson-badge">LESSON</span>
+            <span class="stepper-title">Where IaC and CI/CD fit</span>
+          </div>
+        </div>
+
+        <!-- Step 6 -->
+        <div class="stepper-item" data-aws-step="6" data-type="quiz">
+          <div class="stepper-node">
+            <span class="node-ring"></span>
+          </div>
+          <div class="stepper-content font-mono">
+            <span class="stepper-badge quiz-badge">QUIZ</span>
+            <span class="stepper-title">Knowledge check</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Toolbar Controls matching screenshot -->
+      <div class="sidebar-bottom-toolbar">
+        <button class="btn-toolbar-icon" id="btn-collapse-sidebar" title="Collapse sidebar">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        <button class="btn-toolbar-icon" id="btn-aws-lesson-theme-toggle" title="Toggle theme">
+          <i class="fa-regular fa-eye"></i>
+        </button>
+        <div class="toolbar-layout-group">
+          <button class="btn-toolbar-icon" title="Single pane"><i class="fa-regular fa-square"></i></button>
+          <button class="btn-toolbar-icon active" title="Split pane"><i class="fa-solid fa-table-columns"></i></button>
+          <button class="btn-toolbar-icon" title="Triple pane"><i class="fa-solid fa-bars-progress"></i></button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- =========================================================================
+         2. CENTER PANEL: LESSON CONTENT & AI NARRATOR
+         ========================================================================= -->
+    <main class="lesson-content-panel">
+      
+      <!-- Top Action Bar (Header with Narrator Pill & Language) -->
+      <header class="lesson-top-bar font-mono">
+        <div class="lesson-step-counter-tag" id="aws-lesson-step-counter">
+          LESSON &middot; 1 OF 6
+        </div>
+
+        <!-- Green AI Narrator Pill Button matching screenshot -->
+        <button class="btn-narrator-pill font-mono" id="aws-btn-voice-play">
+          <i class="fa-solid fa-play" id="aws-voice-icon"></i>
+          <span id="aws-voice-status-text">Explain this lesson</span>
+          <span class="narrator-timer" id="aws-voice-timer">&middot; 3:02</span>
+        </button>
+
+        <!-- Subtitle note beside narrator -->
+        <div class="narrator-subnote">
+          The narrator demonstrates commands in a strip above your terminal; your terminal stays yours.
+        </div>
+
+        <!-- Language Pill Dropdown -->
+        <div class="language-selector-pill font-mono">
+          <span>English</span>
+          <i class="fa-solid fa-chevron-down" style="font-size: 9px;"></i>
+        </div>
+      </header>
+
+      <!-- Scrollable Lesson Article Body -->
+      <div class="lesson-article-container" id="aws-lesson-scroll-body">
+        
+        <!-- Step Heading -->
+        <h1 class="lesson-heading-title" id="aws-lesson-heading">What cloud computing is</h1>
+        
+        <!-- Step Type Pill -->
+        <div class="lesson-type-badge font-mono" id="aws-lesson-type-pill">Lesson</div>
+
+        <!-- Dynamic Lesson Body matching screenshot exactly -->
+        <div class="lesson-body-text" id="aws-lesson-body-content">
+          <p>
+            In this lesson you will learn what cloud computing is, and why companies rent servers instead of buying them.
+          </p>
+          <p>
+            Picture a small company that runs an online shop. To put the shop on the internet, they need servers - real computers that run all day and answer requests from customers. Ten years ago the only way to get servers was to buy them. You paid a lot of money up front, waited weeks for delivery, found a room with power and cooling, and hired someone to fix them when a disk died.
+          </p>
+          <p>
+            Then the holiday season arrives. Traffic triples for two weeks. The servers they bought cannot handle it, so the site slows down. They buy more servers. In January traffic drops back to normal, and the extra servers sit there doing nothing - but they were already paid for.
+          </p>
+
+          <h3 class="lesson-subheading-underline font-mono">Renting instead of buying</h3>
+
+          <p>
+            Cloud computing solves this. A cloud provider builds huge buildings full of servers, called <strong>data centers</strong>. You never see these buildings. You rent a slice of their computing power over the internet, use it for as long as you need, and stop paying the moment you are done. The provider handles electricity, cooling, hardware failures, and security guards at the door.
+          </p>
+        </div>
+
+        <!-- Quiz Container (For Quiz steps) -->
+        <div class="lesson-quiz-wrapper" id="aws-lesson-quiz-container" style="display: none;">
+          <div class="quiz-badge font-mono"><i class="fa-solid fa-circle-question"></i> CONCEPT CHECK</div>
+          <h3 class="quiz-question-title font-mono" id="aws-quiz-question-text">Quiz Question</h3>
+          <div class="quiz-options-list font-mono" id="aws-quiz-options-list">
+            <!-- Options dynamically rendered -->
+          </div>
+          <div class="quiz-feedback-box font-mono" id="aws-quiz-feedback-box" style="display: none;"></div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Step Navigation Footer -->
+      <footer class="lesson-bottom-bar font-mono">
+        <button class="btn-lesson-nav-prev font-mono" id="aws-btn-lesson-prev" disabled>
+          &larr; Previous
+        </button>
+
+        <button class="btn-lesson-nav-next font-mono" id="aws-btn-lesson-next">
+          Next &rarr;
+        </button>
+      </footer>
+    </main>
+
+    <!-- =========================================================================
+         3. RIGHT WORKSPACE: TERMINAL / LIVE CLOUD SANDBOX
+         ========================================================================= -->
+    <section class="lesson-terminal-workspace">
+      
+      <!-- Top Tab Bar -->
+      <div class="terminal-workspace-tabs font-mono">
+        <button class="workspace-tab-btn active" id="aws-tab-terminal-btn">
+          Terminal 1
+        </button>
+        <button class="workspace-tab-add" id="aws-tab-add-btn" title="Open new terminal">
+          <i class="fa-solid fa-plus"></i>
+        </button>
+      </div>
+
+      <!-- Main Terminal Body Container Card -->
+      <div class="terminal-container-card">
+        
+        <!-- Standby State matching screenshot -->
+        <div class="terminal-standby-screen font-mono" id="aws-terminal-standby-view">
+          <div class="standby-prompt-icon">&gt;_</div>
+          <h3 class="standby-main-text">Spin up a fresh environment and practice live.</h3>
+          <p class="standby-sub-text">linux-devops-basic &middot; fresh machine &middot; ready in under a minute</p>
+          <button class="btn-start-lab-mint font-mono" id="aws-btn-start-live-lab">
+            &gt;_ Start Lab
+          </button>
+        </div>
+
+        <!-- Active Live Cloud Terminal Sandbox -->
+        <div class="terminal-active-screen font-mono" id="aws-terminal-active-view" style="display: none;">
+          <div class="terminal-screen-viewport" id="aws-terminal-viewport">
+            <div class="term-boot-line text-muted">Linux cloud sandbox (Ubuntu 24.04 LTS x86_64, AWS CLI v2.15.30)</div>
+            <div class="term-boot-line text-muted">Connected to region: us-east-1 (N. Virginia) &middot; Session active</div>
+            <div class="term-boot-line text-muted">Type <span class="text-accent">help</span> or try <span class="text-accent">aws sts get-caller-identity</span>.</div>
+            <div class="term-boot-line">&nbsp;</div>
+          </div>
+
+          <!-- Quick Action Command Chips -->
+          <div class="terminal-chips-bar font-mono" style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px;">
+            <button class="term-chip" data-cmd="aws --version" style="background: #18181b; border: 1px solid rgba(255,255,255,0.08); color: var(--accent-green); padding: 3px 8px; border-radius: 4px; font-size: 10px; cursor: pointer;">aws --version</button>
+            <button class="term-chip" data-cmd="aws sts get-caller-identity" style="background: #18181b; border: 1px solid rgba(255,255,255,0.08); color: var(--accent-green); padding: 3px 8px; border-radius: 4px; font-size: 10px; cursor: pointer;">aws sts get-caller-identity</button>
+            <button class="term-chip" data-cmd="aws s3 ls" style="background: #18181b; border: 1px solid rgba(255,255,255,0.08); color: var(--accent-green); padding: 3px 8px; border-radius: 4px; font-size: 10px; cursor: pointer;">aws s3 ls</button>
+          </div>
+
+          <!-- Terminal Input Row -->
+          <div class="terminal-cli-input-row">
+            <span class="cli-prompt-label text-accent">shaikh@aws:~$</span>
+            <input type="text" class="cli-input font-mono" id="aws-terminal-cli-input"
+              placeholder="Type AWS CLI command (e.g. aws --version, aws s3 ls)..." autocomplete="off" spellcheck="false">
+            <button class="btn-cli-execute font-mono" id="aws-btn-cli-submit" title="Run command">
+              <i class="fa-solid fa-arrow-turn-down"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- =========================================================================
+         4. FAR-RIGHT VERTICAL TOOLS STRIP (Editor & Your notes)
+         ========================================================================= -->
+    <aside class="lesson-vertical-tools-strip">
+      <button class="vertical-tool-btn font-mono" id="btn-toggle-editor" title="Open Code Editor">
+        <i class="fa-regular fa-file-code"></i>
+        <span>Editor</span>
+      </button>
+
+      <button class="vertical-tool-btn font-mono" id="btn-toggle-notes" title="Open Scratchpad Notes">
+        <i class="fa-regular fa-note-sticky"></i>
+        <span>Your notes</span>
+      </button>
+    </aside>
+
+  </div>
+
+  <!-- Notes / Editor Drawer Modal Backdrop -->
+  <div class="tools-drawer-backdrop" id="tools-drawer" style="display: none;">
+    <div class="tools-drawer-window">
+      <div class="drawer-header font-mono">
+        <span id="drawer-title"><i class="fa-regular fa-note-sticky"></i> Your Notes</span>
+        <button class="btn-drawer-close" id="btn-close-drawer"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="drawer-body">
+        <textarea class="notes-textarea font-mono" id="user-scratchpad-notes" placeholder="Write markdown notes or commands for this lesson..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-container" class="toast-container"></div>
+
+</body>
+
+</html>
